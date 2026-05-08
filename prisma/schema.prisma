@@ -1,0 +1,629 @@
+// CafeFlow — graduation schema (explanation-friendly)
+// ------------------------------------------------------------
+// Core platform: User, Business, Branch, Membership, Plan, Subscription,
+// TermsAcceptance, AuditLog.
+//
+// Phase 5 catalog (per business): Category, Unit, Supplier, RawMaterial, Product, Addon.
+// Phase 6: Recipe + RecipeItem, RawMaterialStock, StockMovement (business-level stock only).
+// Phase 7: Internal product-consumption engine using recipe quantities.
+// Phase 8: Simple internal orders foundation; stock deduction runs at completion only.
+// Full order/POS flow and branch stock are still out of scope.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Supported UI/business language codes.
+/// Arabic is the default for business context in CafeFlow.
+enum LanguageCode {
+  AR
+  EN
+}
+
+/// Business lifecycle state.
+enum BusinessStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+/// Membership roles used by the authorization foundation.
+enum MembershipRole {
+  SUPER_ADMIN
+  OWNER
+  MANAGER
+  ACCOUNTANT
+  CASHIER
+  BARISTA
+  WAITER
+  KITCHEN_STAFF
+  INVENTORY_MANAGER
+  /// مسؤول المشتريات — موردون، موافقات شرائية، فواتير (صلاحيات قريبة من المخزون).
+  PURCHASING_MANAGER
+  /// موظف العصائر — تحضير عصائر ومشروبات طبيعية (نطاق تشغيلي مثل الباريستا).
+  JUICE_STAFF
+}
+
+/// Authorization scope attached to each membership row.
+/// We keep it explicit so route/data checks can explain why access is allowed/denied.
+enum PermissionScope {
+  ALL_BRANCHES
+  BRANCH_ONLY
+  OWN_ONLY
+  NONE
+}
+
+/// High-level subscription state.
+enum SubscriptionStatus {
+  ACTIVE
+  TRIALING
+  PENDING_PAYMENT
+  PAST_DUE
+  CANCELED
+  EXPIRED
+}
+
+/// Billing cycle for subscription checkout.
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+/// Payment method list used by checkout flow.
+enum PaymentMethod {
+  CASH
+  BANK_CARD
+  EDFA_LI
+  MOBI_CASH
+  MASRAFI_PAY
+  YUSUR_PAY
+  YUSUR_QR
+  SADAD
+  SAHARA_PAY
+}
+
+enum PaymentRequestStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELED
+}
+
+enum PaymentProvider {
+  MANUAL
+  EZONEPAY
+}
+
+/// Pending staff invitation lifecycle (SaaS-style onboarding: identity is created or claimed by the employee).
+enum StaffInviteStatus {
+  PENDING
+  ACCEPTED
+  CANCELLED
+  EXPIRED
+}
+
+/// Why each movement type exists (for audit trail and simple stock math):
+/// - OPENING_BALANCE / STOCK_IN / ADJUSTMENT_ADD increase on-hand quantity.
+/// - ADJUSTMENT_SUBTRACT / WASTE / CONSUMPTION decrease on-hand quantity.
+/// Quantity on the movement row is always stored as a positive magnitude; the type decides the sign.
+enum StockMovementType {
+  OPENING_BALANCE
+  STOCK_IN
+  ADJUSTMENT_ADD
+  ADJUSTMENT_SUBTRACT
+  WASTE
+  CONSUMPTION
+}
+
+/// Order lifecycle for management + POS (see lib/orders/order.service.ts comments).
+enum OrderStatus {
+  /// Header exists but no lines yet — cannot complete, may still be edited once lines exist.
+  DRAFT
+  /// At least one line; stock is still untouched until completion.
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+}
+
+model User {
+  id                String       @id @default(cuid())
+  fullName          String
+  /// Optional Latin display name for bilingual headers (Arabic remains canonical in `fullName`).
+  fullNameEn        String?
+  email             String       @unique
+  // Credentials auth in this phase uses email + password only.
+  // We store a hashed password (never plain text) to keep sign-in secure.
+  passwordHash      String
+  preferredLanguage LanguageCode @default(AR)
+
+  // Used only as a simple platform-level marker in this phase.
+  // Fine-grained platform permissions are not part of Phase 2.
+  isPlatformOwner Boolean @default(false)
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  memberships      Membership[]      @relation("UserMemberships")
+  ownedBusinesses  Business[]        @relation("BusinessOwner")
+  termsAcceptances TermsAcceptance[] @relation("UserTermsAcceptances")
+  auditLogs        AuditLog[]        @relation("AuditActor")
+  staffInvitesSent StaffInvite[]     @relation("StaffInviteInviter")
+}
+
+model Business {
+  id              String         @id @default(cuid())
+  code            String         @unique
+  nameAr          String
+  nameEn          String?
+  status          BusinessStatus @default(ACTIVE)
+  defaultLanguage LanguageCode   @default(AR)
+
+  // Each business has one primary owner user for accountability.
+  ownerId String
+  owner   User   @relation("BusinessOwner", fields: [ownerId], references: [id])
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  branches         Branch[]          @relation("BusinessBranches")
+  memberships      Membership[]      @relation("BusinessMemberships")
+  subscriptions    Subscription[]    @relation("BusinessSubscriptions")
+  termsAcceptances TermsAcceptance[] @relation("BusinessTermsAcceptances")
+  auditLogs        AuditLog[]        @relation("BusinessAuditLogs")
+  staffInvites     StaffInvite[]     @relation("BusinessStaffInvites")
+
+  // Phase 5 — catalog (all rows belong to this business for clear multi-tenant boundaries).
+  categories   Category[]    @relation("BusinessCategories")
+  units        Unit[]        @relation("BusinessUnits")
+  suppliers    Supplier[]    @relation("BusinessSuppliers")
+  rawMaterials RawMaterial[] @relation("BusinessRawMaterials")
+  products     Product[]     @relation("BusinessProducts")
+  addons       Addon[]       @relation("BusinessAddons")
+
+  // Phase 6 — recipes & business-level raw material stock.
+  recipes           Recipe[]           @relation("BusinessRecipes")
+  rawMaterialStocks RawMaterialStock[] @relation("BusinessRawMaterialStocks")
+  stockMovements    StockMovement[]    @relation("BusinessStockMovements")
+  orders            Order[]            @relation("BusinessOrders")
+
+  @@index([ownerId])
+  @@index([status])
+}
+
+/// Product grouping for menus and reports (e.g. مشروبات ساخنة).
+model Category {
+  id          String    @id @default(cuid())
+  businessId  String
+  business    Business  @relation("BusinessCategories", fields: [businessId], references: [id])
+  code        String
+  nameAr      String
+  nameEn      String?
+  description String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  archivedAt  DateTime?
+
+  products Product[] @relation("CategoryProducts")
+
+  @@unique([businessId, code])
+  @@index([businessId])
+}
+
+/// Measurement unit for raw materials (كيلو، لتر، قطعة).
+model Unit {
+  id         String    @id @default(cuid())
+  businessId String
+  business   Business  @relation("BusinessUnits", fields: [businessId], references: [id])
+  code       String
+  nameAr     String
+  nameEn     String?
+  symbol     String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  rawMaterials RawMaterial[] @relation("UnitRawMaterials")
+
+  @@unique([businessId, code])
+  @@index([businessId])
+}
+
+/// Vendor contact for purchasing raw materials (no accounting integration in this phase).
+model Supplier {
+  id         String    @id @default(cuid())
+  businessId String
+  business   Business  @relation("BusinessSuppliers", fields: [businessId], references: [id])
+  name       String
+  phone      String?
+  email      String?
+  notes      String?   @db.Text
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  rawMaterials RawMaterial[] @relation("SupplierRawMaterials")
+
+  @@index([businessId])
+}
+
+/// Stockable ingredient; on-hand quantity is tracked via RawMaterialStock + StockMovement (Phase 6).
+model RawMaterial {
+  id              String    @id @default(cuid())
+  businessId      String
+  business        Business  @relation("BusinessRawMaterials", fields: [businessId], references: [id])
+  code            String
+  nameAr          String
+  nameEn          String?
+  unitId          String
+  unit            Unit      @relation("UnitRawMaterials", fields: [unitId], references: [id])
+  supplierId      String?
+  supplier        Supplier? @relation("SupplierRawMaterials", fields: [supplierId], references: [id])
+  costPerUnit     Decimal   @db.Decimal(10, 4)
+  minimumQuantity Int       @default(0)
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  archivedAt      DateTime?
+
+  recipeItems    RecipeItem[]      @relation("RawMaterialRecipeItems")
+  stock          RawMaterialStock? @relation("RawMaterialStockRow")
+  stockMovements StockMovement[]   @relation("RawMaterialStockMovements")
+
+  @@unique([businessId, code])
+  @@index([businessId])
+  @@index([unitId])
+  @@index([supplierId])
+}
+
+/// Sellable item; optional one-to-one recipe defines raw material consumption per unit sold.
+model Product {
+  id         String    @id @default(cuid())
+  businessId String
+  business   Business  @relation("BusinessProducts", fields: [businessId], references: [id])
+  code       String
+  nameAr     String
+  nameEn     String?
+  categoryId String?
+  category   Category? @relation("CategoryProducts", fields: [categoryId], references: [id])
+  basePrice  Decimal   @db.Decimal(10, 2)
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  recipe     Recipe?     @relation("ProductRecipe")
+  orderItems OrderItem[] @relation("ProductOrderItems")
+
+  @@unique([businessId, code])
+  @@index([businessId])
+  @@index([categoryId])
+}
+
+/// One recipe per product in Phase 6 (BOM / قائمة مكونات لكل منتج).
+model Recipe {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation("BusinessRecipes", fields: [businessId], references: [id])
+  productId  String   @unique
+  product    Product  @relation("ProductRecipe", fields: [productId], references: [id])
+  notes      String?  @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  items RecipeItem[] @relation("RecipeItems")
+
+  @@index([businessId])
+}
+
+/// How much of each raw material is consumed to make **one unit** of the product (e.g. 0.02 kg beans per cup).
+model RecipeItem {
+  id            String      @id @default(cuid())
+  recipeId      String
+  recipe        Recipe      @relation("RecipeItems", fields: [recipeId], references: [id], onDelete: Cascade)
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation("RawMaterialRecipeItems", fields: [rawMaterialId], references: [id])
+  quantity      Decimal     @db.Decimal(14, 6)
+
+  @@unique([recipeId, rawMaterialId])
+  @@index([rawMaterialId])
+}
+
+/// Cached on-hand quantity for fast UI reads; truth is reconstructed from StockMovement history + this balance.
+model RawMaterialStock {
+  id            String      @id @default(cuid())
+  businessId    String
+  business      Business    @relation("BusinessRawMaterialStocks", fields: [businessId], references: [id])
+  rawMaterialId String      @unique
+  rawMaterial   RawMaterial @relation("RawMaterialStockRow", fields: [rawMaterialId], references: [id])
+  balance       Decimal     @default(0) @db.Decimal(14, 4)
+  updatedAt     DateTime    @updatedAt
+
+  @@index([businessId])
+}
+
+/// Append-only stock ledger (no updates/deletes) for clear supervisor explanation.
+model StockMovement {
+  id            String            @id @default(cuid())
+  businessId    String
+  business      Business          @relation("BusinessStockMovements", fields: [businessId], references: [id])
+  rawMaterialId String
+  rawMaterial   RawMaterial       @relation("RawMaterialStockMovements", fields: [rawMaterialId], references: [id])
+  type          StockMovementType
+  quantity      Decimal           @db.Decimal(14, 4)
+  unitCost      Decimal?          @db.Decimal(10, 4)
+  note          String?           @db.Text
+  createdAt     DateTime          @default(now())
+
+  @@index([businessId, createdAt])
+  @@index([rawMaterialId, createdAt])
+}
+
+/// Internal order header for Phase 8 (no payments/taxes in this stage).
+model Order {
+  id          String      @id @default(cuid())
+  businessId  String
+  business    Business    @relation("BusinessOrders", fields: [businessId], references: [id])
+  status      OrderStatus @default(DRAFT)
+  notes       String?     @db.Text
+  // Filled only when order reaches COMPLETED status.
+  completedAt DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  archivedAt  DateTime?
+
+  items OrderItem[] @relation("OrderItems")
+
+  @@index([businessId, status, createdAt])
+}
+
+/// One order line = one product and quantity.
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation("OrderItems", fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation("ProductOrderItems", fields: [productId], references: [id])
+  quantity  Decimal  @db.Decimal(10, 3)
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+/// Optional extra priced item (حليب إضافي، سيروب).
+model Addon {
+  id         String    @id @default(cuid())
+  businessId String
+  business   Business  @relation("BusinessAddons", fields: [businessId], references: [id])
+  code       String
+  nameAr     String
+  nameEn     String?
+  extraPrice Decimal   @db.Decimal(10, 2)
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  @@unique([businessId, code])
+  @@index([businessId])
+}
+
+model Branch {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation("BusinessBranches", fields: [businessId], references: [id])
+
+  code       String
+  nameAr     String
+  nameEn     String?
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  memberships Membership[] @relation("BranchMemberships")
+  auditLogs   AuditLog[]   @relation("BranchAuditLogs")
+  staffInvites StaffInvite[] @relation("BranchStaffInvites")
+
+  // Branch code is unique only inside the same business.
+  @@unique([businessId, code])
+  @@index([businessId, isActive])
+}
+
+model Membership {
+  id         String @id @default(cuid())
+  userId     String
+  businessId String
+
+  // Nullable by design:
+  // null = business-level membership (applies to all branches).
+  // value = membership scoped to one branch.
+  branchId String?
+
+  role               MembershipRole  @default(CASHIER)
+  scope              PermissionScope @default(BRANCH_ONLY)
+  // User-level permission overrides:
+  // effective = base role permissions + granted - revoked.
+  grantedPermissions String[]        @default([])
+  revokedPermissions String[]        @default([])
+  isActive           Boolean         @default(true)
+  joinedAt           DateTime        @default(now())
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  archivedAt         DateTime?
+
+  user     User     @relation("UserMemberships", fields: [userId], references: [id])
+  business Business @relation("BusinessMemberships", fields: [businessId], references: [id])
+  branch   Branch?  @relation("BranchMemberships", fields: [branchId], references: [id])
+
+  // Prevent duplicated membership rows for the same user scope.
+  @@unique([userId, businessId, branchId])
+  @@index([businessId, role])
+  @@index([branchId])
+}
+
+/// Invitation for a future staff member. The opaque URL token is hashed at rest (`tokenHash`).
+/// `publicInviteLabel` is a human-readable **temporary** handle for owners (e.g. invite-cashier-abc123) — not the employee login.
+/// Final login identifier is `fname.lname.roleSlug@businessSlug.cafeflow.local`, created only when the employee completes registration.
+model StaffInvite {
+  id                   String            @id @default(cuid())
+  businessId           String
+  business             Business          @relation("BusinessStaffInvites", fields: [businessId], references: [id])
+  /// Legacy / optional; new invites leave this null until acceptance creates the real system identifier.
+  email                String?
+  contactEmail         String?
+  contactPhone         String?
+  /// Stable demo-friendly label; never presented as final employee email.
+  publicInviteLabel    String            @unique
+  role                 MembershipRole
+  scope                PermissionScope
+  branchId             String?
+  branch               Branch?           @relation("BranchStaffInvites", fields: [branchId], references: [id])
+  grantedPermissions   String[]          @default([])
+  revokedPermissions   String[]          @default([])
+  /// Permission template selected in the owner UI (DEFAULT, POS_ONLY, …) for audit clarity; CUSTOM or null = fully manual overrides.
+  templateKey          String?
+  note                 String?           @db.Text
+  /// SHA-256 hex of the raw token from the invite URL. Lookup is by hash only.
+  tokenHash            String            @unique
+  status               StaffInviteStatus @default(PENDING)
+  invitedByUserId      String
+  invitedBy            User              @relation("StaffInviteInviter", fields: [invitedByUserId], references: [id])
+  expiresAt            DateTime
+  acceptedAt           DateTime?
+  cancelledAt          DateTime?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  @@index([businessId, status])
+  @@index([email])
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  nameAr      String
+  nameEn      String
+  price       Decimal  @db.Decimal(10, 2)
+  branchLimit Int
+  staffLimit  Int
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  subscriptions Subscription[] @relation("PlanSubscriptions")
+
+  @@index([isActive])
+}
+
+model Subscription {
+  id            String             @id @default(cuid())
+  businessId    String
+  planId        String
+  status        SubscriptionStatus @default(TRIALING)
+  billingCycle  BillingCycle       @default(MONTHLY)
+  monthlyPrice  Decimal            @default(0) @db.Decimal(10, 2)
+  chargedAmount Decimal            @default(0) @db.Decimal(10, 2)
+  currency      String             @default("د.ل")
+  startsAt      DateTime
+  // Nullable by design:
+  // once trial ends, this can stay as historical reference.
+  // for non-trial subscriptions it can remain null.
+  trialEndsAt   DateTime?
+  endsAt        DateTime?
+  canceledAt    DateTime?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  archivedAt    DateTime?
+
+  business        Business         @relation("BusinessSubscriptions", fields: [businessId], references: [id])
+  plan            Plan             @relation("PlanSubscriptions", fields: [planId], references: [id])
+  paymentRequests PaymentRequest[] @relation("SubscriptionPaymentRequests")
+
+  @@index([businessId, status])
+  @@index([planId])
+}
+
+/// Checkout payment request row.
+/// We keep provider status simple for now and use MANUAL provider until online integration is added.
+model PaymentRequest {
+  id                String               @id @default(cuid())
+  subscriptionId    String
+  subscription      Subscription         @relation("SubscriptionPaymentRequests", fields: [subscriptionId], references: [id], onDelete: Cascade)
+  paymentMethod     PaymentMethod
+  amount            Decimal              @db.Decimal(10, 2)
+  currency          String               @default("د.ل")
+  status            PaymentRequestStatus @default(PENDING)
+  provider          PaymentProvider      @default(MANUAL)
+  externalReference String?
+  customerName      String
+  customerPhone     String
+  notes             String?              @db.Text
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+
+  @@index([subscriptionId, status])
+  @@index([provider, status])
+}
+
+model TermsAcceptance {
+  id     String @id @default(cuid())
+  userId String
+
+  // Nullable by design:
+  // null means platform-level terms acceptance.
+  // value means acceptance for business-specific terms/policy.
+  businessId String?
+
+  termsVersion String
+  acceptedAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  user     User      @relation("UserTermsAcceptances", fields: [userId], references: [id])
+  business Business? @relation("BusinessTermsAcceptances", fields: [businessId], references: [id])
+
+  // One acceptance per user/business/version to preserve version history clearly.
+  @@unique([userId, businessId, termsVersion])
+  @@index([businessId])
+}
+
+model AuditLog {
+  id String @id @default(cuid())
+
+  // Nullable by design:
+  // system-generated events may not have a direct user actor.
+  actorUserId String?
+  businessId  String?
+
+  // Nullable by design:
+  // many events happen at business level and are not branch-specific.
+  branchId String?
+
+  action     String
+  entityType String
+  entityId   String
+
+  // Stored as text snapshots (often JSON string) to keep this model generic
+  // without introducing extra tables in this phase.
+  beforeSnapshot String? @db.Text
+  afterSnapshot  String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  actorUser User?     @relation("AuditActor", fields: [actorUserId], references: [id])
+  business  Business? @relation("BusinessAuditLogs", fields: [businessId], references: [id])
+  branch    Branch?   @relation("BranchAuditLogs", fields: [branchId], references: [id])
+
+  @@index([createdAt])
+  @@index([actorUserId])
+  @@index([businessId])
+  @@index([branchId])
+  @@index([entityType, entityId])
+}

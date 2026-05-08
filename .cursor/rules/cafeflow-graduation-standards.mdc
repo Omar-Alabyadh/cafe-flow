@@ -1,0 +1,57 @@
+---
+description: Core CafeFlow graduation project coding and explanation standards
+alwaysApply: true
+---
+
+# CafeFlow Graduation Project Standards
+
+## Core Principle
+- Build code that is easy for a student to understand, explain, and defend in front of a supervisor.
+- Favor simple, explicit, and readable solutions over clever or highly abstract ones.
+
+## Mandatory Coding Rules
+- Keep code simple, clean, modular, and focused on one responsibility when possible.
+- Avoid spaghetti code, over-engineering, hidden logic, and unnecessary nested logic.
+- Do not introduce advanced patterns unless they are clearly necessary.
+- Do not create generic helpers or abstractions that make explanation harder.
+- Prefer clarity over brevity and explicit behavior over "magic" behavior.
+- Use clear file names, function names, variable names, and folder names.
+- Keep reusable components practical, but not abstract to the point of confusion.
+- If two implementations work, choose the simpler one.
+
+## Commenting and Educational Documentation
+- Add detailed educational comments in important business logic sections.
+- Explain business logic in comments, not only technical syntax.
+- For each important function, comments should explain:
+  - why the function exists,
+  - what it does,
+  - what inputs it expects,
+  - what it returns,
+  - important side effects.
+- Add comments especially in:
+  - server actions,
+  - route handlers,
+  - Prisma and database logic,
+  - auth and permission checks,
+  - stock and inventory calculations,
+  - subscription logic,
+  - audit log logic.
+- Do not add useless comments to every trivial line.
+- Add meaningful comments that help the developer defend the code academically.
+
+## Delivery and Scope Discipline
+- Work strictly by phase; do not implement features outside the requested phase.
+- Never silently change architecture decisions.
+- After each completed phase, always provide:
+  1. what was implemented,
+  2. which files were created,
+  3. which files were modified,
+  4. folder structure changes (if relevant),
+  5. what remains for the next phase.
+- Always explain implementation step by step.
+
+## Product and Data Rules
+- Respect Arabic as the default language.
+- Respect RTL and LTR support.
+- Respect dark mode support.
+- Sensitive records must use archive/soft-delete instead of destructive delete from the main UI.

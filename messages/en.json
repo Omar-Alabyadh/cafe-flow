@@ -1,0 +1,2188 @@
+{
+  "common": {
+    "appName": "CafeFlow",
+    "emDash": "—",
+    "language": "English",
+    "platformBrand": "CafeFlow Coffee OS",
+    "localeSwitcher": {
+      "arabic": "العربية",
+      "english": "English"
+    },
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "unauthorized": {
+      "title": "Unauthorized",
+      "description": "You do not have permission to access this page.",
+      "backToDashboard": "Back to dashboard"
+    },
+    "placeholderText": "Content is being updated"
+  },
+  "public": {
+    "title": "Welcome to CafeFlow",
+    "description": "This is the public foundation area.",
+    "nav": {
+      "pricing": "Pricing",
+      "terms": "Terms",
+      "signIn": "Sign in",
+      "startFree": "Start free"
+    },
+    "ctaSupport": {
+      "noCard": "No bank card required",
+      "activation": "Activation in minutes",
+      "whatsapp": "Direct WhatsApp support"
+    },
+    "stickyCta": {
+      "text": "🔥 Try CafeFlow for free + full free setup for first-time onboarding",
+      "button": "Start free now"
+    },
+    "whatsapp": {
+      "prefilledMessage": "Hello, I want to try CafeFlow for my coffee shop",
+      "ariaLabel": "Contact us on WhatsApp",
+      "button": "I want to try the system"
+    },
+    "home": {
+      "highlights": {
+        "noCard": "No bank card required",
+        "activation": "Activation in minutes",
+        "support": "Direct WhatsApp support"
+      },
+      "features": {
+        "line1": "Manage sales, products, stock, and staff from one dashboard.",
+        "line2": "Track operational performance with practical reports.",
+        "line3": "Designed for bilingual cafe teams (Arabic and English)."
+      },
+      "pricingBlock": {
+        "title": "Flexible pricing",
+        "cta": "View plans"
+      },
+      "faq": {
+        "line1": "You can start with a free trial before any paid billing cycle starts.",
+        "line2": "Our onboarding team helps you configure your first business setup."
+      },
+      "finalCta": {
+        "title": "Ready to launch your cafe operations?",
+        "button": "Start free now"
+      }
+    },
+    "pricingPage": {
+      "backHome": "Back to home",
+      "title": "Start running your coffee shop with a plan that fits your size",
+      "description": "Try CafeFlow free for {trialDays} days, then choose monthly or yearly billing based on your needs.",
+      "promo": "🔥 Try CafeFlow for free + full free setup for first-time onboarding. Yearly billing gives you {yearlyMonths} months of operation for the price of only {yearlyPayMonths} months.",
+      "trialLine": "🎁 Free trial for {trialDays} days - no commitment",
+      "activationLine": "⚡ Instant activation + WhatsApp support"
+    },
+    "pricingPlans": {
+      "monthly": "Monthly",
+      "yearly": "Yearly (save 2 months value)",
+      "mostUsed": "⭐ Most used",
+      "month": "month",
+      "year": "year",
+      "insteadOf": "instead of",
+      "trialDays": "Free trial {days} days",
+      "save": "Save",
+      "planHint": {
+        "basic": "Great for small cafes",
+        "pro": "Best for most cafes",
+        "enterprise": "For large cafes and multi-branch chains"
+      },
+      "startNow": "👉 Start free now (no commitment)"
+    },
+    "terms": {
+      "backHome": "Back to home",
+      "title": "Terms and Conditions",
+      "description": "Simple and clear operational terms for CafeFlow customers.",
+      "basicTerms": "Core usage terms",
+      "sections": {
+        "inputResponsibility": {
+          "title": "1) Input responsibility",
+          "body": "The system is not responsible for errors caused by user input or operational decisions based on inaccurate data."
+        },
+        "subscription": {
+          "title": "2) Subscription",
+          "body": "Subscription is billed monthly according to the selected plan."
+        },
+        "nonPayment": {
+          "title": "3) Suspension for non-payment",
+          "body": "Service can be suspended or restricted when payment is not completed."
+        }
+      }
+    },
+    "checkout": {
+      "title": "Complete your subscription",
+      "description": "Choose billing cycle and payment method, then submit your request for activation.",
+      "backToPricing": "Back to pricing",
+      "promo": "🔥 Try CafeFlow free with setup support for new customers",
+      "trialLine": "🎁 14-day free trial before billing starts",
+      "activationLine": "⚡ Fast review and activation by our team",
+      "chips": {
+        "secure": "🔒 Secure request submission",
+        "fast": "⚡ Fast activation workflow",
+        "support": "📞 WhatsApp onboarding support"
+      },
+      "missingBusiness": {
+        "title": "Business setup required",
+        "description": "Your account does not have an owned business yet.",
+        "emptyTitle": "No business profile found",
+        "emptyDescription": "Create your business profile first, then return to checkout.",
+        "goToBusiness": "Go to business setup"
+      },
+      "form": {
+        "customerSectionTitle": "Checkout details",
+        "customerSectionDescription": "Provide billing details so we can activate your selected plan.",
+        "billingCycleLabel": "Billing cycle",
+        "billingCycle": {
+          "monthly": "Monthly",
+          "yearly": "Yearly (save 2 months)",
+          "yearlyShort": "Yearly"
+        },
+        "paymentMethodLabel": "Payment method",
+        "paymentMethodHint": "Choose your preferred payment channel.",
+        "fields": {
+          "customerName": "Payer name",
+          "customerPhone": "Payer phone",
+          "notes": "Notes (optional)"
+        },
+        "success": {
+          "title": "Checkout request submitted",
+          "description": "Your request is now pending review.",
+          "plan": "Plan",
+          "method": "Method",
+          "amount": "Amount"
+        },
+        "submit": "Submit checkout request",
+        "submitPending": "Submitting...",
+        "notes": {
+          "security": "Your payment request is recorded securely in your account history.",
+          "review": "Our team verifies payment details before final activation.",
+          "whatsapp": "Contact support on WhatsApp"
+        },
+        "summary": {
+          "title": "Order summary",
+          "plan": "Selected plan",
+          "cycle": "Cycle",
+          "monthlyPrice": "Base monthly price",
+          "savings": "Savings",
+          "total": "Charge now",
+          "trialHint": "Includes {days} free trial days before paid cycle."
+        }
+      }
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Sign in",
+      "description": "Use your login identifier or email with your password.",
+      "emailLabel": "Email or full login identifier",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "submitting": "Verifying...",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create account"
+    },
+    "signUp": {
+      "title": "Create a new account",
+      "description": "Create your account using full name, email, and password.",
+      "fullNameLabel": "Full name (Arabic)",
+      "fullNameEnLabel": "Name in English (optional)",
+      "fullNameEnHint": "Shown on the English UI and next to your Arabic name in the profile card.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm password",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "alreadyHaveAccount": "Already have an account?",
+      "signInLink": "Sign in"
+    },
+    "layout": {
+      "subtitle": "Simple and clear sign-in flow for your team"
+    },
+    "logout": {
+      "button": "Sign out"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Overview of your coffee shop operations, branches, and staff.",
+    "emptyNoContextTitle": "No active workspace context",
+    "emptyNoContextDescription": "You currently have no owned business and no active staff membership. Create a business if eligible or join via invite.",
+    "emptyNoContextAction": "Refresh account state",
+    "header": {
+      "user": "User Name",
+      "role": "Role",
+      "email": "Email",
+      "branch": "Branch",
+      "business": "Business",
+      "platform": "Platform",
+      "platformOperator": "Platform operator",
+      "financeConsole": "Finance",
+      "reportsConsole": "Reports"
+    },
+    "identity": {
+      "roles": {
+        "SUPER_ADMIN": "System admin",
+        "OWNER": "Owner",
+        "MANAGER": "Manager",
+        "ACCOUNTANT": "Accountant",
+        "CASHIER": "Cashier",
+        "BARISTA": "Barista",
+        "WAITER": "Waiter",
+        "KITCHEN_STAFF": "Kitchen staff",
+        "INVENTORY_MANAGER": "Inventory manager",
+        "PURCHASING_MANAGER": "Purchasing manager",
+        "JUICE_STAFF": "Juice staff",
+        "MEMBER": "Member"
+      },
+      "branches": {
+        "all": "All branches",
+        "unnamed": "Branch"
+      }
+    },
+    "selectBusiness": {
+      "singleTitle": "Confirm business context",
+      "singleDescription": "Your account is linked to one business. Continue to lock context and enter your workspace.",
+      "continue": "Continue",
+      "multiTitle": "Choose the business you want to work on",
+      "multiDescription": "This account is linked to multiple businesses. The selection defines data and permission context inside the dashboard.",
+      "businessCode": "Code: {code}",
+      "membershipRole": "Role: {role}",
+      "continueWithBusiness": "Continue with this business"
+    },
+    "subscriptionCard": {
+      "title": "Subscription status",
+      "empty": "No subscription is linked to this business.",
+      "plan": "Plan",
+      "status": "Status",
+      "branchLimit": "Branch limit",
+      "staffLimit": "Staff limit",
+      "trialEnds": "Trial ends",
+      "statusLabels": {
+        "TRIALING": "Trialing",
+        "ACTIVE": "Active",
+        "PENDING_PAYMENT": "Pending payment",
+        "EXPIRED": "Expired",
+        "CANCELED": "Canceled",
+        "PAST_DUE": "Past due"
+      }
+    },
+    "sidebar": {
+      "ariaLabel": "Dashboard navigation",
+      "navigation": "Navigation",
+      "menu": "Menu",
+      "groups": {
+        "main": "Main",
+        "platform": "Platform console",
+        "operations": "Cafe Operations",
+        "recipesInventory": "Recipes & Inventory",
+        "managementReports": "Management & Reports"
+      },
+      "items": {
+        "overview": "Overview",
+        "businessProfile": "Business profile",
+        "pos": "Point of Sale (POS)",
+        "orders": "Orders management",
+        "products": "Products",
+        "categories": "Categories",
+        "addons": "Add-ons",
+        "recipes": "Recipes",
+        "inventory": "Inventory",
+        "stockMovements": "Stock movements",
+        "consumption": "Product consumption",
+        "staff": "Staff",
+        "branches": "Branches",
+        "suppliers": "Suppliers",
+        "units": "Measurement units",
+        "rawMaterials": "Raw materials",
+        "reports": "Reports",
+        "platform": "Platform dashboard",
+        "platformFinance": "Finance & billing",
+        "platformReports": "Operator reports"
+      },
+      "profile": {
+        "title": "Profile",
+        "user": "User",
+        "email": "Email",
+        "role": "Role",
+        "branch": "Branch",
+        "business": "Business",
+        "platform": "Platform",
+        "platformOperator": "Platform operator",
+        "unavailable": "Identity: unavailable"
+      }
+    },
+    "home": {
+      "heading": "Welcome, {business}",
+      "subheading": "Daily snapshot of orders, revenue, inventory health, and team activity.",
+      "cards": {
+        "ordersToday": "Orders today",
+        "ordersTodayHint": "Created since midnight",
+        "revenueToday": "Revenue today",
+        "revenueTodayHint": "Calculated from today order lines",
+        "totalOrders": "All-time orders",
+        "totalOrdersHint": "Across all statuses",
+        "products": "Active products",
+        "productsHint": "Ready for sale",
+        "lowStock": "Low-stock materials",
+        "lowStockWarn": "Some materials need restocking",
+        "lowStockOk": "Stock levels are healthy",
+        "staff": "Active staff",
+        "staffHint": "Current non-archived members"
+      },
+      "weekdays": {
+        "sunday": "Sun",
+        "monday": "Mon",
+        "tuesday": "Tue",
+        "wednesday": "Wed",
+        "thursday": "Thu",
+        "friday": "Fri",
+        "saturday": "Sat"
+      },
+      "weeklyChart": {
+        "title": "Orders in the last 7 days",
+        "hint": "Day-by-day order creation trend",
+        "total": "Total: {total}",
+        "empty": "No order activity was recorded in the last 7 days."
+      },
+      "insights": {
+        "title": "Operational insights",
+        "ordersToday": "Orders today: {count}",
+        "avgOrderValue": "Average order value:",
+        "lowStock": "Low-stock materials: {count}"
+      },
+      "subscription": {
+        "title": "Current subscription",
+        "status": "Status",
+        "plan": "Plan",
+        "trialEnds": "Trial ends",
+        "manage": "Manage subscription"
+      },
+      "recentOrders": {
+        "title": "Recent orders",
+        "empty": "No orders recorded yet.",
+        "items": "Items: {count}"
+      },
+      "quickLinks": {
+        "title": "Quick links",
+        "reports": "Open reports",
+        "business": "Business workspace",
+        "platform": "Platform dashboard"
+      }
+    },
+    "business": {
+      "page": {
+        "onboardingTitle": "Create business",
+        "onboardingDescription": "This page is for owners only when no business exists yet. Staff users cannot create a new business from this flow.",
+        "heroDescription": "Clear daily operations dashboard for order and inventory management.",
+        "quickActionsTitle": "Quick actions",
+        "actions": {
+          "posTitle": "Point of Sale (POS)",
+          "posHint": "Create and complete orders",
+          "ordersTitle": "Track orders",
+          "ordersHint": "Review and manage",
+          "productsTitle": "Add product",
+          "productsHint": "Update menu",
+          "rawMaterialsTitle": "Add raw material",
+          "rawMaterialsHint": "Manage inventory",
+          "staffTitle": "Add staff member",
+          "staffHint": "Grow team"
+        },
+        "stats": {
+          "todayOrdersLabel": "Today's orders",
+          "todayOrdersHelper": "All orders created today",
+          "activeOrdersLabel": "Active orders",
+          "activeOrdersHelper": "Draft or in progress",
+          "completedOrdersLabel": "Completed orders",
+          "completedOrdersHelper": "Completed only",
+          "todayRevenueLabel": "Today's revenue",
+          "todayRevenueHelper": "From today's completed orders",
+          "sellableProductsLabel": "Sellable products",
+          "sellableProductsHelper": "Currently available for sale",
+          "staffMembersLabel": "Staff members",
+          "activeStaffHelper": "{count} active staff",
+          "inventoryAlertsLabel": "Inventory alerts",
+          "inventoryAlertsHelperHigh": "Restock alerts for materials below minimum level",
+          "inventoryAlertsHelperOk": "No restock alerts"
+        },
+        "operationalAlertsTitle": "Operational alerts",
+        "operationalAlertBlockedStock": "There is an order that cannot be completed due to insufficient stock",
+        "operationalAlertEmptyDraft": "There is an empty draft order that needs review",
+        "operationalAlertOk": "No operational issues right now",
+        "ordersInProgressTitle": "Orders in progress",
+        "ordersInProgressHint": "Currently incomplete orders",
+        "ordersInProgressEmpty": "No active orders right now.",
+        "table": {
+          "orderId": "Order ID",
+          "operationalStatus": "Operational status",
+          "items": "Items",
+          "createdAt": "Created at",
+          "action": "Action"
+        },
+        "rowEmptyDraft": "Empty draft",
+        "rowPreparing": "Preparing",
+        "openOrder": "Open",
+        "topSellingTitle": "Top-selling products",
+        "topSellingEmpty": "No sufficient completed sales yet.",
+        "unavailableProduct": "Unavailable product",
+        "soldUnitsLabel": "{count} units sold"
+      },
+      "products": {
+        "title": "Products",
+        "description": "Sellable items; links to recipes and orders come next.",
+        "unauthorized": {
+          "title": "Not authorized to view products",
+          "description": "You need product view permission."
+        },
+        "workspace": {
+          "confirmDelete": "Are you sure you want to delete this product?",
+          "confirmCloseUnsaved": "You have unsaved changes. Close without saving?",
+          "confirmProceedUnsaved": "You have unsaved changes. Continue anyway?",
+          "confirmSwitchUnsaved": "You have unsaved changes. Ignore them and switch to another product?",
+          "savedToast": "Product saved successfully",
+          "delete": "Delete",
+          "edit": "Edit",
+          "cancel": "Cancel",
+          "uncategorized": "Uncategorized",
+          "listTitle": "Products list",
+          "addButton": "Add product",
+          "searchLabel": "Search by name or code",
+          "searchPlaceholder": "Search by name or code...",
+          "clearSearch": "Clear search",
+          "empty": {
+            "title": "No products yet",
+            "description": "Start by adding your first product",
+            "noResults": "No matching results"
+          },
+          "table": {
+            "code": "Code",
+            "name": "Name",
+            "category": "Category",
+            "price": "Price",
+            "actions": "Actions"
+          },
+          "drawer": {
+            "editTitle": "Edit product",
+            "createTitle": "Add product",
+            "editingBanner": "You are editing a product",
+            "hint": "Example: Espresso, Latte, Cappuccino, Americano."
+          },
+          "aria": {
+            "delete": "Delete {name}",
+            "edit": "Edit {name}"
+          }
+        },
+        "form": {
+          "editTitle": "Edit product",
+          "createTitle": "Add product",
+          "code": "Code",
+          "nameAr": "Arabic name",
+          "nameEn": "English name (optional)",
+          "category": "Category (optional)",
+          "uncategorized": "-- No category --",
+          "basePrice": "Base price",
+          "saving": "Saving...",
+          "update": "Update product",
+          "save": "Save",
+          "cancel": "Cancel"
+        }
+      },
+      "categories": {
+        "title": "Categories",
+        "description": "Group products into clear lists (e.g. hot drinks).",
+        "unauthorized": {
+          "title": "Not authorized to view categories",
+          "description": "You need category view permission."
+        },
+        "workspace": {
+          "confirmArchive": "Are you sure you want to archive this category?",
+          "confirmCloseUnsaved": "You have unsaved changes. Close without saving?",
+          "confirmProceedUnsaved": "You have unsaved changes. Continue anyway?",
+          "confirmSwitchUnsaved": "You have unsaved changes. Ignore them and switch to another category?",
+          "savedToast": "Category saved successfully",
+          "archive": "Archive",
+          "edit": "Edit",
+          "cancel": "Cancel",
+          "listTitle": "Categories list",
+          "addButton": "Add category",
+          "searchLabel": "Search categories",
+          "searchPlaceholder": "Search by category name or code...",
+          "clearSearch": "Clear search",
+          "archiveRule": "A category cannot be archived while an active product still references it.",
+          "cannotArchive": "Cannot archive category because products are linked to it.",
+          "empty": {
+            "title": "No categories added yet",
+            "description": "Start by adding your first category",
+            "noResults": "No matching results"
+          },
+          "table": {
+            "code": "Code",
+            "name": "Name",
+            "english": "English",
+            "description": "Description",
+            "actions": "Actions"
+          },
+          "drawer": {
+            "editTitle": "Edit category",
+            "createTitle": "Add category",
+            "editingBanner": "You are editing a category",
+            "hint": "Split drinks into groups like hot coffee, cold coffee, and add-ons."
+          },
+          "aria": {
+            "archive": "Archive {name}",
+            "edit": "Edit {name}"
+          }
+        },
+        "form": {
+          "editTitle": "Edit category",
+          "createTitle": "Add category",
+          "code": "Code",
+          "nameAr": "Arabic name",
+          "nameEn": "English name (optional)",
+          "description": "Description (optional)",
+          "saving": "Saving...",
+          "update": "Update category",
+          "save": "Save",
+          "cancel": "Cancel"
+        }
+      },
+      "addons": {
+        "title": "Add-ons",
+        "description": "Extra-price options attached to drinks at order time.",
+        "unauthorized": {
+          "title": "Not authorized to view add-ons",
+          "description": "You need add-on view permission."
+        },
+        "workspace": {
+          "confirmArchive": "Are you sure you want to archive this add-on?",
+          "confirmCloseUnsaved": "You have unsaved changes. Close without saving?",
+          "savedToast": "Add-on saved successfully",
+          "archive": "Archive",
+          "edit": "Edit",
+          "cancel": "Cancel",
+          "listTitle": "Add-ons list",
+          "addButton": "Add add-on",
+          "searchPlaceholder": "Search by name or code...",
+          "empty": {
+            "title": "No add-ons yet",
+            "description": "Start by adding your first add-on",
+            "noResults": "No matching results"
+          },
+          "table": {
+            "code": "Code",
+            "name": "Name",
+            "extraPrice": "Extra price",
+            "actions": "Actions"
+          },
+          "drawer": {
+            "editTitle": "Edit add-on",
+            "createTitle": "Add add-on"
+          }
+        },
+        "form": {
+          "editTitle": "Edit add-on",
+          "createTitle": "Add add-on",
+          "code": "Code",
+          "nameAr": "Arabic name",
+          "nameEn": "English name (optional)",
+          "extraPrice": "Extra price",
+          "saving": "Saving...",
+          "update": "Update add-on",
+          "save": "Save",
+          "cancel": "Cancel"
+        }
+      },
+      "orders": {
+        "title": "Orders",
+        "description": "This screen is dedicated to order management and tracking only. Orders are created and executed from the POS screen.",
+        "unauthorized": {
+          "title": "Not authorized to view orders",
+          "description": "You need order view permission."
+        },
+        "filters": {
+          "searchLabel": "Search by order ID",
+          "searchPlaceholder": "Example: first 8 characters of the identifier",
+          "status": "Status",
+          "all": "All",
+          "fromDate": "From date",
+          "toDate": "To date",
+          "apply": "Apply",
+          "reset": "Reset"
+        },
+        "status": {
+          "draft": "Draft",
+          "inProgress": "In progress",
+          "completed": "Completed",
+          "canceled": "Canceled"
+        },
+        "table": {
+          "title": "Orders log",
+          "orderId": "Order ID",
+          "status": "Status",
+          "itemsCount": "Items count",
+          "createdAt": "Created at",
+          "completedAt": "Completed at",
+          "action": "Action"
+        },
+        "goToPos": "Go to Point of Sale (POS)",
+        "empty": {
+          "title": "No orders found",
+          "description": "No matching results yet, or no orders have been recorded. Order creation and completion happen in POS."
+        },
+        "open": "Open",
+        "details": {
+          "unauthorizedTitle": "Not authorized to view order details",
+          "unauthorizedDescription": "You need order view permission.",
+          "backToOrders": "Back to orders",
+          "orderId": "Order ID",
+          "notes": "Notes",
+          "emptyDraftHint": "This draft has no items yet. Add lines from POS or this page before completion.",
+          "createdAt": "Created at",
+          "completedAt": "Completed at",
+          "readonlyTitle": "Order is read-only",
+          "readonlyDescription": "This order is no longer editable. Item add/remove and quantity updates are disabled.",
+          "completeHint": "When you complete this order, stock deduction and recipe consumption checks will run.",
+          "cannotCompleteTitle": "Completion is currently unavailable",
+          "cannotCompleteHint": "Completion action is unavailable until required conditions are met.",
+          "itemsTitle": "Order items",
+          "itemsEditableHint": "You can add, remove, and update quantities while the order is editable.",
+          "itemsReadonlyHint": "Items are shown in read-only mode.",
+          "total": "Order total",
+          "emptyTitle": "No order items yet",
+          "emptyDescription": "Add at least one product line to this order from POS or this page.",
+          "table": {
+            "product": "Product",
+            "code": "Code",
+            "unitPrice": "Unit price",
+            "quantity": "Quantity",
+            "lineTotal": "Line total",
+            "actions": "Actions"
+          },
+          "addItemForm": {
+            "title": "Add item to order",
+            "description": "Select an active product and quantity to add a new order line.",
+            "product": "Product",
+            "selectProduct": "— Select a product —",
+            "quantity": "Quantity",
+            "quantityPlaceholder": "Example: 1 or 2.5",
+            "submit": "Add item",
+            "submitPending": "Adding..."
+          },
+          "completeButton": {
+            "label": "Complete order with stock deduction",
+            "pending": "Completing..."
+          },
+          "removeButton": {
+            "ariaLabel": "Remove {name}",
+            "title": "Remove item"
+          },
+          "quantityEditor": {
+            "inputAria": "Quantity for {name}",
+            "save": "Save"
+          }
+        }
+      },
+      "reports": {
+        "index": {
+          "unauthorizedTitle": "Not authorized to view reports",
+          "unauthorizedDescription": "You need report permission on branch scope or all branches.",
+          "title": "Reports and analytics",
+          "description": "Clear operational reports based on real business data.",
+          "cardHint": "View detailed data for this report",
+          "cards": {
+            "orders": "Orders report",
+            "bestSelling": "Best-selling products report",
+            "lowStock": "Low-stock materials report",
+            "stockMovements": "Recent stock movements report"
+          }
+        },
+        "unauthorizedTitle": "Not authorized to view reports",
+        "unauthorizedDescription": "You need reports view permission.",
+        "orders": {
+          "title": "Orders report",
+          "description": "Review completed and in-progress orders for your business.",
+          "emptyTitle": "No order records",
+          "emptyDescription": "No orders match your current report scope.",
+          "unauthorizedTitle": "Not authorized to view orders report",
+          "unauthorizedDescription": "You need reports view permission.",
+          "table": {
+            "order": "Order",
+            "status": "Status",
+            "items": "Items",
+            "createdAt": "Created at",
+            "completedAt": "Completed at"
+          }
+        },
+        "lowStock": {
+          "unauthorizedTitle": "Not authorized to view low-stock report",
+          "unauthorizedDescription": "You need reports view permission.",
+          "title": "Low-stock materials report",
+          "description": "Review materials that dropped below minimum quantity.",
+          "emptyTitle": "No low-stock materials",
+          "emptyDescription": "All tracked materials are currently above minimum level.",
+          "lowStatus": "Low stock",
+          "table": {
+            "material": "Material",
+            "currentBalance": "Current balance",
+            "minimum": "Minimum",
+            "status": "Status"
+          }
+        },
+        "bestSellingProducts": {
+          "unauthorizedTitle": "Not authorized to view best-selling products report",
+          "unauthorizedDescription": "You need reports view permission.",
+          "title": "Best-selling products report",
+          "description": "Top products by sold quantity from completed orders.",
+          "emptyTitle": "No product sales yet",
+          "emptyDescription": "Complete some orders to populate this report.",
+          "unknownProduct": "Unknown / archived product",
+          "table": {
+            "product": "Product",
+            "code": "Code",
+            "totalQuantity": "Total quantity sold",
+            "orderLines": "Order lines"
+          }
+        },
+        "stockMovements": {
+          "unauthorizedTitle": "Not authorized to view stock movement report",
+          "unauthorizedDescription": "You need reports view permission.",
+          "title": "Recent stock movements",
+          "description": "Latest {count} movement entries across your business.",
+          "emptyTitle": "No stock movements yet",
+          "emptyDescription": "No stock movement records are available in this report.",
+          "table": {
+            "material": "Material",
+            "type": "Movement type",
+            "quantity": "Quantity",
+            "createdAt": "Created at"
+          },
+          "types": {
+            "openingBalance": "Opening balance",
+            "stockIn": "Stock in",
+            "adjustmentAdd": "Adjustment +",
+            "adjustmentSubtract": "Adjustment -",
+            "waste": "Waste",
+            "consumption": "Consumption"
+          }
+        }
+      },
+      "createForm": {
+        "code": "Business code (technical)",
+        "codeHint": "Used in links and technical identifiers, e.g. my-cafe",
+        "nameAr": "Business name (Arabic)",
+        "nameEn": "Business name (English) - optional",
+        "submit": "Create business",
+        "submitPending": "Creating..."
+      },
+      "branches": {
+        "page": {
+          "unauthorizedTitle": "Not authorized to view branches",
+          "unauthorizedDescription": "You need branches view permission.",
+          "title": "Branches",
+          "description": "Business: {business}"
+        },
+        "workspace": {
+          "confirmArchive": "Are you sure you want to archive branch {name}?",
+          "confirmCloseUnsaved": "You have unsaved changes. Close without saving?",
+          "listTitle": "Branches list",
+          "addButton": "Add branch",
+          "searchPlaceholder": "Search by branch code or Arabic name...",
+          "emptyTitle": "No branches added yet",
+          "emptyDescription": "Start by adding your first branch.",
+          "archive": "Archive",
+          "edit": "Edit",
+          "close": "Close",
+          "savedToast": "Branch saved successfully",
+          "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+          },
+          "table": {
+            "code": "Code",
+            "name": "Name",
+            "status": "Status",
+            "actions": "Actions"
+          },
+          "drawer": {
+            "editTitle": "Edit branch",
+            "createTitle": "Add branch"
+          }
+        },
+        "form": {
+          "editTitle": "Edit branch",
+          "createTitle": "Add branch",
+          "code": "Branch code",
+          "codeHint": "Use a clear code such as MAIN or EAST",
+          "nameAr": "Branch name (Arabic)",
+          "nameEn": "Branch name (English) - optional",
+          "saving": "Saving...",
+          "update": "Update branch",
+          "save": "Save branch",
+          "cancel": "Cancel"
+        }
+      },
+      "units": {
+        "page": {
+          "unauthorizedTitle": "Not authorized to view measurement units",
+          "unauthorizedDescription": "You need units view permission.",
+          "title": "Measurement units",
+          "description": "Used later with raw materials and inventory."
+        },
+        "workspace": {
+          "confirmArchive": "Are you sure you want to archive this unit?",
+          "listTitle": "Units list",
+          "addButton": "Add unit",
+          "emptyTitle": "No units added yet",
+          "archive": "Archive",
+          "edit": "Edit",
+          "cannotArchive": "Cannot archive because raw materials are linked.",
+          "table": {
+            "code": "Code",
+            "name": "Name",
+            "symbol": "Symbol",
+            "actions": "Actions"
+          },
+          "drawer": {
+            "editTitle": "Edit unit",
+            "createTitle": "Add unit"
+          }
+        },
+        "form": {
+          "editTitle": "Edit unit",
+          "createTitle": "Add unit",
+          "code": "Unit code",
+          "nameAr": "Unit name (Arabic)",
+          "nameEn": "Unit name (English) - optional",
+          "symbol": "Display symbol - optional",
+          "symbolPlaceholder": "kg",
+          "saving": "Saving...",
+          "update": "Update unit",
+          "save": "Save unit",
+          "cancel": "Cancel"
+        }
+      },
+      "suppliers": {
+        "page": {
+          "unauthorizedTitle": "Not authorized to view suppliers",
+          "unauthorizedDescription": "You need suppliers view permission.",
+          "title": "Suppliers",
+          "description": "Supply contacts for raw materials (without advanced accounting)."
+        },
+        "workspace": {
+          "confirmArchive": "Are you sure you want to archive supplier {name}?",
+          "confirmCloseUnsaved": "You have unsaved changes. Close without saving?",
+          "listTitle": "Suppliers list",
+          "addButton": "Add supplier",
+          "searchPlaceholder": "Search by supplier name, phone, or email...",
+          "emptyTitle": "No suppliers added yet",
+          "emptyDescription": "Start by adding your first supplier.",
+          "archive": "Archive",
+          "edit": "Edit",
+          "cannotArchive": "Cannot archive while raw materials are linked.",
+          "close": "Close",
+          "savedToast": "Supplier saved successfully",
+          "table": {
+            "name": "Name",
+            "phone": "Phone",
+            "email": "Email",
+            "actions": "Actions"
+          },
+          "drawer": {
+            "editTitle": "Edit supplier",
+            "createTitle": "Add supplier"
+          }
+        },
+        "form": {
+          "editTitle": "Edit supplier",
+          "createTitle": "Add supplier",
+          "name": "Supplier name",
+          "phone": "Phone - optional",
+          "email": "Email - optional",
+          "notes": "Notes - optional",
+          "saving": "Saving...",
+          "update": "Update supplier",
+          "save": "Save supplier",
+          "cancel": "Cancel"
+        }
+      },
+      "stockMovements": {
+        "page": {
+          "unauthorizedTitle": "Not authorized for stock movements",
+          "unauthorizedDescription": "This page is available only for users with inventory permissions.",
+          "title": "Stock movements",
+          "description": "Inventory ledger: records every raw material change with before/after balance effect."
+        },
+        "workspace": {
+          "intro": "Track material movement history with searchable and auditable rows.",
+          "executorFallback": "owner@cafeflow.local",
+          "summary": {
+            "total": "Total movements",
+            "consumption": "Consumption entries",
+            "supplyAdjust": "Supply / adjustment entries"
+          },
+          "table": {
+            "title": "Stock movement log"
+          },
+          "addMovement": "Add movement",
+          "filters": {
+            "searchPlaceholder": "Search by material name or code...",
+            "allTypes": "All types",
+            "fromDate": "From",
+            "toDate": "To"
+          },
+          "types": {
+            "stockIn": "Stock in",
+            "consumption": "Consumption",
+            "adjustmentAdd": "Adjustment (+)",
+            "adjustmentSubtract": "Adjustment (-)",
+            "openingBalance": "Opening balance",
+            "waste": "Waste",
+            "adjustment": "Adjustment"
+          },
+          "columns": {
+            "dateTime": "Date & time",
+            "material": "Material",
+            "type": "Type",
+            "delta": "Delta",
+            "unit": "Unit",
+            "before": "Before",
+            "after": "After",
+            "reference": "Reference",
+            "executor": "Executor",
+            "actions": "Actions"
+          },
+          "empty": "No rows match current filters.",
+          "unitCost": "Unit cost",
+          "view": "View",
+          "close": "Close",
+          "drawer": {
+            "newTitle": "New stock movement",
+            "detailsTitle": "Movement details"
+          },
+          "detail": {
+            "id": "ID",
+            "material": "Material",
+            "type": "Type",
+            "delta": "Delta",
+            "unit": "Unit",
+            "before": "Before balance",
+            "after": "After balance",
+            "reference": "Reference",
+            "note": "Note",
+            "createdAt": "Created at",
+            "executor": "Executor"
+          }
+        },
+        "form": {
+          "title": "Record stock movement",
+          "description": "Log manual stock-in, opening, adjustments, or waste movements.",
+          "material": "Raw material",
+          "selectMaterial": "— Select material —",
+          "type": "Movement type",
+          "types": {
+            "openingBalance": "Opening balance (+)",
+            "stockIn": "Stock in / supply (+)",
+            "adjustmentAdd": "Adjustment add (+)",
+            "adjustmentSubtract": "Adjustment subtract (-)",
+            "waste": "Waste / damage (-)",
+            "consumption": "Consumption (-)"
+          },
+          "quantity": "Quantity (positive)",
+          "quantityPlaceholder": "5 or 5.2500",
+          "quantityHint": "Enter only positive value; movement type controls direction ({direction}).",
+          "quantityInvalidFormat": "Quantity must be a positive number (up to 4 decimal places).",
+          "quantityNonPositive": "Quantity must be greater than zero.",
+          "direction": {
+            "increase": "increase",
+            "decrease": "decrease"
+          },
+          "unitCost": "Unit cost - optional (up to 4 decimals)",
+          "note": "Note - optional",
+          "submit": "Record movement",
+          "submitPending": "Recording..."
+        }
+      },
+      "rawMaterials": {
+        "page": {
+          "unauthorizedTitle": "Not authorized to view raw materials",
+          "unauthorizedDescription": "You need raw materials view permission.",
+          "title": "Raw materials",
+          "description": "Define ingredients that will be tracked in inventory later (without stock movements at this stage)."
+        },
+        "workspace": {
+          "confirmArchive": "Are you sure you want to archive material {name}?",
+          "confirmCloseUnsaved": "You have unsaved changes. Close without saving?",
+          "listTitle": "Raw materials list",
+          "addButton": "Add raw material",
+          "searchPlaceholder": "Search by material code or Arabic name...",
+          "emptyTitle": "No raw materials added yet",
+          "emptyDescription": "Start by adding your first raw material.",
+          "archive": "Archive",
+          "edit": "Edit",
+          "close": "Close",
+          "savedToast": "Raw material saved successfully",
+          "table": {
+            "code": "Code",
+            "name": "Name",
+            "unit": "Unit",
+            "supplier": "Supplier",
+            "costPerUnit": "Unit cost",
+            "minimumQuantity": "Minimum qty",
+            "actions": "Actions"
+          },
+          "drawer": {
+            "editTitle": "Edit raw material",
+            "createTitle": "Add raw material"
+          }
+        },
+        "form": {
+          "editTitle": "Edit raw material",
+          "createTitle": "Add raw material",
+          "sections": {
+            "identity": "Identity",
+            "stock": "Stock settings",
+            "supplier": "Supplier link"
+          },
+          "fields": {
+            "code": "Material code",
+            "codePlaceholder": "arabica-beans",
+            "nameAr": "Arabic name",
+            "nameEn": "English name - optional",
+            "unitId": "Measurement unit",
+            "selectUnit": "— Select unit —",
+            "costPerUnit": "Cost per unit",
+            "minimumQuantity": "Minimum quantity",
+            "supplierId": "Supplier - optional",
+            "noSupplier": "— No supplier —"
+          },
+          "saving": "Saving...",
+          "update": "Update raw material",
+          "save": "Save raw material",
+          "cancel": "Cancel",
+          "unitsRequiredHint": "Add at least one unit before creating raw materials."
+        }
+      },
+      "recipes": {
+        "page": {
+          "unauthorizedTitle": "Not authorized to view recipes",
+          "unauthorizedDescription": "You need recipes view permission.",
+          "title": "Recipes",
+          "description": "Each product can have one recipe showing raw material consumption per sold unit.",
+          "emptyTitle": "No products found",
+          "emptyDescription": "Add products from the products page first."
+        },
+        "workspace": {
+          "title": "Product recipes",
+          "searchLabel": "Search recipes",
+          "searchPlaceholder": "Search by product name or code...",
+          "status": {
+            "ready": "Configured - {count} items",
+            "missing": "No recipe yet"
+          },
+          "createRecipe": {
+            "description": "Create a recipe first, then add raw materials and quantities.",
+            "submit": "Create recipe",
+            "pending": "Creating recipe..."
+          },
+          "addItem": {
+            "title": "Add material",
+            "material": "Raw material",
+            "selectMaterial": "— Select —",
+            "quantity": "Quantity per product unit",
+            "submit": "Add",
+            "noMaterials": "No available materials left. Add more raw materials or remove an existing recipe line."
+          },
+          "empty": {
+            "title": "No products available",
+            "description": "Add products first, then configure their recipes.",
+            "noResults": "No products match your search."
+          },
+          "table": {
+            "product": "Product",
+            "code": "Code",
+            "recipeStatus": "Recipe status",
+            "material": "Material",
+            "quantity": "Quantity",
+            "unit": "Unit",
+            "actions": "Actions",
+            "manage": "Manage recipe",
+            "editQuantity": "Update",
+            "remove": "Remove",
+            "confirmRemove": "Remove this recipe item?"
+          },
+          "drawer": {
+            "title": "Recipe details",
+            "titleWithName": "Recipe: {name}",
+            "productCode": "Code: {code}",
+            "info": "Recipe quantities are consumed when a product is sold through completed orders.",
+            "emptyRecipeItems": "Recipe exists but has no items yet."
+          }
+        },
+        "detail": {
+          "unauthorizedTitle": "Not authorized to view recipe details",
+          "unauthorizedDescription": "You need recipe view permission.",
+          "backToList": "Back to recipes",
+          "title": "Recipe: {name}",
+          "description": "Code: {code} - configure required raw materials and per-unit quantities.",
+          "emptyTitle": "No recipe items yet",
+          "emptyDescription": "Add at least one raw material to start recipe consumption.",
+          "remove": "Remove",
+          "table": {
+            "material": "Raw material",
+            "quantityPerUnit": "Quantity / unit",
+            "unit": "Unit",
+            "actions": "Actions"
+          },
+          "createForm": {
+            "description": "Create a recipe record for this product before adding ingredients.",
+            "submit": "Create recipe for this product",
+            "pending": "Creating..."
+          },
+          "addItemForm": {
+            "title": "Add ingredient",
+            "description": "Quantity means amount consumed when one product unit is sold.",
+            "material": "Raw material",
+            "selectMaterial": "— Select —",
+            "quantityPerUnit": "Quantity per product unit",
+            "submit": "Add ingredient",
+            "pending": "Adding..."
+          }
+        }
+      },
+      "consumption": {
+        "page": {
+          "unauthorizedTitle": "Not authorized to use manual consumption",
+          "unauthorizedDescription": "You need inventory management permission.",
+          "title": "Manual consumption",
+          "description": "Consume stock using recipe quantities without creating a sales order.",
+          "introLine1": "Use this screen for controlled stock deduction scenarios outside normal POS order completion.",
+          "introLine2": "For standard sales flow, continue using POS where stock consumption runs automatically.",
+          "rulesTitle": "Usage rules",
+          "rules": {
+            "1": "Select only active products with a configured recipe.",
+            "2": "Entered quantity means number of product units consumed.",
+            "3": "Each ingredient is deducted using recipe quantity multiplied by entered quantity.",
+            "4": "Operation stops if any ingredient has insufficient stock.",
+            "5": "Every deduction creates stock movement records for audit."
+          },
+          "emptyTitle": "No active products available",
+          "emptyDescription": "Add active products first before using manual consumption.",
+          "productsCardTitle": "Products and recipe readiness",
+          "recipeReady": "Recipe ready ({count} items)",
+          "recipeMissing": "Recipe missing",
+          "footer": {
+            "beforeInventory": "You can review balances from",
+            "inventoryLink": "Inventory",
+            "middle": "and audit detailed logs from",
+            "stockMovementsLink": "Stock movements",
+            "afterStockMovements": "after each operation."
+          }
+        },
+        "form": {
+          "toast": {
+            "success": "Consumption executed successfully."
+          },
+          "title": "Execute recipe-based consumption",
+          "description": "Rule: required stock = recipe quantity per unit x consumed quantity.",
+          "fields": {
+            "product": "Product",
+            "selectProduct": "— Select product —",
+            "quantity": "Consumed quantity",
+            "quantityPlaceholder": "Example: 2 or 2.5",
+            "note": "Note (optional)"
+          },
+          "errors": {
+            "quantityFormat": "Enter a valid positive quantity (up to 3 decimals).",
+            "recipeMissing": "Cannot consume: selected product has no recipe.",
+            "shortageBy": "short by"
+          },
+          "buttons": {
+            "submit": "Execute consumption",
+            "pending": "Executing consumption..."
+          },
+          "preview": {
+            "title": "Consumption preview",
+            "selectProduct": "Select a product to preview recipe consumption.",
+            "recipeMissing": "Recipe is missing for this product, so preview is unavailable.",
+            "enterQuantity": "Enter a valid quantity to compute required ingredients.",
+            "shortageHint": "Some ingredients are insufficient. Resolve stock shortages before executing.",
+            "table": {
+              "material": "Raw material",
+              "recipePerUnit": "Recipe qty / unit",
+              "required": "Required",
+              "available": "Available",
+              "status": "Status"
+            },
+            "status": {
+              "ok": "Sufficient",
+              "short": "Shortage"
+            }
+          },
+          "success": {
+            "title": "Consumption completed",
+            "product": "Product",
+            "quantity": "Quantity",
+            "movementsCount": "Stock movements",
+            "executedAt": "Executed at",
+            "executor": "Executor",
+            "reference": "Reference",
+            "openStockMovements": "Open stock movements"
+          }
+        }
+      },
+      "inventory": {
+        "page": {
+          "unauthorizedTitle": "Inventory access is not allowed",
+          "unauthorizedDescription": "This screen requires inventory permissions from your role or manual override.",
+          "title": "Raw materials inventory",
+          "description": "Current raw material balances with minimum-threshold state and tracked adjustments.",
+          "emptyTitle": "No raw materials",
+          "emptyDescription": "Define materials first from the raw materials page."
+        },
+        "workspace": {
+          "intro": "Inventory workspace helps monitor balances, detect low stock, and perform manual corrections with audit notes.",
+          "summary": {
+            "total": "Total materials",
+            "low": "Low stock",
+            "out": "Out of stock"
+          },
+          "searchPlaceholder": "Search by material name or code...",
+          "filters": {
+            "allStatuses": "All statuses"
+          },
+          "status": {
+            "good": "Good",
+            "low": "Low",
+            "out": "Out"
+          },
+          "empty": {
+            "noRows": "No raw materials found. Add materials first to start tracking inventory.",
+            "noResults": "No materials match current filters."
+          },
+          "table": {
+            "material": "Material",
+            "unit": "Unit",
+            "currentBalance": "Current balance",
+            "minimumQuantity": "Minimum quantity",
+            "status": "Status",
+            "lastUpdated": "Last updated",
+            "actions": "Actions",
+            "adjust": "Adjust"
+          },
+          "drawer": {
+            "title": "Inventory adjustment",
+            "titleWithName": "Adjust inventory: {name}"
+          },
+          "adjustment": {
+            "currentBalance": "Current balance",
+            "newBalance": "New balance",
+            "delta": "Difference",
+            "increase": "increase",
+            "decrease": "decrease",
+            "reason": "Reason",
+            "note": "Note - optional",
+            "submit": "Apply adjustment",
+            "pending": "Applying adjustment...",
+            "reasonOptions": {
+              "manualAdjustment": "Manual adjustment",
+              "countingReconciliation": "Counting reconciliation",
+              "damagedOrWaste": "Damaged / waste",
+              "systemOrDataCorrection": "System or data correction"
+            }
+          }
+        }
+      },
+      "staff": {
+        "page": {
+          "title": "👥 Staff Management",
+          "unauthorizedIntro": "Viewing staff members requires an appropriate permission.",
+          "unauthorizedTitle": "Unauthorized",
+          "unauthorizedDescription": "You are not allowed to view the staff page. Ask the business owner for users-view permission if it fits your role.",
+          "businessLoadFailed": "Unable to load business data.",
+          "dataUnavailableTitle": "Data unavailable",
+          "dataUnavailableDescription": "Try reloading the page.",
+          "staffCount": "Staff count",
+          "pendingInvites": "Pending invites",
+          "allBranches": "All branches"
+        },
+        "workspace": {
+          "confirmDiscardChanges": "You have unsaved changes. Close anyway?",
+          "filters": {
+            "title": "Filters",
+            "searchStaffPlaceholder": "Search by name or login...",
+            "searchInvitesPlaceholder": "Search invite label, contact, or login...",
+            "clearSearchAria": "Clear search",
+            "staffRoleAria": "Filter staff by role",
+            "staffBranchAria": "Filter staff by branch",
+            "staffStatusAria": "Filter staff by status",
+            "inviteRoleAria": "Filter invites by role",
+            "inviteStatusAria": "Filter invites by status",
+            "inviteBranchAria": "Filter invites by branch",
+            "allRoles": "All roles",
+            "allBranches": "All branches",
+            "allStatuses": "All statuses",
+            "activeStatus": "Active only",
+            "allInviteStatuses": "All invite statuses",
+            "allOrNoBranch": "All / no branch",
+            "noBranchOnly": "No branch only"
+          },
+          "members": {
+            "title": "Staff members",
+            "subtitle": "Manage active team members ({count})",
+            "addButton": "Add staff",
+            "emptyTitle": "No staff members yet",
+            "emptyDescription": "Start by creating your first staff member invite.",
+            "editButton": "Edit",
+            "archiveButton": "Archive",
+            "noFilterResults": "No staff members match the current filters.",
+            "table": {
+              "name": "Name",
+              "login": "Login",
+              "role": "Role",
+              "status": "Status",
+              "scope": "Scope",
+              "branch": "Branch",
+              "actions": "Actions"
+            }
+          },
+          "invites": {
+            "title": "Staff invites",
+            "subtitle": "Track pending and completed invites. Pending count:",
+            "filtersTitle": "Invite filters",
+            "finalLoginLabel": "Final login",
+            "contactLabel": "Contact",
+            "noFilterResults": "No invites match the current filters.",
+            "emptyDescription": "No invites yet. Use + Add staff to create one.",
+            "status": {
+              "pending": "Pending",
+              "accepted": "Accepted",
+              "cancelled": "Cancelled",
+              "expired": "Expired"
+            },
+            "table": {
+              "publicLabel": "Public label",
+              "role": "Role",
+              "scope": "Scope",
+              "branch": "Branch",
+              "status": "Status",
+              "expiresAt": "Expires at",
+              "invitedBy": "Invited by",
+              "createdAt": "Created at",
+              "actions": "Actions"
+            }
+          },
+          "drawer": {
+            "editTitle": "Edit staff member",
+            "createTitle": "Add staff member",
+            "close": "Close"
+          },
+          "toast": {
+            "default": "Saved successfully"
+          }
+        },
+        "form": {
+          "saveSuccessFallback": "Staff member updated successfully.",
+          "resetSuccessFallback": "Permissions were reset to role defaults.",
+          "editTitle": "Edit staff member",
+          "createTitle": "Add staff member",
+          "editDescription": "Update role, scope, branch, and custom permissions.",
+          "createInfoTitle": "How staff invitation works",
+          "createInfoDescription": "Set role and permissions, generate invite link, then share it with the staff member to complete registration.",
+          "steps": {
+            "title": "Invite workflow",
+            "items": {
+              "1": "Set role",
+              "2": "Set scope",
+              "3": "Set permissions",
+              "4": "Generate invite",
+              "5": "Share link"
+            }
+          },
+          "fields": {
+            "role": "Role",
+            "roleHint": "Role explanation",
+            "scope": "Permission scope",
+            "branch": "Branch"
+          },
+          "scope": {
+            "allBranches": "All branches (global)",
+            "branchOnly": "Specific branch",
+            "ownOnly": "Own records only",
+            "none": "No access"
+          },
+          "branch": {
+            "selectRequired": "Select branch",
+            "notRequired": "Branch not required",
+            "hintRequired": "Branch is required for branch-only scope.",
+            "hintNotRequired": "Branch is optional for this scope."
+          },
+          "templates": {
+            "title": "Permission template",
+            "current": "Current template"
+          },
+          "permissions": {
+            "title": "Custom permissions",
+            "description": "Effective permissions = role defaults + granted custom permissions - revoked defaults.",
+            "forbiddenForRole": "This permission is not available for the selected role.",
+            "status": {
+              "added": "Added",
+              "removed": "Removed",
+              "default": "Default"
+            }
+          },
+          "contact": {
+            "title": "Optional invite contact details",
+            "emailLabel": "Contact email (optional)",
+            "emailPlaceholder": "name@example.com",
+            "phoneLabel": "Phone / WhatsApp (optional)",
+            "phonePlaceholder": "+218...",
+            "noteLabel": "Invite note (optional)",
+            "notePlaceholder": "Internal note for this invite..."
+          },
+          "summary": {
+            "title": "Invite summary",
+            "role": "Role",
+            "scope": "Scope",
+            "branch": "Branch",
+            "template": "Template",
+            "effectivePermissions": "Effective permissions",
+            "inviteStatus": "Invite status",
+            "inviteStatusValue": "Will be created after submitting",
+            "noBranchSelected": "No branch selected",
+            "notApplicable": "— (not applicable)"
+          },
+          "success": {
+            "shareTitle": "Staff invite - CafeFlow",
+            "title": "Invite created successfully",
+            "publicLabelTitle": "Public invite label",
+            "publicLabelHint": "This temporary label appears before acceptance and is used for secure matching.",
+            "warning": "Share only with the intended staff member. Anyone with this link can complete this invite.",
+            "inviteLink": "Invite link",
+            "copyLink": "Copy link",
+            "copyShareText": "Copy share text",
+            "shareNative": "Share",
+            "shareWhatsapp": "WhatsApp",
+            "copiedInviteUrl": "Invite link copied",
+            "copiedShareText": "Share text copied",
+            "shared": "Shared successfully",
+            "openedWhatsapp": "WhatsApp opened",
+            "copyFallback": "Copy manually:",
+            "doneCta": "Done - close",
+            "doneCtaToast": "Invite created successfully"
+          },
+          "buttons": {
+            "save": "Save changes",
+            "saving": "Saving...",
+            "invite": "Create invite",
+            "inviting": "Creating invite...",
+            "cancel": "Cancel"
+          },
+          "loginReadOnly": "System login (read-only)",
+          "reset": {
+            "confirm": "Reset custom permissions and return to role defaults?",
+            "submit": "Reset custom permissions",
+            "pending": "Resetting..."
+          }
+        },
+        "inviteActions": {
+          "copyFallback": "Copy link manually:",
+          "newLink": "New invite link",
+          "publicLabel": "Public label",
+          "copy": "Copy",
+          "copied": "Copied",
+          "whatsapp": "WhatsApp",
+          "regenerate": "Regenerate link",
+          "resend": "Resend link",
+          "confirmCancel": "Cancel this invite now?",
+          "cancel": "Cancel invite"
+        }
+      }
+    }
+  },
+  "pos": {
+    "unauthorized": {
+      "title": "POS access is not allowed",
+      "description": "This screen requires POS access permission from your current role or custom permission override."
+    },
+    "categories": {
+      "all": "All",
+      "fallback": "Category"
+    },
+    "header": {
+      "title": "Point of Sale",
+      "subtitle": "Fast direct selling",
+      "user": "User Name",
+      "role": "Role",
+      "branch": "Branch",
+      "business": "Business"
+    },
+    "search": {
+      "placeholder": "Search by product name or scan barcode..."
+    },
+    "product": {
+      "popular": "Most ordered",
+      "lowStock": "Low stock",
+      "outOfStock": "Out of stock",
+      "tapToAdd": "Tap to add"
+    },
+    "order": {
+      "currentOrder": "Current order",
+      "itemsCount": "{count} items",
+      "emptyTitle": "No items added yet",
+      "emptyDescription": "Select a product from the list to start an order"
+    },
+    "totals": {
+      "subtotal": "Subtotal",
+      "tax": "Tax",
+      "discount": "Discount",
+      "total": "Total"
+    },
+    "payment": {
+      "title": "Payment method",
+      "cash": "Cash",
+      "banking": "Banking service",
+      "summary": "Payment method: {method}",
+      "bankingMethods": {
+        "bank_card": "Bank card",
+        "edfa_li": "Edfa Li",
+        "mobi_cash": "Mobi Cash",
+        "masrafi_pay": "Masrafi Pay",
+        "yusr_pay": "Yusr Pay",
+        "yusr_pay_qr": "Yusr Pay - QR",
+        "sadad": "Sadad",
+        "sahara_pay": "Sahara Pay"
+      }
+    },
+    "actions": {
+      "goToOrders": "Go to orders management",
+      "signOut": "Sign out",
+      "completeOrder": "Complete order",
+      "submittingOrder": "Completing order...",
+      "remove": "Remove"
+    },
+    "mobile": {
+      "hideCart": "Hide cart",
+      "showCart": "Show cart ({count})"
+    },
+    "toast": {
+      "orderCompleted": "Order completed successfully",
+      "productAdded": "{product} added"
+    }
+  },
+  "staff": {
+    "title": "Staff Management"
+  },
+  "invite": {
+    "title": "Staff invitation",
+    "page": {
+      "title": "Staff onboarding invite",
+      "invalid": {
+        "title": "Invalid invite link",
+        "description": "Invite link is missing or malformed."
+      },
+      "notFound": {
+        "title": "Invite not found",
+        "description": "No matching invite found for this link. Ask the business admin for a new one."
+      },
+      "fields": {
+        "businessLabel": "Business:",
+        "roleLabel": "Role:",
+        "branchLabel": "Branch:",
+        "templateLabel": "Permission template:",
+        "templateValue": "{template} — {count} effective permissions",
+        "allBranches": "All branches"
+      },
+      "loginHint": {
+        "prefix": "Your account uses",
+        "systemLoginTitle": "a system login identifier",
+        "roleBased": "generated by role",
+        "pattern": "Expected pattern:",
+        "suffix": "(for example). Keep this value for sign-in."
+      },
+      "immutabilityNote": "Role, branch, and permissions cannot be changed from this page.",
+      "blocked": {
+        "cancelled": "This invite was cancelled by the business.",
+        "expired": "This invite has expired. Ask the business admin to generate a new link."
+      },
+      "signedIn": {
+        "title": "Please sign out first",
+        "description": "To complete staff registration from this invite, sign out from the current account and reopen this link."
+      }
+    },
+    "register": {
+      "alreadyAccepted": "This invite has already been accepted.",
+      "fields": {
+        "firstNameAr": "First name (Arabic)",
+        "lastNameAr": "Last name (Arabic)",
+        "firstNameEn": "First name (English)",
+        "lastNameEn": "Last name (English)",
+        "arabicHint": "Arabic names are shown in the dashboard and reports.",
+        "englishHint": "English name parts are used to build your technical login identifier.",
+        "password": "Password (minimum 8 characters)",
+        "confirmPassword": "Confirm password (minimum 8 characters)"
+      },
+      "submit": "Complete registration",
+      "submitPending": "Completing registration...",
+      "success": {
+        "title": "Registration completed",
+        "description": "Your staff account is now active.",
+        "fields": {
+          "name": "Name (Arabic)",
+          "role": "Role"
+        },
+        "shortLoginTitle": "Short login segment",
+        "fullLoginLabel": "Full login identifier:",
+        "fullLoginHint": "Use this exact identifier when signing in.",
+        "fullLoginSubHint": "Store this value securely. It is required for future sign-ins.",
+        "copyButton": "Copy full login",
+        "copied": "Login copied successfully",
+        "copyFallbackPrompt": "Copy login manually:",
+        "finalHint": "After signing in, your permissions and branch scope will follow this invite.",
+        "signInButton": "Go to sign in",
+        "signInNewTabButton": "Open sign in in new tab"
+      }
+    }
+  },
+  "platform": {
+    "title": "Platform Dashboard",
+    "layout": {
+      "unauthorizedTitle": "Platform access is restricted",
+      "unauthorizedDescription": "This section is available only to authorized CafeFlow platform operators.",
+      "unauthorizedHintTitle": "If you should be the operator",
+      "unauthorizedHintDescription": "Your deployment must satisfy both, together:\n• Environment variable PLATFORM_OWNER_EMAIL — set to the same email you use to sign in (the value is never shown here).\n• Database field isPlatformOwner — true on your User row for that identity.\nThen sign in again. Tenant café accounts alone do not grant this console.",
+      "stepUpTitle": "Confirm platform access",
+      "stepUpDescription": "Enter your CafeFlow account password again. Your email is already verified by your session; this step proves you still control the password for the operator account.",
+      "stepUpDescriptionTotp": "Enter your account password and the 6-digit code from your authenticator app. Values configured on the server (TOTP secret) are never shown here.",
+      "stepUpDescriptionExtra": "Enter your account password and the operator passphrase configured on the server (PLATFORM_EXTRA_SECRET). The passphrase itself is never shown here.",
+      "stepUpDescriptionBoth": "Enter your account password, your authenticator 6-digit code, and the operator passphrase. Server-side secrets are never displayed on this screen.",
+      "stepUpPasswordLabel": "Account password",
+      "stepUpTotpLabel": "Authenticator code (6 digits)",
+      "stepUpTotpHint": "Time-based code from the app you registered with the operator TOTP secret.",
+      "stepUpExtraSecretLabel": "Operator passphrase",
+      "stepUpExtraSecretHint": "Must match PLATFORM_EXTRA_SECRET in the deployment environment (not your login email).",
+      "stepUpSubmit": "Unlock operator console",
+      "stepUpSubmitting": "Verifying…",
+      "stepUpSecurityNote": "Use HTTPS in production. After a period of inactivity you will be asked again. Sign out clears this extra lock."
+    },
+    "dashboard": {
+      "title": "Platform dashboard",
+      "description": "Cross-tenant operator console for subscription health and business visibility.",
+      "cards": {
+        "businesses": "Businesses",
+        "subscriptions": "Subscriptions",
+        "trialing": "Trialing",
+        "active": "Active",
+        "pastDue": "Past due",
+        "expired": "Expired",
+        "canceled": "Canceled",
+        "withoutPlan": "Without plan"
+      },
+      "status": {
+        "TRIALING": "Trialing",
+        "ACTIVE": "Active",
+        "PENDING_PAYMENT": "Pending payment",
+        "PAST_DUE": "Past due",
+        "CANCELED": "Canceled",
+        "EXPIRED": "Expired"
+      },
+      "billing": {
+        "monthly": "Monthly",
+        "yearly": "Yearly"
+      },
+      "trial": {
+        "none": "No trial period",
+        "expired": "Trial expired on {date}",
+        "active": "Trial ends on {date} ({days} days left)"
+      },
+      "landingManager": {
+        "title": "Central content management",
+        "description": "Manage Arabic and English landing page messaging from one operator screen.",
+        "action": "Open landing content manager"
+      },
+      "listHint": "Latest businesses are shown first for quick operational follow-up.",
+      "fields": {
+        "businessCode": "Business code",
+        "owner": "Owner",
+        "status": "Status",
+        "plan": "Plan",
+        "billing": "Billing cycle",
+        "amount": "Charged amount",
+        "startsAt": "Starts at",
+        "endsAt": "Ends at",
+        "trialEndsAt": "Trial ends at",
+        "latestPayment": "Latest payment"
+      },
+      "noSubscription": "No active subscription is attached to this business.",
+      "withoutSubscriptionLabel": "No subscription",
+      "notApplicable": "—",
+      "table": {
+        "business": "Business",
+        "code": "Code",
+        "owner": "Owner",
+        "plan": "Plan",
+        "status": "Status",
+        "trialEnds": "Trial ends"
+      },
+      "quickNav": {
+        "financeTitle": "Finance & money",
+        "financeDescription": "Subscriptions, payment requests, catalog prices, and tenant POS revenue (completed orders).",
+        "financeCta": "Open finance console",
+        "reportsTitle": "Detailed reports",
+        "reportsDescription": "Signups, trials ending soon, past-due subscriptions, and recent business onboarding.",
+        "reportsCta": "Open operator reports"
+      }
+    },
+    "finance": {
+      "title": "Platform finance",
+      "description": "Cross-tenant money snapshot: SaaS billing, checkout payments, plan catalog, and completed order revenue across all cafés.",
+      "backPlatform": "← Platform home",
+      "openReports": "Operator reports →",
+      "cards": {
+        "activeSubscriptions": "Active subscription rows",
+        "recordedSubscriptionCharges": "Sum of recorded subscription charges",
+        "recordedSubscriptionChargesHint": "Per current `chargedAmount` on non-archived subscriptions",
+        "pendingPaymentRequests": "Pending payment requests",
+        "paidPaymentRequests": "Paid payment requests (all time)",
+        "paidPaymentRequestsHint": "Sum of amounts marked PAID on payment requests"
+      },
+      "gmv": {
+        "title": "Tenant commerce (POS)",
+        "hint": "Sum of line totals on completed orders: quantity × product base price. Addon lines are not included in this phase.",
+        "allTime": "Completed revenue (all time)",
+        "last30Days": "Completed revenue (last 30 days)",
+        "mrrHintLabel": "Monthly price on active / trialing subs (reference)"
+      },
+      "paymentMix": {
+        "title": "Payment requests by status"
+      },
+      "subscriptionsByStatus": {
+        "title": "Subscriptions by status",
+        "status": "Status",
+        "count": "Count",
+        "charged": "Charged amount (sum)",
+        "monthlyPrice": "Monthly price (sum)"
+      },
+      "plans": {
+        "title": "Plan catalog & adoption",
+        "code": "Code",
+        "name": "Name",
+        "listPrice": "List price",
+        "branchLimit": "Branches",
+        "staffLimit": "Staff",
+        "activeSubs": "Active subs"
+      },
+      "recentPayments": {
+        "title": "Recent payment requests",
+        "when": "Created",
+        "business": "Business",
+        "plan": "Plan",
+        "amount": "Amount",
+        "status": "Status",
+        "provider": "Provider",
+        "empty": "No payment requests yet."
+      },
+      "subscriptionStatus": {
+        "ACTIVE": "Active",
+        "TRIALING": "Trialing",
+        "PENDING_PAYMENT": "Pending payment",
+        "PAST_DUE": "Past due",
+        "CANCELED": "Canceled",
+        "EXPIRED": "Expired"
+      },
+      "paymentStatus": {
+        "PENDING": "Pending",
+        "PAID": "Paid",
+        "FAILED": "Failed",
+        "CANCELED": "Canceled"
+      }
+    },
+    "reports": {
+      "title": "Platform reports",
+      "description": "Operational follow-up across tenants: onboarding velocity, subscription risk, and recent signups.",
+      "backPlatform": "← Platform home",
+      "openFinance": "Finance console →",
+      "subscriptionStatus": {
+        "ACTIVE": "Active",
+        "TRIALING": "Trialing",
+        "PENDING_PAYMENT": "Pending payment",
+        "PAST_DUE": "Past due",
+        "CANCELED": "Canceled",
+        "EXPIRED": "Expired"
+      },
+      "cards": {
+        "totalBusinesses": "Businesses (all)",
+        "new30d": "New businesses (30 days)",
+        "new30dHint": "Created in the last 30 days",
+        "new90d": "New businesses (90 days)",
+        "new90dHint": "Created in the last 90 days",
+        "trialEndingSoon": "Trials ending (7 days)",
+        "trialEndingSoonHint": "Trialing subscriptions with trial end within a week"
+      },
+      "sections": {
+        "empty": "Nothing to show in this list right now.",
+        "ends": "Ends",
+        "trialing": {
+          "title": "Trials ending soon",
+          "hint": "Prioritize outreach before automatic downgrade paths.",
+          "ends": "Trial ends"
+        },
+        "pastDue": {
+          "title": "Past due subscriptions",
+          "hint": "Businesses that should be contacted for renewal or payment."
+        },
+        "pendingPayment": {
+          "title": "Pending payment (subscription state)",
+          "hint": "Checkout started but payment not finalized on the subscription row."
+        },
+        "expired": {
+          "title": "Recently expired subscriptions",
+          "hint": "Latest rows in EXPIRED state (limited sample)."
+        },
+        "signups": {
+          "title": "Latest business signups"
+        }
+      },
+      "table": {
+        "business": "Business",
+        "code": "Code",
+        "owner": "Owner",
+        "created": "Created",
+        "subscription": "Subscription",
+        "noSubscription": "No subscription",
+        "plan": "Plan",
+        "amount": "Amount",
+        "starts": "Starts"
+      }
+    },
+    "landingEditor": {
+      "title": "Landing content editor",
+      "description": "Platform-only editor for bilingual landing messaging.",
+      "arPrefix": "AR",
+      "enPrefix": "EN",
+      "saveButton": "Save landing content",
+      "fields": {
+        "heroBadge": "Hero badge",
+        "heroTitle": "Hero title",
+        "heroDescription": "Hero description",
+        "primaryCta": "Primary CTA text",
+        "pricingIntro": "Pricing intro",
+        "featuresTitle": "Features title",
+        "faqTitle": "FAQ title",
+        "contactText": "Contact text"
+      }
+    }
+  },
+  "serverActions": {
+    "subscription": {
+      "noSubscription": "There is no active plan or subscription for this business.",
+      "notUsable": "The current subscription status ({status}) does not allow this operation.",
+      "branchLimit": "You reached the branch limit in your current plan ({limit}).",
+      "staffLimit": "You reached the staff limit in your current plan ({limit}), including pending invites.",
+      "unknown": "Unable to verify subscription limits."
+    },
+    "catalog": {
+      "mustSignIn": "You must sign in.",
+      "selectBusinessFirst": "You must select the current business first from the business selection page.",
+      "notAuthorizedCatalog": "You are not authorized to manage this catalog section."
+    },
+    "auth": {
+      "signIn": {
+        "missingFields": "Please enter your email or login identifier and your password.",
+        "invalidCredentials": "Invalid login credentials."
+      },
+      "signUp": {
+        "missingFields": "Please fill in all required fields.",
+        "invalidEmail": "Please enter a valid email address.",
+        "passwordTooShort": "Password must be at least 8 characters.",
+        "passwordMismatch": "Password and confirmation do not match.",
+        "emailTaken": "This email is already registered.",
+        "nameEnTooLong": "The English name is too long (maximum 120 characters)."
+      }
+    },
+    "invite": {
+      "completeStaff": {
+        "missingToken": "Invitation link is missing.",
+        "alreadySignedIn": "You are already signed in. Open the dashboard instead of accepting an invite in this session.",
+        "missingArabicNames": "Please enter your first and last name in Arabic.",
+        "invalidEnglishNameParts": "Please enter valid English letters for the technical login name parts.",
+        "passwordTooShort": "Password must be at least 8 characters.",
+        "passwordMismatch": "Password and confirmation do not match.",
+        "invalidInvite": "This invitation is invalid or the business is no longer available.",
+        "inviteAlreadyAccepted": "This invitation was already accepted.",
+        "inviteCancelled": "This invitation was cancelled.",
+        "inviteInvalidStatus": "This invitation can no longer be used.",
+        "inviteExpired": "This invitation has expired.",
+        "roleNotAssignable": "This invitation targets a role that cannot be registered from the invite page.",
+        "inviteBranchMissing": "The branch attached to this invitation is no longer available.",
+        "permissionSafety": "This role cannot include sensitive permissions: {permissions}",
+        "systemLoginAllocationFailed": "Could not allocate a unique system login. Please try again or contact support.",
+        "notPendingAfterLock": "This invitation is no longer pending. It may have been accepted by someone else.",
+        "expiredAfterLock": "This invitation expired during processing.",
+        "duplicateUser": "A user with this identity already exists. Please contact the business owner."
+      }
+    },
+    "checkout": {
+      "customerNameShort": "Please enter a name with at least 2 characters.",
+      "customerPhoneShort": "Please enter a phone number with at least 7 digits.",
+      "invalidPaymentMethod": "Please choose a valid payment method.",
+      "mustSignIn": "You must sign in to complete checkout.",
+      "noBusinessForUser": "We could not find an owned business for your account."
+    },
+    "business": {
+      "create": {
+        "mustSignIn": "You must sign in to create a business.",
+        "alreadyOwnsBusiness": "You already have an active owned business.",
+        "staffCannotCreate": "Staff members cannot create a separate business from this flow.",
+        "codeLength": "Business code must be between 2 and 32 characters.",
+        "codeFormat": "Business code may contain lowercase letters, digits, and hyphens only.",
+        "nameArLength": "Arabic business name must be between 2 and 120 characters.",
+        "nameEnLength": "English business name must be at most 120 characters.",
+        "createFailed": "Could not create the business. The code may already be taken."
+      },
+      "defaultPlanName": "Starter (trial)"
+    },
+    "branches": {
+      "mustSignIn": "You must sign in.",
+      "selectBusinessFirst": "You must select the current business first.",
+      "noPermission": "You are not allowed to manage branches.",
+      "codeInvalid": "Branch code must be between 1 and 20 characters.",
+      "nameArLength": "Arabic branch name must be between 2 and 120 characters.",
+      "nameEnLength": "English branch name must be at most 120 characters.",
+      "saveFailed": "Could not save the branch. The code may already exist for this business.",
+      "branchNotFound": "Branch was not found.",
+      "updateFailed": "Could not update the branch."
+    },
+    "categories": {
+      "codeLength": "Category code must be between 2 and 40 characters.",
+      "codeFormat": "Category code may contain lowercase letters, digits, and hyphens only.",
+      "nameArLength": "Arabic category name must be between 2 and 120 characters.",
+      "notFound": "Category was not found.",
+      "codeDuplicate": "This category code is already used.",
+      "updateFailed": "Could not update the category.",
+      "createDuplicate": "This category code is already used.",
+      "createFailed": "Could not create the category."
+    },
+    "addons": {
+      "codeLength": "Add-on code must be between 2 and 40 characters.",
+      "codeFormat": "Add-on code may contain lowercase letters, digits, and hyphens only.",
+      "nameArLength": "Arabic add-on name must be between 2 and 120 characters.",
+      "priceInvalid": "Please enter a valid extra price (up to 2 decimal places).",
+      "createFailed": "Could not create the add-on. The code may already be taken.",
+      "notFound": "Add-on was not found.",
+      "updateFailed": "Could not update the add-on.",
+      "createFailedGeneric": "Could not create the add-on."
+    },
+    "units": {
+      "codeLength": "Unit code must be between 1 and 20 characters.",
+      "codeFormat": "Unit code may contain lowercase letters, digits, and hyphens only.",
+      "nameArLength": "Arabic unit name must be between 1 and 80 characters.",
+      "createFailed": "Could not create the unit. The code may already be taken.",
+      "notFound": "Unit was not found.",
+      "updateFailed": "Could not update the unit."
+    },
+    "suppliers": {
+      "nameLength": "Supplier name must be between 2 and 120 characters.",
+      "invalidEmail": "Please enter a valid email address for the supplier.",
+      "notFound": "Supplier was not found."
+    },
+    "rawMaterials": {
+      "codeLength": "Material code must be between 2 and 40 characters.",
+      "codeFormat": "Material code may contain lowercase letters, digits, and hyphens only.",
+      "nameArLength": "Arabic material name must be between 2 and 120 characters.",
+      "unitRequired": "Please select a measurement unit.",
+      "unitInvalid": "The selected unit is invalid.",
+      "supplierInvalid": "The selected supplier is invalid.",
+      "costInvalid": "Please enter a valid cost per unit (up to 4 decimal places).",
+      "minQtyInvalid": "Minimum quantity must be a whole number between 0 and 1,000,000.",
+      "createFailed": "Could not create the raw material. The code may already be taken.",
+      "notFound": "Raw material was not found.",
+      "updateFailed": "Could not update the raw material.",
+      "createFailedSave": "Could not create the raw material."
+    },
+    "products": {
+      "codeLength": "Product code must be between 2 and 40 characters.",
+      "codeFormat": "Product code may contain lowercase letters, digits, and hyphens only.",
+      "nameArLength": "Arabic product name must be between 2 and 120 characters.",
+      "nameEnLength": "English product name must be at most 120 characters.",
+      "basePriceInvalid": "Please enter a valid base price (up to 2 decimal places).",
+      "categoryInvalid": "The selected category is invalid.",
+      "notFound": "Product was not found.",
+      "codeDuplicate": "This product code is already used.",
+      "saveFailed": "Could not save the product.",
+      "createCodeDuplicate": "This product code is already used.",
+      "createFailed": "Could not create the product."
+    },
+    "orders": {
+      "quantity": {
+        "EMPTY": "Enter quantity.",
+        "INVALID_FORMAT": "Quantity must be a positive number (up to 3 decimal places).",
+        "NOT_POSITIVE": "Quantity must be greater than zero."
+      },
+      "addItem": {
+        "missingOrderId": "Order is missing.",
+        "missingProductId": "Product is missing.",
+        "orderNotFound": "Order was not found.",
+        "orderNotOpen": "This order can no longer be edited.",
+        "productNotFound": "Product was not found or is inactive.",
+        "success": "Item added to the order."
+      },
+      "removeItem": {
+        "missingIds": "Order line is missing.",
+        "lineNotFound": "Order line was not found.",
+        "orderClosed": "This order is closed and cannot be changed.",
+        "genericError": "Could not remove the order line.",
+        "success": "Item removed from the order."
+      },
+      "updateQuantity": {
+        "missingIds": "Order line is missing.",
+        "lineNotFound": "Order line was not found.",
+        "orderClosed": "This order is closed and cannot be changed.",
+        "genericError": "Could not update the quantity.",
+        "success": "Quantity updated."
+      },
+      "complete": {
+        "mustSignIn": "You must sign in.",
+        "selectBusinessFirst": "You must select the current business first.",
+        "notAllowed": "You are not allowed to complete orders with stock deduction.",
+        "missingOrderId": "Order is missing.",
+        "errors": {
+          "ORDER_NOT_FOUND": "Order not found.",
+          "ORDER_NOT_OPEN": "Cannot complete an order that is already completed or cancelled.",
+          "ORDER_EMPTY": "Cannot complete an order with no items.",
+          "PRODUCT_NOT_FOUND": "One of the products is invalid or inactive.",
+          "RECIPE_REQUIRED": "One of the products has no recipe.",
+          "RECIPE_EMPTY": "One of the product recipes is empty.",
+          "INSUFFICIENT_STOCK": "Insufficient stock. The order was not completed.",
+          "MATERIAL_NOT_FOUND": "One of the recipe materials is invalid.",
+          "UNKNOWN": "Unable to complete the order."
+        }
+      }
+    },
+    "recipes": {
+      "productIdRequired": "Product is required.",
+      "productNotFound": "Product was not found.",
+      "recipeExists": "This product already has a recipe.",
+      "idsRequired": "Recipe and raw material are required.",
+      "recipeNotFound": "Recipe was not found.",
+      "materialNotFound": "Raw material was not found.",
+      "quantityFormat": "Quantity must be a positive number (up to 6 decimal places).",
+      "quantityPositive": "Quantity must be greater than zero.",
+      "duplicateIngredient": "This raw material is already part of the recipe.",
+      "itemIdRequired": "Recipe line is missing.",
+      "itemRecipeMismatch": "Recipe line was not found for this business.",
+      "materialArchived": "This raw material is archived and cannot be used.",
+      "updateQuantityInvalid": "Quantity must be a positive number (up to 6 decimal places).",
+      "updateQuantityPositive": "Quantity must be greater than zero."
+    },
+    "pos": {
+      "cartMissing": "Cart data is missing.",
+      "cartInvalid": "Cart data is invalid.",
+      "cartEmpty": "Add at least one product to the cart.",
+      "orderNotes": "POS order",
+      "executorUnknown": "POS user",
+      "executorRole": "POS",
+      "sourceLabel": "POS order",
+      "productNotFound": "One of the products is invalid or inactive.",
+      "insufficientStock": "Insufficient stock to complete this sale.",
+      "genericError": "Could not complete the POS order.",
+      "success": "Order #{id} was created."
+    },
+    "stockMovements": {
+      "invalidType": "This stock movement type is not allowed here.",
+      "materialRequired": "Please select a raw material.",
+      "quantityFormat": "Quantity must be a positive number (up to 4 decimal places).",
+      "unitCostFormat": "Unit cost must be a valid number (up to 4 decimal places).",
+      "insufficientStock": "Insufficient stock for this movement.",
+      "materialNotFound": "Raw material was not found.",
+      "quantityInvalid": "Quantity is invalid for this movement.",
+      "genericError": "Could not record the stock movement."
+    },
+    "inventory": {
+      "materialRequired": "Raw material is missing.",
+      "reasonRequired": "Please enter an adjustment reason.",
+      "balanceFormat": "New balance must be a valid number (up to 4 decimal places).",
+      "materialNotFound": "Raw material was not found.",
+      "noChange": "The new balance matches the current balance.",
+      "insufficientStock": "Insufficient stock for this adjustment.",
+      "materialNotFoundCatch": "Raw material was not found.",
+      "quantityInvalid": "Quantity is invalid for this adjustment.",
+      "genericError": "Could not adjust inventory."
+    },
+    "consumption": {
+      "referenceManual": "Manual run: {product}",
+      "testReference": "Consumption test",
+      "executorRole": "Consumption test",
+      "sourceLabel": "Manual consumption",
+      "executorUnknown": "Unknown user",
+      "productRequired": "Product is required.",
+      "quantityFormat": "Quantity must be a positive number (up to 3 decimal places).",
+      "quantityPositive": "Quantity must be greater than zero.",
+      "shortage": "Insufficient stock for one or more materials.",
+      "productNotFound": "Product was not found.",
+      "recipeRequired": "This product has no recipe.",
+      "recipeEmpty": "This product recipe has no ingredients.",
+      "insufficientStock": "Insufficient stock.",
+      "materialNotFound": "A recipe material was not found.",
+      "quantityInvalid": "Quantity is invalid.",
+      "genericError": "Could not record consumption."
+    },
+    "staff": {
+      "mustSignIn": "You must sign in.",
+      "selectBusinessFirst": "You must select the current business first.",
+      "cannotManageUsers": "You are not allowed to manage staff for this business.",
+      "noWorkspaceContext": "Workspace context is missing.",
+      "cannotAssignOwnerRoles": "You cannot assign platform or ownership roles from the staff screen.",
+      "roleNotAssignable": "This role cannot be assigned from the staff screen.",
+      "cannotAssignPermissionOverrides": "You are not allowed to edit permission overrides.",
+      "branchRequiredForScope": "Please select a branch for branch-only access.",
+      "branchNotFound": "Branch was not found.",
+      "permissionSafety": "This role cannot include sensitive permissions: {permissions}",
+      "membershipNotFound": "Staff membership was not found.",
+      "cannotEditPrimaryOwner": "The primary business owner membership cannot be edited here.",
+      "duplicateMembershipSameScope": "This user already has an active membership for the same branch scope.",
+      "membershipUpdated": "Staff membership was updated.",
+      "newMembersViaInviteOnly": "New team members must be invited using the invite link flow.",
+      "invalidContactEmail": "Please enter a valid contact email.",
+      "businessNotFound": "Business was not found.",
+      "pendingInviteExistsForEmail": "There is already a pending invite for this contact email.",
+      "missingInviteId": "Invite is missing.",
+      "inviteNotFound": "Invite was not found.",
+      "inviteAlreadyAccepted": "This invite was already accepted.",
+      "inviteCancelled": "This invite was cancelled.",
+      "cannotAssignRoles": "You are not allowed to assign roles.",
+      "missingMembershipId": "Membership is missing.",
+      "membershipNotFoundReset": "Membership was not found.",
+      "shareInviteBody": "Hello, you have been invited to join {business} on CafeFlow as {role}. To complete joining, open this link: {url}",
+      "roles": {
+        "MANAGER": "Manager",
+        "ACCOUNTANT": "Accountant",
+        "CASHIER": "Cashier",
+        "BARISTA": "Barista",
+        "WAITER": "Waiter",
+        "KITCHEN_STAFF": "Kitchen staff",
+        "INVENTORY_MANAGER": "Inventory manager",
+        "JUICE_STAFF": "Juice staff",
+        "PURCHASING_MANAGER": "Purchasing manager",
+        "fallback": "{role}"
+      }
+    },
+    "platformStepUp": {
+      "missingPassword": "Enter your account password.",
+      "invalidPassword": "Incorrect password.",
+      "locked": "Too many failed attempts. Try again in about 15 minutes, or sign out and sign back in.",
+      "notOperator": "This account is not the configured platform operator.",
+      "misconfigured": "The server cannot issue the operator cookie (check AUTH_SECRET in the environment).",
+      "misconfiguredTotp": "PLATFORM_TOTP_SECRET is set but invalid (must be Base32). Fix the environment or remove the variable.",
+      "missingTotp": "Enter the 6-digit authenticator code.",
+      "invalidTotp": "Incorrect or expired authenticator code.",
+      "missingExtra": "Enter the operator passphrase.",
+      "invalidExtra": "Incorrect operator passphrase."
+    },
+    "landing": {
+      "unauthorized": "You are not allowed to update landing content."
+    }
+  }
+}
+

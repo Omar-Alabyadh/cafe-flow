@@ -20,6 +20,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Prisma Note (Important for Development)
+
+CafeFlow currently uses a Prisma 6-style setup for simplicity and explainability.
+
+- Prisma CLI is the source of truth for schema validity.
+- If the VS Code Prisma extension shows a warning about datasource `url`, but `npx prisma validate` and `npx prisma generate` both succeed, treat that warning as an editor false positive.
+- Do not switch to Prisma 7 configuration in this project stage.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -1,0 +1,12 @@
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"before user.findUnique","data":{"userIdLen":25},"timestamp":1776622414560,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"before user.findUnique","data":{"userIdLen":25},"timestamp":1776622414576,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"user.findUnique failed","data":{"prismaCode":"P2022"},"timestamp":1776622414595,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"user.findUnique failed","data":{"prismaCode":"P2022"},"timestamp":1776622414888,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"before user.findUnique","data":{"userIdLen":25},"timestamp":1776622529979,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"before user.findUnique","data":{"userIdLen":25},"timestamp":1776622529996,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"after user.findUnique ok","data":{"found":true},"timestamp":1776622530021,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"after user.findUnique ok","data":{"found":true},"timestamp":1776622530045,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"before user.findUnique","data":{"userIdLen":25},"timestamp":1776622608215,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"before user.findUnique","data":{"userIdLen":25},"timestamp":1776622608236,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"after user.findUnique ok","data":{"found":true},"timestamp":1776622608251,"runId":"migrate-verify"}
+{"sessionId":"e5a997","hypothesisId":"H1","location":"lib/auth/session.ts:getCurrentUser","message":"after user.findUnique ok","data":{"found":true},"timestamp":1776622608273,"runId":"migrate-verify"}

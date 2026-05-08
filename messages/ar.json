@@ -1,0 +1,2187 @@
+{
+  "common": {
+    "appName": "كافي فلو",
+    "emDash": "—",
+    "language": "العربية",
+    "platformBrand": "CafeFlow Coffee OS",
+    "localeSwitcher": {
+      "arabic": "العربية",
+      "english": "English"
+    },
+    "theme": {
+      "label": "المظهر",
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "النظام"
+    },
+    "unauthorized": {
+      "title": "غير مصرح",
+      "description": "لا تملك صلاحية الوصول إلى هذه الصفحة.",
+      "backToDashboard": "العودة للوحة التحكم"
+    },
+    "placeholderText": "المحتوى قيد التحديث"
+  },
+  "public": {
+    "title": "مرحبًا بك في كافي فلو",
+    "description": "هذه نسخة الأساس للواجهة العامة.",
+    "nav": {
+      "pricing": "الأسعار",
+      "terms": "الشروط",
+      "signIn": "تسجيل الدخول",
+      "startFree": "ابدأ مجانًا"
+    },
+    "ctaSupport": {
+      "noCard": "✔ بدون بطاقة مصرفية",
+      "activation": "✔ تفعيل خلال دقائق",
+      "whatsapp": "✔ دعم مباشر عبر واتساب"
+    },
+    "stickyCta": {
+      "text": "🔥 جرّب CafeFlow مجانًا + إعداد مجاني بالكامل لأول مرة",
+      "button": "ابدأ مجانًا الآن"
+    },
+    "whatsapp": {
+      "prefilledMessage": "السلام عليكم، نبي نجرب CafeFlow للمقهى متاعي",
+      "ariaLabel": "تواصل معنا على واتساب",
+      "button": "نبي نجرب النظام"
+    },
+    "home": {
+      "highlights": {
+        "noCard": "بدون بطاقة مصرفية",
+        "activation": "تفعيل خلال دقائق",
+        "support": "دعم مباشر عبر واتساب"
+      },
+      "features": {
+        "line1": "أدر المبيعات والمنتجات والمخزون والطاقم من لوحة واحدة.",
+        "line2": "تابع أداء التشغيل عبر تقارير عملية واضحة.",
+        "line3": "مصمم لفرق المقاهي ثنائية اللغة (العربية والإنجليزية)."
+      },
+      "pricingBlock": {
+        "title": "أسعار مرنة",
+        "cta": "عرض الباقات"
+      },
+      "faq": {
+        "line1": "يمكنك البدء بفترة تجريبية مجانية قبل أي دورة فوترة مدفوعة.",
+        "line2": "فريق التهيئة يساعدك في إعداد أول نشاط بشكل كامل."
+      },
+      "finalCta": {
+        "title": "جاهز لتشغيل عمليات المقهى؟",
+        "button": "ابدأ مجانًا الآن"
+      }
+    },
+    "pricingPage": {
+      "backHome": "العودة للرئيسية",
+      "title": "ابدأ تشغيل مقهاك باشتراك يناسب حجمك",
+      "description": "جرّب CafeFlow مجانًا لمدة {trialDays} يوم، واختر الدفع الشهري أو السنوي حسب احتياجك.",
+      "promo": "🔥 جرّب CafeFlow مجانًا + إعداد مجاني بالكامل لأول مرة. الدفع السنوي يمنحك {yearlyMonths} شهر تشغيل بسعر {yearlyPayMonths} أشهر فقط.",
+      "trialLine": "🎁 تجربة مجانية لمدة {trialDays} يوم — بدون أي التزام",
+      "activationLine": "⚡ تفعيل فوري + دعم عبر واتساب"
+    },
+    "pricingPlans": {
+      "monthly": "شهري",
+      "yearly": "سنوي (وفّر قيمة شهرين)",
+      "mostUsed": "⭐ الأكثر استخدامًا",
+      "month": "شهر",
+      "year": "سنة",
+      "insteadOf": "بدل",
+      "trialDays": "تجربة مجانية {days} يوم",
+      "save": "وفّر",
+      "planHint": {
+        "basic": "مناسب للمقاهي الصغيرة",
+        "pro": "الأفضل لمعظم المقاهي",
+        "enterprise": "للمقاهي الكبيرة وسلاسل الفروع"
+      },
+      "startNow": "👉 ابدأ مجانًا الآن (بدون أي التزام)"
+    },
+    "terms": {
+      "backHome": "العودة للرئيسية",
+      "title": "الشروط والأحكام",
+      "description": "صياغة تشغيلية مبسطة وواضحة لعملاء CafeFlow.",
+      "basicTerms": "بنود الاستخدام الأساسية",
+      "sections": {
+        "inputResponsibility": {
+          "title": "١) مسؤولية الإدخال",
+          "body": "النظام غير مسؤول عن الأخطاء الناتجة عن إدخال المستخدم أو قرارات التشغيل المعتمدة على بيانات غير دقيقة."
+        },
+        "subscription": {
+          "title": "٢) الاشتراك",
+          "body": "الاشتراك شهري وفق الخطة المختارة."
+        },
+        "nonPayment": {
+          "title": "٣) الإيقاف عند عدم الدفع",
+          "body": "يمكن إيقاف الخدمة أو تقييدها عند عدم السداد."
+        }
+      }
+    },
+    "checkout": {
+      "title": "إتمام الاشتراك",
+      "description": "اختر دورة الفوترة وطريقة الدفع ثم أرسل الطلب لتفعيل الباقة.",
+      "backToPricing": "العودة إلى صفحة الأسعار",
+      "promo": "🔥 جرّب CafeFlow مجانًا مع دعم إعداد لأول مرة",
+      "trialLine": "🎁 تجربة مجانية لمدة 14 يوم قبل بدء الفوترة",
+      "activationLine": "⚡ مراجعة وتفعيل سريع من فريقنا",
+      "chips": {
+        "secure": "🔒 إرسال الطلب بشكل آمن",
+        "fast": "⚡ آلية تفعيل سريعة",
+        "support": "📞 دعم واتساب للتجهيز"
+      },
+      "missingBusiness": {
+        "title": "يلزم إعداد النشاط",
+        "description": "حسابك لا يحتوي على نشاط مملوك حتى الآن.",
+        "emptyTitle": "لا يوجد ملف نشاط",
+        "emptyDescription": "أنشئ ملف النشاط أولًا ثم ارجع لإتمام الاشتراك.",
+        "goToBusiness": "الانتقال إلى إعداد النشاط"
+      },
+      "form": {
+        "customerSectionTitle": "تفاصيل الاشتراك",
+        "customerSectionDescription": "أدخل بيانات الفوترة حتى نفعّل الباقة المختارة.",
+        "billingCycleLabel": "دورة الفوترة",
+        "billingCycle": {
+          "monthly": "شهري",
+          "yearly": "سنوي (توفير شهرين)",
+          "yearlyShort": "سنوي"
+        },
+        "paymentMethodLabel": "طريقة الدفع",
+        "paymentMethodHint": "اختر قناة الدفع المناسبة لك.",
+        "fields": {
+          "customerName": "اسم صاحب الدفع",
+          "customerPhone": "هاتف صاحب الدفع",
+          "notes": "ملاحظات (اختياري)"
+        },
+        "success": {
+          "title": "تم إرسال طلب الاشتراك",
+          "description": "طلبك الآن بانتظار المراجعة.",
+          "plan": "الباقة",
+          "method": "الطريقة",
+          "amount": "المبلغ"
+        },
+        "submit": "إرسال طلب الاشتراك",
+        "submitPending": "جاري الإرسال...",
+        "notes": {
+          "security": "يتم حفظ طلب الدفع بشكل آمن داخل سجل حسابك.",
+          "review": "يقوم فريقنا بمراجعة بيانات الدفع قبل التفعيل النهائي.",
+          "whatsapp": "تواصل مع الدعم عبر واتساب"
+        },
+        "summary": {
+          "title": "ملخص الطلب",
+          "plan": "الباقة المختارة",
+          "cycle": "الدورة",
+          "monthlyPrice": "السعر الشهري الأساسي",
+          "savings": "التوفير",
+          "total": "المبلغ الحالي",
+          "trialHint": "يشمل {days} أيام تجربة مجانية قبل بدء الدورة المدفوعة."
+        }
+      }
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "تسجيل الدخول",
+      "description": "استخدم اسم الدخول أو البريد وكلمة المرور للوصول إلى حسابك.",
+      "emailLabel": "البريد الإلكتروني أو اسم الدخول الكامل",
+      "passwordLabel": "كلمة المرور",
+      "submit": "تسجيل الدخول",
+      "submitting": "جاري التحقق...",
+      "noAccount": "لا تملك حسابًا؟",
+      "createAccount": "إنشاء حساب"
+    },
+    "signUp": {
+      "title": "إنشاء حساب جديد",
+      "description": "أنشئ حسابك باستخدام الاسم والبريد الإلكتروني وكلمة المرور.",
+      "fullNameLabel": "الاسم الكامل (عربي)",
+      "fullNameEnLabel": "الاسم بالإنجليزية (اختياري)",
+      "fullNameEnHint": "يُعرض في الواجهة الإنجليزية وبجانب الاسم العربي في بطاقة الملف الشخصي.",
+      "emailLabel": "البريد الإلكتروني",
+      "passwordLabel": "كلمة المرور",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "submit": "إنشاء الحساب",
+      "submitting": "جاري إنشاء الحساب…",
+      "alreadyHaveAccount": "لديك حساب بالفعل؟",
+      "signInLink": "تسجيل الدخول"
+    },
+    "layout": {
+      "subtitle": "تجربة دخول واضحة وسهلة للفريق"
+    },
+    "logout": {
+      "button": "تسجيل الخروج"
+    }
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "description": "نظرة عامة على تشغيل المقهى والفروع والطاقم.",
+    "emptyNoContextTitle": "لا يوجد سياق عمل نشط",
+    "emptyNoContextDescription": "لا يوجد نشاط تملكه أو عضوية موظف مفعّلة بعد. يمكنك إنشاء نشاط إذا كنت مؤهلًا كمالك أو الانضمام عبر دعوة موظف.",
+    "emptyNoContextAction": "تحديث حالة الحساب",
+    "header": {
+      "user": "اسم المستخدم",
+      "role": "الدور",
+      "email": "البريد",
+      "branch": "الفرع",
+      "business": "الكافي",
+      "platform": "المنصّة",
+      "platformOperator": "مشغّل المنصّة",
+      "financeConsole": "المالية",
+      "reportsConsole": "التقارير"
+    },
+    "identity": {
+      "roles": {
+        "SUPER_ADMIN": "مسؤول النظام",
+        "OWNER": "مالك",
+        "MANAGER": "مدير",
+        "ACCOUNTANT": "محاسب",
+        "CASHIER": "كاشير",
+        "BARISTA": "باريستا",
+        "WAITER": "نادل",
+        "KITCHEN_STAFF": "طاقم المطبخ",
+        "INVENTORY_MANAGER": "مسؤول المخزون",
+        "PURCHASING_MANAGER": "مسؤول المشتريات",
+        "JUICE_STAFF": "موظف العصائر",
+        "MEMBER": "عضو"
+      },
+      "branches": {
+        "all": "جميع الفروع",
+        "unnamed": "فرع"
+      }
+    },
+    "selectBusiness": {
+      "singleTitle": "تأكيد سياق المنشأة",
+      "singleDescription": "حسابك مرتبط بمنشأة واحدة. تابع لتثبيت السياق والدخول إلى مساحة العمل.",
+      "continue": "متابعة",
+      "multiTitle": "اختر المنشأة التي تريد العمل عليها",
+      "multiDescription": "هذا الحساب مرتبط بعدة منشآت. يحدد الاختيار سياق البيانات والصلاحيات داخل لوحة التحكم.",
+      "businessCode": "الرمز: {code}",
+      "membershipRole": "الدور: {role}",
+      "continueWithBusiness": "المتابعة مع هذه المنشأة"
+    },
+    "subscriptionCard": {
+      "title": "حالة الاشتراك",
+      "empty": "لا يوجد اشتراك مرتبط بهذه المنشأة.",
+      "plan": "الخطة",
+      "status": "الحالة",
+      "branchLimit": "حد الفروع",
+      "staffLimit": "حد الطاقم",
+      "trialEnds": "نهاية التجربة",
+      "statusLabels": {
+        "TRIALING": "فترة تجريبية",
+        "ACTIVE": "نشط",
+        "PENDING_PAYMENT": "بانتظار الدفع",
+        "EXPIRED": "منتهٍ",
+        "CANCELED": "ملغى",
+        "PAST_DUE": "متأخر السداد"
+      }
+    },
+    "sidebar": {
+      "ariaLabel": "تنقل لوحة التحكم",
+      "navigation": "التنقل",
+      "menu": "القائمة",
+      "groups": {
+        "main": "الرئيسية",
+        "platform": "وحدة تشغيل المنصّة",
+        "operations": "تشغيل المقهى",
+        "recipesInventory": "الوصفات والمخزون",
+        "managementReports": "الإدارة والتقارير"
+      },
+      "items": {
+        "overview": "نظرة عامة",
+        "businessProfile": "ملف المنشأة",
+        "pos": "نقطة البيع (POS)",
+        "orders": "إدارة الطلبات",
+        "products": "المنتجات",
+        "categories": "التصنيفات",
+        "addons": "الإضافات",
+        "recipes": "الوصفات",
+        "inventory": "المخزون",
+        "stockMovements": "حركات المخزون",
+        "consumption": "استهلاك المنتجات",
+        "staff": "الطاقم",
+        "branches": "الفروع",
+        "suppliers": "الموردون",
+        "units": "وحدات القياس",
+        "rawMaterials": "المواد الخام",
+        "reports": "التقارير",
+        "platform": "لوحة المنصة",
+        "platformFinance": "المالية والفوترة",
+        "platformReports": "تقارير المشغّل"
+      },
+      "profile": {
+        "title": "الملف الشخصي",
+        "user": "المستخدم",
+        "email": "البريد",
+        "role": "الدور",
+        "branch": "الفرع",
+        "business": "المنشأة",
+        "platform": "المنصّة",
+        "platformOperator": "مشغّل المنصّة",
+        "unavailable": "الهوية: غير متاحة"
+      }
+    },
+    "home": {
+      "heading": "مرحبًا، {business}",
+      "subheading": "ملخص يومي للطلبات والإيرادات وصحة المخزون وحركة الفريق.",
+      "cards": {
+        "ordersToday": "طلبات اليوم",
+        "ordersTodayHint": "تم إنشاؤها منذ منتصف الليل",
+        "revenueToday": "إيراد اليوم",
+        "revenueTodayHint": "محسوب من عناصر طلبات اليوم",
+        "totalOrders": "إجمالي الطلبات",
+        "totalOrdersHint": "لكل الحالات",
+        "products": "المنتجات النشطة",
+        "productsHint": "جاهزة للبيع",
+        "lowStock": "مواد منخفضة المخزون",
+        "lowStockWarn": "توجد مواد تحتاج إعادة تزويد",
+        "lowStockOk": "مستويات المخزون مستقرة",
+        "staff": "الطاقم النشط",
+        "staffHint": "الأعضاء غير المؤرشفين حاليًا"
+      },
+      "weekdays": {
+        "sunday": "الأحد",
+        "monday": "الإثنين",
+        "tuesday": "الثلاثاء",
+        "wednesday": "الأربعاء",
+        "thursday": "الخميس",
+        "friday": "الجمعة",
+        "saturday": "السبت"
+      },
+      "weeklyChart": {
+        "title": "طلبات آخر 7 أيام",
+        "hint": "اتجاه إنشاء الطلبات يومًا بيوم",
+        "total": "الإجمالي: {total}",
+        "empty": "لا توجد حركة طلبات خلال آخر 7 أيام."
+      },
+      "insights": {
+        "title": "مؤشرات تشغيلية",
+        "ordersToday": "طلبات اليوم: {count}",
+        "avgOrderValue": "متوسط قيمة الطلب:",
+        "lowStock": "مواد منخفضة المخزون: {count}"
+      },
+      "subscription": {
+        "title": "الاشتراك الحالي",
+        "status": "الحالة",
+        "plan": "الباقة",
+        "trialEnds": "نهاية التجربة",
+        "manage": "إدارة الاشتراك"
+      },
+      "recentOrders": {
+        "title": "آخر الطلبات",
+        "empty": "لا توجد طلبات مسجلة بعد.",
+        "items": "العناصر: {count}"
+      },
+      "quickLinks": {
+        "title": "روابط سريعة",
+        "reports": "فتح التقارير",
+        "business": "مساحة النشاط",
+        "platform": "لوحة المنصة"
+      }
+    },
+    "business": {
+      "page": {
+        "onboardingTitle": "إنشاء منشأة",
+        "onboardingDescription": "هذه الصفحة للمالكين فقط عندما لا توجد منشأة بعد. لا يمكن للموظفين إنشاء منشأة جديدة من هذا المسار.",
+        "heroDescription": "لوحة يومية واضحة لإدارة الطلبات والمخزون.",
+        "quickActionsTitle": "إجراءات سريعة",
+        "actions": {
+          "posTitle": "نقطة البيع (POS)",
+          "posHint": "إنشاء الطلبات وإتمامها",
+          "ordersTitle": "متابعة الطلبات",
+          "ordersHint": "مراجعة وإدارة",
+          "productsTitle": "إضافة منتج",
+          "productsHint": "تحديث القائمة",
+          "rawMaterialsTitle": "إضافة مادة خام",
+          "rawMaterialsHint": "إدارة المخزون",
+          "staffTitle": "إضافة عضو طاقم",
+          "staffHint": "توسيع الفريق"
+        },
+        "stats": {
+          "todayOrdersLabel": "طلبات اليوم",
+          "todayOrdersHelper": "كل الطلبات المُنشأة اليوم",
+          "activeOrdersLabel": "طلبات نشطة",
+          "activeOrdersHelper": "مسودة أو قيد التنفيذ",
+          "completedOrdersLabel": "طلبات مكتملة",
+          "completedOrdersHelper": "المكتملة فقط",
+          "todayRevenueLabel": "إيراد اليوم",
+          "todayRevenueHelper": "من الطلبات المكتملة اليوم",
+          "sellableProductsLabel": "منتجات قابلة للبيع",
+          "sellableProductsHelper": "متاحة للبيع حاليًا",
+          "staffMembersLabel": "أعضاء الطاقم",
+          "activeStaffHelper": "{count} عضوًا نشطًا في الطاقم",
+          "inventoryAlertsLabel": "تنبيهات المخزون",
+          "inventoryAlertsHelperHigh": "تنبيهات إعادة التزويد للمواد دون الحد الأدنى",
+          "inventoryAlertsHelperOk": "لا توجد تنبيهات إعادة تزويد"
+        },
+        "operationalAlertsTitle": "تنبيهات تشغيلية",
+        "operationalAlertBlockedStock": "يوجد طلب لا يمكن إتمامه بسبب نقص المخزون",
+        "operationalAlertEmptyDraft": "يوجد طلب مسودة فارغ يحتاج مراجعة",
+        "operationalAlertOk": "لا توجد مشكلات تشغيلية حاليًا",
+        "ordersInProgressTitle": "طلبات قيد التنفيذ",
+        "ordersInProgressHint": "طلبات غير مكتملة حاليًا",
+        "ordersInProgressEmpty": "لا توجد طلبات نشطة حاليًا.",
+        "table": {
+          "orderId": "رقم الطلب",
+          "operationalStatus": "الحالة التشغيلية",
+          "items": "العناصر",
+          "createdAt": "تاريخ الإنشاء",
+          "action": "إجراء"
+        },
+        "rowEmptyDraft": "مسودة فارغة",
+        "rowPreparing": "قيد التحضير",
+        "openOrder": "فتح",
+        "topSellingTitle": "الأكثر مبيعًا",
+        "topSellingEmpty": "لا توجد مبيعات مكتملة كافية بعد.",
+        "unavailableProduct": "منتج غير متاح",
+        "soldUnitsLabel": "{count} وحدة مباعة"
+      },
+      "products": {
+        "title": "المنتجات",
+        "description": "عناصر البيع؛ الربط بالوصفات والطلبات يأتي لاحقًا.",
+        "unauthorized": {
+          "title": "غير مصرح بعرض المنتجات",
+          "description": "تحتاج صلاحية عرض المنتجات."
+        },
+        "workspace": {
+          "confirmDelete": "هل أنت متأكد من حذف المنتج؟",
+          "confirmCloseUnsaved": "لديك تغييرات غير محفوظة. هل تريد الإغلاق بدون حفظ؟",
+          "confirmProceedUnsaved": "لديك تغييرات غير محفوظة. هل تريد المتابعة؟",
+          "confirmSwitchUnsaved": "لديك تغييرات غير محفوظة. هل تريد تجاهلها والانتقال لمنتج آخر؟",
+          "savedToast": "تم حفظ المنتج بنجاح",
+          "delete": "حذف",
+          "edit": "تعديل",
+          "cancel": "إلغاء",
+          "uncategorized": "بدون تصنيف",
+          "listTitle": "قائمة المنتجات",
+          "addButton": "إضافة منتج",
+          "searchLabel": "بحث بالاسم أو الرمز",
+          "searchPlaceholder": "بحث بالاسم أو الرمز…",
+          "clearSearch": "مسح البحث",
+          "empty": {
+            "title": "لا يوجد منتجات بعد",
+            "description": "ابدأ بإضافة أول منتج",
+            "noResults": "لا يوجد نتائج مطابقة"
+          },
+          "table": {
+            "code": "الرمز",
+            "name": "الاسم",
+            "category": "التصنيف",
+            "price": "السعر",
+            "actions": "إجراءات"
+          },
+          "drawer": {
+            "editTitle": "تعديل منتج",
+            "createTitle": "إضافة منتج",
+            "editingBanner": "أنت تقوم بتعديل منتج",
+            "hint": "مثل: إسبريسو، لاتيه، كابتشينو، أمريكانو."
+          },
+          "aria": {
+            "delete": "حذف {name}",
+            "edit": "تعديل {name}"
+          }
+        },
+        "form": {
+          "editTitle": "تعديل المنتج",
+          "createTitle": "إضافة منتج",
+          "code": "الرمز",
+          "nameAr": "الاسم (عربي)",
+          "nameEn": "الاسم (إنجليزي) — اختياري",
+          "category": "التصنيف — اختياري",
+          "uncategorized": "— بدون تصنيف —",
+          "basePrice": "السعر الأساسي",
+          "saving": "جاري الحفظ...",
+          "update": "تحديث المنتج",
+          "save": "حفظ",
+          "cancel": "إلغاء"
+        }
+      },
+      "categories": {
+        "title": "التصنيفات",
+        "description": "تجميع المنتجات في قوائم واضحة (مثل مشروبات ساخنة).",
+        "unauthorized": {
+          "title": "غير مصرح بعرض التصنيفات",
+          "description": "تحتاج صلاحية عرض التصنيفات."
+        },
+        "workspace": {
+          "confirmArchive": "هل أنت متأكد من أرشفة هذا التصنيف؟",
+          "confirmCloseUnsaved": "لديك تغييرات غير محفوظة. هل تريد الإغلاق بدون حفظ؟",
+          "confirmProceedUnsaved": "لديك تغييرات غير محفوظة. هل تريد المتابعة؟",
+          "confirmSwitchUnsaved": "لديك تغييرات غير محفوظة. هل تريد تجاهلها والانتقال لتصنيف آخر؟",
+          "savedToast": "تم حفظ التصنيف بنجاح",
+          "archive": "أرشفة",
+          "edit": "تعديل",
+          "cancel": "إلغاء",
+          "listTitle": "قائمة التصنيفات",
+          "addButton": "إضافة تصنيف",
+          "searchLabel": "بحث في التصنيفات",
+          "searchPlaceholder": "ابحث باسم التصنيف أو الرمز…",
+          "clearSearch": "مسح البحث",
+          "archiveRule": "لا يُؤرشف التصنيف إن كان منتج نشط ما زال يشير إليه.",
+          "cannotArchive": "لا يمكن حذف التصنيف لوجود منتجات مرتبطة به.",
+          "empty": {
+            "title": "لم يتم إضافة أي تصنيفات بعد",
+            "description": "ابدأ بإضافة أول تصنيف",
+            "noResults": "لا يوجد نتائج مطابقة"
+          },
+          "table": {
+            "code": "الرمز",
+            "name": "الاسم",
+            "english": "الإنجليزية",
+            "description": "الوصف",
+            "actions": "إجراءات"
+          },
+          "drawer": {
+            "editTitle": "تعديل تصنيف",
+            "createTitle": "إضافة تصنيف",
+            "editingBanner": "أنت تقوم بتعديل تصنيف",
+            "hint": "قسّم قائمة المشروبات إلى مجموعات مثل قهوة ساخنة، قهوة باردة، إضافات."
+          },
+          "aria": {
+            "archive": "أرشفة {name}",
+            "edit": "تعديل {name}"
+          }
+        },
+        "form": {
+          "editTitle": "تعديل التصنيف",
+          "createTitle": "إضافة تصنيف",
+          "code": "الرمز",
+          "nameAr": "الاسم (عربي)",
+          "nameEn": "الاسم (إنجليزي) — اختياري",
+          "description": "الوصف — اختياري",
+          "saving": "جاري الحفظ...",
+          "update": "تحديث التصنيف",
+          "save": "حفظ",
+          "cancel": "إلغاء"
+        }
+      },
+      "addons": {
+        "title": "الإضافات",
+        "description": "خيارات بسعر إضافي تُضاف للمشروبات لاحقًا عند الطلب.",
+        "unauthorized": {
+          "title": "غير مصرح بعرض الإضافات",
+          "description": "تحتاج صلاحية عرض الإضافات."
+        },
+        "workspace": {
+          "confirmArchive": "هل أنت متأكد من أرشفة هذه الإضافة؟",
+          "confirmCloseUnsaved": "لديك تغييرات غير محفوظة. هل تريد الإغلاق بدون حفظ؟",
+          "savedToast": "تم حفظ الإضافة بنجاح",
+          "archive": "أرشفة",
+          "edit": "تعديل",
+          "cancel": "إلغاء",
+          "listTitle": "قائمة الإضافات",
+          "addButton": "إضافة إضافة",
+          "searchPlaceholder": "ابحث بالاسم أو الرمز…",
+          "empty": {
+            "title": "لا توجد إضافات بعد",
+            "description": "ابدأ بإضافة أول خيار إضافي",
+            "noResults": "لا يوجد نتائج مطابقة"
+          },
+          "table": {
+            "code": "الرمز",
+            "name": "الاسم",
+            "extraPrice": "السعر الإضافي",
+            "actions": "إجراءات"
+          },
+          "drawer": {
+            "editTitle": "تعديل إضافة",
+            "createTitle": "إضافة إضافة"
+          }
+        },
+        "form": {
+          "editTitle": "تعديل إضافة",
+          "createTitle": "إضافة إضافة",
+          "code": "الرمز",
+          "nameAr": "الاسم (عربي)",
+          "nameEn": "الاسم (إنجليزي) — اختياري",
+          "extraPrice": "السعر الإضافي",
+          "saving": "جاري الحفظ...",
+          "update": "تحديث الإضافة",
+          "save": "حفظ",
+          "cancel": "إلغاء"
+        }
+      },
+      "orders": {
+        "title": "الطلبات",
+        "description": "هذه الشاشة مخصصة لإدارة ومتابعة الطلبات فقط. يتم إنشاء وتنفيذ الطلبات من شاشة نقطة البيع (POS).",
+        "unauthorized": {
+          "title": "غير مصرح بعرض الطلبات",
+          "description": "تحتاج صلاحية عرض الطلبات."
+        },
+        "filters": {
+          "searchLabel": "بحث برقم الطلب",
+          "searchPlaceholder": "مثال: أول ٨ أحرف من المعرّف",
+          "status": "الحالة",
+          "all": "الكل",
+          "fromDate": "من تاريخ",
+          "toDate": "إلى تاريخ",
+          "apply": "تطبيق",
+          "reset": "إعادة تعيين"
+        },
+        "status": {
+          "draft": "مسودة",
+          "inProgress": "قيد التنفيذ",
+          "completed": "مكتمل",
+          "canceled": "ملغي"
+        },
+        "table": {
+          "title": "سجل الطلبات",
+          "orderId": "رقم الطلب",
+          "status": "الحالة",
+          "itemsCount": "عدد العناصر",
+          "createdAt": "تاريخ الإنشاء",
+          "completedAt": "تاريخ الإكمال",
+          "action": "إجراء"
+        },
+        "goToPos": "الانتقال إلى نقطة البيع (POS)",
+        "empty": {
+          "title": "لا توجد طلبات",
+          "description": "لا توجد نتائج مطابقة، أو لم يُسجّل أي طلب بعد. يُنشأ الطلب ويُكتمل من شاشة نقطة البيع (POS)."
+        },
+        "open": "فتح",
+        "details": {
+          "unauthorizedTitle": "غير مصرح بعرض تفاصيل الطلب",
+          "unauthorizedDescription": "تحتاج صلاحية عرض الطلبات.",
+          "backToOrders": "العودة إلى الطلبات",
+          "orderId": "رقم الطلب",
+          "notes": "ملاحظات",
+          "emptyDraftHint": "هذه المسودة لا تحتوي عناصر بعد. أضف عناصر من نقطة البيع أو من هذه الصفحة قبل الإتمام.",
+          "createdAt": "تاريخ الإنشاء",
+          "completedAt": "تاريخ الإكمال",
+          "readonlyTitle": "الطلب للعرض فقط",
+          "readonlyDescription": "هذا الطلب لم يعد قابلًا للتعديل. تم تعطيل الإضافة والحذف وتعديل الكميات.",
+          "completeHint": "عند إتمام الطلب سيتم تطبيق خصم المخزون والتحقق من استهلاك الوصفات.",
+          "cannotCompleteTitle": "الإتمام غير متاح حاليًا",
+          "cannotCompleteHint": "إجراء الإتمام غير متاح حتى تكتمل الشروط المطلوبة.",
+          "itemsTitle": "عناصر الطلب",
+          "itemsEditableHint": "يمكنك إضافة العناصر وحذفها وتعديل الكميات طالما الطلب قابل للتعديل.",
+          "itemsReadonlyHint": "العناصر معروضة بوضع القراءة فقط.",
+          "total": "إجمالي الطلب",
+          "emptyTitle": "لا توجد عناصر في الطلب بعد",
+          "emptyDescription": "أضف عنصر منتج واحد على الأقل لهذا الطلب من نقطة البيع أو من هذه الصفحة.",
+          "table": {
+            "product": "المنتج",
+            "code": "الرمز",
+            "unitPrice": "سعر الوحدة",
+            "quantity": "الكمية",
+            "lineTotal": "إجمالي السطر",
+            "actions": "إجراءات"
+          },
+          "addItemForm": {
+            "title": "إضافة عنصر إلى الطلب",
+            "description": "اختر منتجًا نشطًا والكمية لإضافة سطر طلب جديد.",
+            "product": "المنتج",
+            "selectProduct": "— اختر منتجًا —",
+            "quantity": "الكمية",
+            "quantityPlaceholder": "مثال: 1 أو 2.5",
+            "submit": "إضافة عنصر",
+            "submitPending": "جاري الإضافة..."
+          },
+          "completeButton": {
+            "label": "إتمام الطلب مع خصم المخزون",
+            "pending": "جاري الإتمام..."
+          },
+          "removeButton": {
+            "ariaLabel": "حذف {name}",
+            "title": "حذف العنصر"
+          },
+          "quantityEditor": {
+            "inputAria": "كمية {name}",
+            "save": "حفظ"
+          }
+        }
+      },
+      "reports": {
+        "index": {
+          "unauthorizedTitle": "غير مصرح لك بعرض التقارير",
+          "unauthorizedDescription": "تحتاج إلى صلاحية التقارير على نطاق الفرع أو جميع الفروع.",
+          "title": "التقارير والتحليلات",
+          "description": "تقارير تشغيلية واضحة مبنية على بيانات العمل الفعلية.",
+          "cardHint": "عرض البيانات التفصيلية لهذا التقرير",
+          "cards": {
+            "orders": "تقرير الطلبات",
+            "bestSelling": "تقرير المنتجات الأكثر مبيعًا",
+            "lowStock": "تقرير المواد منخفضة المخزون",
+            "stockMovements": "تقرير أحدث حركات المخزون"
+          }
+        },
+        "unauthorizedTitle": "غير مصرح بعرض التقارير",
+        "unauthorizedDescription": "تحتاج صلاحية عرض التقارير.",
+        "orders": {
+          "title": "تقرير الطلبات",
+          "description": "راجع الطلبات المكتملة والجارية داخل نشاطك.",
+          "emptyTitle": "لا توجد سجلات طلبات",
+          "emptyDescription": "لا توجد طلبات ضمن نطاق التقرير الحالي.",
+          "unauthorizedTitle": "غير مصرح بعرض تقرير الطلبات",
+          "unauthorizedDescription": "تحتاج صلاحية عرض التقارير.",
+          "table": {
+            "order": "الطلب",
+            "status": "الحالة",
+            "items": "العناصر",
+            "createdAt": "تاريخ الإنشاء",
+            "completedAt": "تاريخ الإكمال"
+          }
+        },
+        "lowStock": {
+          "unauthorizedTitle": "غير مصرح لك بعرض تقرير انخفاض المخزون",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض التقارير.",
+          "title": "تقرير المواد منخفضة المخزون",
+          "description": "راجع المواد التي انخفضت تحت الحد الأدنى للكمية.",
+          "emptyTitle": "لا توجد مواد منخفضة المخزون",
+          "emptyDescription": "كل المواد المتابعة حاليًا أعلى من الحد الأدنى.",
+          "lowStatus": "منخفض",
+          "table": {
+            "material": "المادة",
+            "currentBalance": "الرصيد الحالي",
+            "minimum": "الحد الأدنى",
+            "status": "الحالة"
+          }
+        },
+        "bestSellingProducts": {
+          "unauthorizedTitle": "غير مصرح لك بعرض تقرير المنتجات الأكثر مبيعًا",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض التقارير.",
+          "title": "تقرير المنتجات الأكثر مبيعًا",
+          "description": "أعلى المنتجات حسب الكمية المباعة من الطلبات المكتملة.",
+          "emptyTitle": "لا توجد مبيعات منتجات بعد",
+          "emptyDescription": "أكمل بعض الطلبات لظهور البيانات في هذا التقرير.",
+          "unknownProduct": "منتج غير معروف / مؤرشف",
+          "table": {
+            "product": "المنتج",
+            "code": "الرمز",
+            "totalQuantity": "إجمالي الكمية المباعة",
+            "orderLines": "سطور الطلبات"
+          }
+        },
+        "stockMovements": {
+          "unauthorizedTitle": "غير مصرح لك بعرض تقرير حركات المخزون",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض التقارير.",
+          "title": "أحدث حركات المخزون",
+          "description": "آخر {count} حركة مسجلة على مستوى النشاط.",
+          "emptyTitle": "لا توجد حركات مخزون بعد",
+          "emptyDescription": "لا توجد سجلات حركات مخزون متاحة في هذا التقرير.",
+          "table": {
+            "material": "المادة",
+            "type": "نوع الحركة",
+            "quantity": "الكمية",
+            "createdAt": "تاريخ الإنشاء"
+          },
+          "types": {
+            "openingBalance": "رصيد افتتاحي",
+            "stockIn": "توريد",
+            "adjustmentAdd": "تسوية +",
+            "adjustmentSubtract": "تسوية -",
+            "waste": "هدر",
+            "consumption": "استهلاك"
+          }
+        }
+      },
+      "createForm": {
+        "code": "رمز النشاط (تقني)",
+        "codeHint": "يُستخدم في الروابط والمعرّفات التقنية، مثال: my-cafe",
+        "nameAr": "اسم النشاط (عربي)",
+        "nameEn": "اسم النشاط (إنجليزي) - اختياري",
+        "submit": "إنشاء النشاط",
+        "submitPending": "جاري الإنشاء..."
+      },
+      "branches": {
+        "page": {
+          "unauthorizedTitle": "غير مصرح لك بعرض الفروع",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض الفروع.",
+          "title": "الفروع",
+          "description": "النشاط: {business}"
+        },
+        "workspace": {
+          "confirmArchive": "هل أنت متأكد من أرشفة الفرع {name}؟",
+          "confirmCloseUnsaved": "لديك تغييرات غير محفوظة. هل تريد الإغلاق بدون حفظ؟",
+          "listTitle": "قائمة الفروع",
+          "addButton": "إضافة فرع",
+          "searchPlaceholder": "ابحث برمز الفرع أو الاسم العربي...",
+          "emptyTitle": "لا توجد فروع مضافة بعد",
+          "emptyDescription": "ابدأ بإضافة أول فرع.",
+          "archive": "أرشفة",
+          "edit": "تعديل",
+          "close": "إغلاق",
+          "savedToast": "تم حفظ الفرع بنجاح",
+          "status": {
+            "active": "نشط",
+            "inactive": "غير نشط"
+          },
+          "table": {
+            "code": "الرمز",
+            "name": "الاسم",
+            "status": "الحالة",
+            "actions": "إجراءات"
+          },
+          "drawer": {
+            "editTitle": "تعديل فرع",
+            "createTitle": "إضافة فرع"
+          }
+        },
+        "form": {
+          "editTitle": "تعديل الفرع",
+          "createTitle": "إضافة فرع",
+          "code": "رمز الفرع",
+          "codeHint": "استخدم رمزًا واضحًا مثل MAIN أو EAST",
+          "nameAr": "اسم الفرع (عربي)",
+          "nameEn": "اسم الفرع (إنجليزي) - اختياري",
+          "saving": "جاري الحفظ...",
+          "update": "تحديث الفرع",
+          "save": "حفظ الفرع",
+          "cancel": "إلغاء"
+        }
+      },
+      "units": {
+        "page": {
+          "unauthorizedTitle": "غير مصرح لك بعرض وحدات القياس",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض الوحدات.",
+          "title": "وحدات القياس",
+          "description": "تُستخدم لاحقًا مع المواد الخام والمخزون."
+        },
+        "workspace": {
+          "confirmArchive": "هل أنت متأكد من أرشفة هذه الوحدة؟",
+          "listTitle": "قائمة الوحدات",
+          "addButton": "إضافة وحدة",
+          "emptyTitle": "لا توجد وحدات مضافة بعد",
+          "archive": "أرشفة",
+          "edit": "تعديل",
+          "cannotArchive": "لا يمكن الأرشفة لوجود مواد خام مرتبطة.",
+          "table": {
+            "code": "الرمز",
+            "name": "الاسم",
+            "symbol": "الاختصار",
+            "actions": "إجراءات"
+          },
+          "drawer": {
+            "editTitle": "تعديل وحدة",
+            "createTitle": "إضافة وحدة"
+          }
+        },
+        "form": {
+          "editTitle": "تعديل الوحدة",
+          "createTitle": "إضافة وحدة",
+          "code": "رمز الوحدة",
+          "nameAr": "اسم الوحدة (عربي)",
+          "nameEn": "اسم الوحدة (إنجليزي) - اختياري",
+          "symbol": "رمز العرض - اختياري",
+          "symbolPlaceholder": "kg",
+          "saving": "جاري الحفظ...",
+          "update": "تحديث الوحدة",
+          "save": "حفظ الوحدة",
+          "cancel": "إلغاء"
+        }
+      },
+      "suppliers": {
+        "page": {
+          "unauthorizedTitle": "غير مصرح لك بعرض الموردين",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض الموردين.",
+          "title": "الموردون",
+          "description": "جهات توريد المواد الخام (بدون محاسبة متقدمة)."
+        },
+        "workspace": {
+          "confirmArchive": "هل أنت متأكد من أرشفة المورّد {name}؟",
+          "confirmCloseUnsaved": "لديك تغييرات غير محفوظة. هل تريد الإغلاق بدون حفظ؟",
+          "listTitle": "قائمة الموردين",
+          "addButton": "إضافة مورد",
+          "searchPlaceholder": "ابحث باسم المورد أو الهاتف أو البريد...",
+          "emptyTitle": "لا يوجد موردون مضافون بعد",
+          "emptyDescription": "ابدأ بإضافة أول مورد.",
+          "archive": "أرشفة",
+          "edit": "تعديل",
+          "cannotArchive": "لا يمكن الأرشفة لوجود مواد خام مرتبطة.",
+          "close": "إغلاق",
+          "savedToast": "تم حفظ المورد بنجاح",
+          "table": {
+            "name": "الاسم",
+            "phone": "الهاتف",
+            "email": "البريد",
+            "actions": "إجراءات"
+          },
+          "drawer": {
+            "editTitle": "تعديل مورد",
+            "createTitle": "إضافة مورد"
+          }
+        },
+        "form": {
+          "editTitle": "تعديل المورد",
+          "createTitle": "إضافة مورد",
+          "name": "اسم المورد",
+          "phone": "الهاتف - اختياري",
+          "email": "البريد الإلكتروني - اختياري",
+          "notes": "ملاحظات - اختياري",
+          "saving": "جاري الحفظ...",
+          "update": "تحديث المورد",
+          "save": "حفظ المورد",
+          "cancel": "إلغاء"
+        }
+      },
+      "stockMovements": {
+        "page": {
+          "unauthorizedTitle": "غير مصرح لك بعرض حركات المخزون",
+          "unauthorizedDescription": "هذه الصفحة متاحة فقط للمستخدمين ذوي صلاحيات المخزون.",
+          "title": "حركات المخزون",
+          "description": "دفتر المخزون: يسجّل كل تغيير على المواد الخام مع أثر الرصيد قبل/بعد."
+        },
+        "workspace": {
+          "intro": "تابع تاريخ حركة المواد عبر سجل قابل للبحث والمراجعة التشغيلية.",
+          "executorFallback": "owner@cafeflow.local",
+          "summary": {
+            "total": "إجمالي الحركات",
+            "consumption": "حركات الاستهلاك",
+            "supplyAdjust": "حركات التوريد/التسوية"
+          },
+          "table": {
+            "title": "سجل حركات المخزون"
+          },
+          "addMovement": "إضافة حركة",
+          "filters": {
+            "searchPlaceholder": "ابحث باسم المادة أو الرمز...",
+            "allTypes": "كل الأنواع",
+            "fromDate": "من",
+            "toDate": "إلى"
+          },
+          "types": {
+            "stockIn": "توريد",
+            "consumption": "استهلاك",
+            "adjustmentAdd": "تسوية (+)",
+            "adjustmentSubtract": "تسوية (-)",
+            "openingBalance": "رصيد افتتاحي",
+            "waste": "هدر",
+            "adjustment": "تسوية"
+          },
+          "columns": {
+            "dateTime": "التاريخ والوقت",
+            "material": "المادة",
+            "type": "النوع",
+            "delta": "الفارق",
+            "unit": "الوحدة",
+            "before": "قبل",
+            "after": "بعد",
+            "reference": "المرجع",
+            "executor": "المنفذ",
+            "actions": "إجراءات"
+          },
+          "empty": "لا توجد صفوف مطابقة للفلاتر الحالية.",
+          "unitCost": "تكلفة الوحدة",
+          "view": "عرض",
+          "close": "إغلاق",
+          "drawer": {
+            "newTitle": "حركة مخزون جديدة",
+            "detailsTitle": "تفاصيل الحركة"
+          },
+          "detail": {
+            "id": "المعرف",
+            "material": "المادة",
+            "type": "النوع",
+            "delta": "الفارق",
+            "unit": "الوحدة",
+            "before": "الرصيد قبل",
+            "after": "الرصيد بعد",
+            "reference": "المرجع",
+            "note": "الملاحظة",
+            "createdAt": "تاريخ الإنشاء",
+            "executor": "المنفذ"
+          }
+        },
+        "form": {
+          "title": "تسجيل حركة مخزون",
+          "description": "سجّل حركات التزويد والافتتاح والتسويات والهدر بشكل يدوي.",
+          "material": "المادة الخام",
+          "selectMaterial": "— اختر مادة —",
+          "type": "نوع الحركة",
+          "types": {
+            "openingBalance": "رصيد افتتاحي (+)",
+            "stockIn": "توريد / إدخال (+)",
+            "adjustmentAdd": "تسوية إضافة (+)",
+            "adjustmentSubtract": "تسوية خصم (-)",
+            "waste": "هدر / تلف (-)",
+            "consumption": "استهلاك (-)"
+          },
+          "quantity": "الكمية (موجبة)",
+          "quantityPlaceholder": "5 أو 5.2500",
+          "quantityHint": "أدخل قيمة موجبة فقط؛ نوع الحركة يحدد الاتجاه ({direction}).",
+          "quantityInvalidFormat": "يجب أن تكون الكمية رقمًا موجبًا (حتى 4 منازل عشرية).",
+          "quantityNonPositive": "يجب أن تكون الكمية أكبر من صفر.",
+          "direction": {
+            "increase": "زيادة",
+            "decrease": "نقص"
+          },
+          "unitCost": "تكلفة الوحدة - اختياري (حتى 4 منازل عشرية)",
+          "note": "ملاحظة - اختياري",
+          "submit": "تسجيل الحركة",
+          "submitPending": "جاري التسجيل..."
+        }
+      },
+      "rawMaterials": {
+        "page": {
+          "unauthorizedTitle": "غير مصرح لك بعرض المواد الخام",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض المواد الخام.",
+          "title": "المواد الخام",
+          "description": "عرّف المكونات التي سيتم تتبعها لاحقًا في المخزون (بدون حركات مخزون في هذه المرحلة)."
+        },
+        "workspace": {
+          "confirmArchive": "هل أنت متأكد من أرشفة المادة {name}؟",
+          "confirmCloseUnsaved": "لديك تغييرات غير محفوظة. هل تريد الإغلاق بدون حفظ؟",
+          "listTitle": "قائمة المواد الخام",
+          "addButton": "إضافة مادة خام",
+          "searchPlaceholder": "ابحث برمز المادة أو الاسم العربي...",
+          "emptyTitle": "لا توجد مواد خام مضافة بعد",
+          "emptyDescription": "ابدأ بإضافة أول مادة خام.",
+          "archive": "أرشفة",
+          "edit": "تعديل",
+          "close": "إغلاق",
+          "savedToast": "تم حفظ المادة الخام بنجاح",
+          "table": {
+            "code": "الرمز",
+            "name": "الاسم",
+            "unit": "الوحدة",
+            "supplier": "المورد",
+            "costPerUnit": "تكلفة الوحدة",
+            "minimumQuantity": "الحد الأدنى",
+            "actions": "إجراءات"
+          },
+          "drawer": {
+            "editTitle": "تعديل مادة خام",
+            "createTitle": "إضافة مادة خام"
+          }
+        },
+        "form": {
+          "editTitle": "تعديل مادة خام",
+          "createTitle": "إضافة مادة خام",
+          "sections": {
+            "identity": "الهوية",
+            "stock": "إعدادات المخزون",
+            "supplier": "ربط المورد"
+          },
+          "fields": {
+            "code": "رمز المادة",
+            "codePlaceholder": "arabica-beans",
+            "nameAr": "الاسم العربي",
+            "nameEn": "الاسم الإنجليزي - اختياري",
+            "unitId": "وحدة القياس",
+            "selectUnit": "— اختر وحدة —",
+            "costPerUnit": "تكلفة الوحدة",
+            "minimumQuantity": "الحد الأدنى للكمية",
+            "supplierId": "المورد - اختياري",
+            "noSupplier": "— بدون مورد —"
+          },
+          "saving": "جاري الحفظ...",
+          "update": "تحديث المادة الخام",
+          "save": "حفظ المادة الخام",
+          "cancel": "إلغاء",
+          "unitsRequiredHint": "أضف وحدة واحدة على الأقل قبل إنشاء المواد الخام."
+        }
+      },
+      "recipes": {
+        "page": {
+          "unauthorizedTitle": "غير مصرح لك بعرض الوصفات",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض الوصفات.",
+          "title": "الوصفات",
+          "description": "يمكن لكل منتج امتلاك وصفة واحدة توضح استهلاك المواد الخام لكل وحدة مباعة.",
+          "emptyTitle": "لا توجد منتجات",
+          "emptyDescription": "أضف منتجات أولًا من صفحة المنتجات."
+        },
+        "workspace": {
+          "title": "وصفات المنتجات",
+          "searchLabel": "بحث الوصفات",
+          "searchPlaceholder": "ابحث باسم المنتج أو الرمز...",
+          "status": {
+            "ready": "مُعدّة - {count} عناصر",
+            "missing": "لا توجد وصفة بعد"
+          },
+          "createRecipe": {
+            "description": "أنشئ الوصفة أولًا ثم أضف المواد الخام والكميات.",
+            "submit": "إنشاء وصفة",
+            "pending": "جارٍ إنشاء الوصفة..."
+          },
+          "addItem": {
+            "title": "إضافة مادة",
+            "material": "المادة الخام",
+            "selectMaterial": "— اختر —",
+            "quantity": "الكمية لكل وحدة منتج",
+            "submit": "إضافة",
+            "noMaterials": "لا توجد مواد متاحة للإضافة. أضف مواد خام جديدة أو احذف عنصرًا موجودًا."
+          },
+          "empty": {
+            "title": "لا توجد منتجات متاحة",
+            "description": "أضف منتجات أولًا ثم قم بإعداد وصفاتها.",
+            "noResults": "لا توجد منتجات مطابقة للبحث."
+          },
+          "table": {
+            "product": "المنتج",
+            "code": "الرمز",
+            "recipeStatus": "حالة الوصفة",
+            "material": "المادة",
+            "quantity": "الكمية",
+            "unit": "الوحدة",
+            "actions": "إجراءات",
+            "manage": "إدارة الوصفة",
+            "editQuantity": "تحديث",
+            "remove": "حذف",
+            "confirmRemove": "هل تريد حذف عنصر الوصفة هذا؟"
+          },
+          "drawer": {
+            "title": "تفاصيل الوصفة",
+            "titleWithName": "الوصفة: {name}",
+            "productCode": "الرمز: {code}",
+            "info": "كميات الوصفة يتم استهلاكها عند بيع المنتج عبر الطلبات المكتملة.",
+            "emptyRecipeItems": "الوصفة موجودة لكنها لا تحتوي عناصر بعد."
+          }
+        },
+        "detail": {
+          "unauthorizedTitle": "غير مصرح لك بعرض تفاصيل الوصفة",
+          "unauthorizedDescription": "تحتاج إلى صلاحية عرض الوصفات.",
+          "backToList": "العودة إلى الوصفات",
+          "title": "الوصفة: {name}",
+          "description": "الرمز: {code} - اضبط المواد الخام المطلوبة وكميات كل وحدة.",
+          "emptyTitle": "لا توجد عناصر في الوصفة بعد",
+          "emptyDescription": "أضف مادة خام واحدة على الأقل لبدء احتساب الاستهلاك.",
+          "remove": "حذف",
+          "table": {
+            "material": "المادة الخام",
+            "quantityPerUnit": "الكمية / الوحدة",
+            "unit": "الوحدة",
+            "actions": "إجراءات"
+          },
+          "createForm": {
+            "description": "أنشئ سجل وصفة لهذا المنتج قبل إضافة المكونات.",
+            "submit": "إنشاء وصفة لهذا المنتج",
+            "pending": "جارٍ الإنشاء..."
+          },
+          "addItemForm": {
+            "title": "إضافة مكوّن",
+            "description": "الكمية تعني ما يتم استهلاكه عند بيع وحدة واحدة من المنتج.",
+            "material": "المادة الخام",
+            "selectMaterial": "— اختر —",
+            "quantityPerUnit": "الكمية لكل وحدة منتج",
+            "submit": "إضافة مكوّن",
+            "pending": "جارٍ الإضافة..."
+          }
+        }
+      },
+      "consumption": {
+        "page": {
+          "unauthorizedTitle": "غير مصرح لك باستخدام شاشة الاستهلاك اليدوي",
+          "unauthorizedDescription": "تحتاج إلى صلاحية إدارة المخزون.",
+          "title": "الاستهلاك اليدوي",
+          "description": "استهلك المخزون باستخدام كميات الوصفة بدون إنشاء طلب بيع.",
+          "introLine1": "استخدم هذه الشاشة لخصم مخزون مضبوط خارج مسار إكمال طلبات نقطة البيع المعتاد.",
+          "introLine2": "لعمليات البيع القياسية، استمر باستخدام POS حيث يتم الاستهلاك تلقائيًا.",
+          "rulesTitle": "قواعد الاستخدام",
+          "rules": {
+            "1": "اختر فقط المنتجات النشطة التي تملك وصفة مُعدّة.",
+            "2": "الكمية المدخلة تمثل عدد وحدات المنتج المستهلكة.",
+            "3": "كل مادة تُخصم وفق كمية الوصفة مضروبة في الكمية المدخلة.",
+            "4": "تتوقف العملية إذا كانت أي مادة غير كافية.",
+            "5": "كل خصم ينشئ سجلات حركات مخزون للمراجعة."
+          },
+          "emptyTitle": "لا توجد منتجات نشطة متاحة",
+          "emptyDescription": "أضف منتجات نشطة أولًا قبل استخدام الاستهلاك اليدوي.",
+          "productsCardTitle": "المنتجات وجاهزية الوصفات",
+          "recipeReady": "الوصفة جاهزة ({count} عناصر)",
+          "recipeMissing": "الوصفة غير موجودة",
+          "footer": {
+            "beforeInventory": "يمكنك مراجعة الأرصدة من",
+            "inventoryLink": "المخزون",
+            "middle": "ومراجعة السجل التفصيلي من",
+            "stockMovementsLink": "حركات المخزون",
+            "afterStockMovements": "بعد كل عملية."
+          }
+        },
+        "form": {
+          "toast": {
+            "success": "تم تنفيذ الاستهلاك بنجاح."
+          },
+          "title": "تنفيذ استهلاك حسب الوصفة",
+          "description": "القاعدة: المخزون المطلوب = كمية الوصفة لكل وحدة × كمية الاستهلاك.",
+          "fields": {
+            "product": "المنتج",
+            "selectProduct": "— اختر منتجًا —",
+            "quantity": "كمية الاستهلاك",
+            "quantityPlaceholder": "مثال: 2 أو 2.5",
+            "note": "ملاحظة (اختياري)"
+          },
+          "errors": {
+            "quantityFormat": "أدخل كمية موجبة صالحة (حتى 3 منازل عشرية).",
+            "recipeMissing": "لا يمكن التنفيذ: المنتج المحدد لا يملك وصفة.",
+            "shortageBy": "نقص بمقدار"
+          },
+          "buttons": {
+            "submit": "تنفيذ الاستهلاك",
+            "pending": "جارٍ تنفيذ الاستهلاك..."
+          },
+          "preview": {
+            "title": "معاينة الاستهلاك",
+            "selectProduct": "اختر منتجًا لعرض معاينة الاستهلاك حسب الوصفة.",
+            "recipeMissing": "لا توجد وصفة لهذا المنتج، لذلك لا تتوفر المعاينة.",
+            "enterQuantity": "أدخل كمية صالحة لحساب المواد المطلوبة.",
+            "shortageHint": "هناك مواد غير كافية. عالج النقص قبل التنفيذ.",
+            "table": {
+              "material": "المادة الخام",
+              "recipePerUnit": "كمية الوصفة / الوحدة",
+              "required": "المطلوب",
+              "available": "المتاح",
+              "status": "الحالة"
+            },
+            "status": {
+              "ok": "كافٍ",
+              "short": "نقص"
+            }
+          },
+          "success": {
+            "title": "تم تنفيذ الاستهلاك",
+            "product": "المنتج",
+            "quantity": "الكمية",
+            "movementsCount": "حركات المخزون",
+            "executedAt": "وقت التنفيذ",
+            "executor": "المنفذ",
+            "reference": "المرجع",
+            "openStockMovements": "فتح حركات المخزون"
+          }
+        }
+      },
+      "inventory": {
+        "page": {
+          "unauthorizedTitle": "الوصول إلى المخزون غير مسموح",
+          "unauthorizedDescription": "هذه الشاشة تتطلب صلاحيات المخزون من دورك أو من تخصيص يدوي.",
+          "title": "مخزون المواد الخام",
+          "description": "أرصدة المواد الخام الحالية مع حالة الحد الأدنى وسجل التسويات.",
+          "emptyTitle": "لا توجد مواد خام",
+          "emptyDescription": "قم بتعريف المواد أولًا من صفحة المواد الخام."
+        },
+        "workspace": {
+          "intro": "مساحة المخزون تساعدك على متابعة الأرصدة واكتشاف النقص وتنفيذ التسويات اليدوية مع سجل مراجعة.",
+          "summary": {
+            "total": "إجمالي المواد",
+            "low": "مخزون منخفض",
+            "out": "نفاد المخزون"
+          },
+          "searchPlaceholder": "ابحث باسم المادة أو الرمز...",
+          "filters": {
+            "allStatuses": "كل الحالات"
+          },
+          "status": {
+            "good": "جيد",
+            "low": "منخفض",
+            "out": "منفد"
+          },
+          "empty": {
+            "noRows": "لا توجد مواد خام. أضف المواد أولًا لبدء متابعة المخزون.",
+            "noResults": "لا توجد مواد مطابقة للفلاتر الحالية."
+          },
+          "table": {
+            "material": "المادة",
+            "unit": "الوحدة",
+            "currentBalance": "الرصيد الحالي",
+            "minimumQuantity": "الحد الأدنى",
+            "status": "الحالة",
+            "lastUpdated": "آخر تحديث",
+            "actions": "إجراءات",
+            "adjust": "تسوية"
+          },
+          "drawer": {
+            "title": "تسوية المخزون",
+            "titleWithName": "تسوية المخزون: {name}"
+          },
+          "adjustment": {
+            "currentBalance": "الرصيد الحالي",
+            "newBalance": "الرصيد الجديد",
+            "delta": "الفارق",
+            "increase": "زيادة",
+            "decrease": "نقص",
+            "reason": "السبب",
+            "note": "ملاحظة - اختياري",
+            "submit": "تطبيق التسوية",
+            "pending": "جارٍ تطبيق التسوية...",
+            "reasonOptions": {
+              "manualAdjustment": "تسوية يدوية",
+              "countingReconciliation": "مطابقة الجرد",
+              "damagedOrWaste": "تلف / هدر",
+              "systemOrDataCorrection": "تصحيح نظام أو بيانات"
+            }
+          }
+        }
+      },
+      "staff": {
+        "page": {
+          "title": "👥 إدارة الطاقم",
+          "unauthorizedIntro": "عرض أعضاء الطاقم يتطلب صلاحية مناسبة.",
+          "unauthorizedTitle": "غير مصرح",
+          "unauthorizedDescription": "غير مسموح لك بعرض صفحة الطاقم. اطلب صلاحية عرض المستخدمين من مالك النشاط إذا كانت مناسبة لدورك.",
+          "businessLoadFailed": "تعذّر تحميل بيانات النشاط.",
+          "dataUnavailableTitle": "البيانات غير متاحة",
+          "dataUnavailableDescription": "حاول إعادة تحميل الصفحة.",
+          "staffCount": "عدد الطاقم",
+          "pendingInvites": "الدعوات المعلّقة",
+          "allBranches": "كل الفروع"
+        },
+        "workspace": {
+          "confirmDiscardChanges": "لديك تعديلات غير محفوظة. هل تريد الإغلاق رغم ذلك؟",
+          "filters": {
+            "title": "الفلاتر",
+            "searchStaffPlaceholder": "ابحث بالاسم أو مُعرّف الدخول...",
+            "searchInvitesPlaceholder": "ابحث بملصق الدعوة أو بيانات التواصل أو المُعرّف...",
+            "clearSearchAria": "مسح البحث",
+            "staffRoleAria": "تصفية الموظفين حسب الدور",
+            "staffBranchAria": "تصفية الموظفين حسب الفرع",
+            "staffStatusAria": "تصفية الموظفين حسب الحالة",
+            "inviteRoleAria": "تصفية الدعوات حسب الدور",
+            "inviteStatusAria": "تصفية الدعوات حسب الحالة",
+            "inviteBranchAria": "تصفية الدعوات حسب الفرع",
+            "allRoles": "كل الأدوار",
+            "allBranches": "كل الفروع",
+            "allStatuses": "كل الحالات",
+            "activeStatus": "النشط فقط",
+            "allInviteStatuses": "كل حالات الدعوة",
+            "allOrNoBranch": "كل الفروع / بدون فرع",
+            "noBranchOnly": "بدون فرع فقط"
+          },
+          "members": {
+            "title": "أعضاء الطاقم",
+            "subtitle": "إدارة أعضاء الفريق النشطين ({count})",
+            "addButton": "إضافة موظف",
+            "emptyTitle": "لا يوجد أعضاء طاقم بعد",
+            "emptyDescription": "ابدأ بإنشاء أول دعوة لأحد الموظفين.",
+            "editButton": "تعديل",
+            "archiveButton": "أرشفة",
+            "noFilterResults": "لا يوجد أعضاء مطابقون للفلاتر الحالية.",
+            "table": {
+              "name": "الاسم",
+              "login": "الدخول",
+              "role": "الدور",
+              "status": "الحالة",
+              "scope": "النطاق",
+              "branch": "الفرع",
+              "actions": "إجراءات"
+            }
+          },
+          "invites": {
+            "title": "دعوات الطاقم",
+            "subtitle": "تابع الدعوات المعلقة والمكتملة. عدد المعلّق:",
+            "filtersTitle": "فلاتر الدعوات",
+            "finalLoginLabel": "معرّف الدخول النهائي",
+            "contactLabel": "التواصل",
+            "noFilterResults": "لا توجد دعوات مطابقة للفلاتر الحالية.",
+            "emptyDescription": "لا توجد دعوات بعد. استخدم + إضافة موظف لإنشاء دعوة.",
+            "status": {
+              "pending": "معلّقة",
+              "accepted": "مقبولة",
+              "cancelled": "ملغاة",
+              "expired": "منتهية"
+            },
+            "table": {
+              "publicLabel": "الملصق العام",
+              "role": "الدور",
+              "scope": "النطاق",
+              "branch": "الفرع",
+              "status": "الحالة",
+              "expiresAt": "تنتهي في",
+              "invitedBy": "تمت الدعوة بواسطة",
+              "createdAt": "تاريخ الإنشاء",
+              "actions": "إجراءات"
+            }
+          },
+          "drawer": {
+            "editTitle": "تعديل عضو طاقم",
+            "createTitle": "إضافة عضو طاقم",
+            "close": "إغلاق"
+          },
+          "toast": {
+            "default": "تم الحفظ بنجاح"
+          }
+        },
+        "form": {
+          "saveSuccessFallback": "تم تحديث عضو الطاقم بنجاح.",
+          "resetSuccessFallback": "تمت إعادة الصلاحيات إلى إعدادات الدور الافتراضية.",
+          "editTitle": "تعديل عضو طاقم",
+          "createTitle": "إضافة عضو طاقم",
+          "editDescription": "حدّث الدور والنطاق والفرع والصلاحيات المخصصة.",
+          "createInfoTitle": "كيف تعمل دعوة الطاقم",
+          "createInfoDescription": "اختر الدور والصلاحيات، أنشئ رابط الدعوة، ثم شاركه مع الموظف لإكمال التسجيل.",
+          "steps": {
+            "title": "مسار الدعوة",
+            "items": {
+              "1": "تحديد الدور",
+              "2": "تحديد النطاق",
+              "3": "تحديد الصلاحيات",
+              "4": "إنشاء الدعوة",
+              "5": "مشاركة الرابط"
+            }
+          },
+          "fields": {
+            "role": "الدور",
+            "roleHint": "وصف الدور",
+            "scope": "نطاق الصلاحيات",
+            "branch": "الفرع"
+          },
+          "scope": {
+            "allBranches": "كل الفروع (عام)",
+            "branchOnly": "فرع محدد",
+            "ownOnly": "سجلاتي فقط",
+            "none": "بدون وصول"
+          },
+          "branch": {
+            "selectRequired": "اختر الفرع",
+            "notRequired": "الفرع غير مطلوب",
+            "hintRequired": "الفرع مطلوب عند اختيار نطاق فرع محدد.",
+            "hintNotRequired": "الفرع اختياري في هذا النطاق."
+          },
+          "templates": {
+            "title": "قالب الصلاحيات",
+            "current": "القالب الحالي"
+          },
+          "permissions": {
+            "title": "الصلاحيات المخصصة",
+            "description": "الصلاحيات الفعالة = صلاحيات الدور الافتراضية + الصلاحيات المضافة - الصلاحيات المسحوبة.",
+            "forbiddenForRole": "هذه الصلاحية غير متاحة للدور المحدد.",
+            "status": {
+              "added": "مضافة",
+              "removed": "مسحوبة",
+              "default": "افتراضية"
+            }
+          },
+          "contact": {
+            "title": "بيانات تواصل الدعوة (اختياري)",
+            "emailLabel": "بريد التواصل (اختياري)",
+            "emailPlaceholder": "name@example.com",
+            "phoneLabel": "الهاتف / واتساب (اختياري)",
+            "phonePlaceholder": "+218...",
+            "noteLabel": "ملاحظة الدعوة (اختياري)",
+            "notePlaceholder": "ملاحظة داخلية لهذه الدعوة..."
+          },
+          "summary": {
+            "title": "ملخص الدعوة",
+            "role": "الدور",
+            "scope": "النطاق",
+            "branch": "الفرع",
+            "template": "القالب",
+            "effectivePermissions": "الصلاحيات الفعالة",
+            "inviteStatus": "حالة الدعوة",
+            "inviteStatusValue": "سيتم إنشاؤها بعد الإرسال",
+            "noBranchSelected": "لم يتم اختيار فرع",
+            "notApplicable": "— (غير منطبق)"
+          },
+          "success": {
+            "shareTitle": "دعوة طاقم - CafeFlow",
+            "title": "تم إنشاء الدعوة بنجاح",
+            "publicLabelTitle": "الملصق العام للدعوة",
+            "publicLabelHint": "يظهر هذا الملصق مؤقتًا قبل القبول ويُستخدم للمطابقة الآمنة.",
+            "warning": "شارك الرابط فقط مع الشخص المقصود. أي شخص يملك الرابط يمكنه إكمال هذه الدعوة.",
+            "inviteLink": "رابط الدعوة",
+            "copyLink": "نسخ الرابط",
+            "copyShareText": "نسخ نص المشاركة",
+            "shareNative": "مشاركة",
+            "shareWhatsapp": "واتساب",
+            "copiedInviteUrl": "تم نسخ رابط الدعوة",
+            "copiedShareText": "تم نسخ نص المشاركة",
+            "shared": "تمت المشاركة بنجاح",
+            "openedWhatsapp": "تم فتح واتساب",
+            "copyFallback": "انسخ يدويًا:",
+            "doneCta": "تم - إغلاق",
+            "doneCtaToast": "تم إنشاء الدعوة بنجاح"
+          },
+          "buttons": {
+            "save": "حفظ التعديلات",
+            "saving": "جارٍ الحفظ...",
+            "invite": "إنشاء الدعوة",
+            "inviting": "جارٍ إنشاء الدعوة...",
+            "cancel": "إلغاء"
+          },
+          "loginReadOnly": "معرّف الدخول النظامي (للقراءة فقط)",
+          "reset": {
+            "confirm": "هل تريد تصفير الصلاحيات المخصصة والعودة لإعدادات الدور الافتراضية؟",
+            "submit": "تصفير الصلاحيات المخصصة",
+            "pending": "جارٍ التصفير..."
+          }
+        },
+        "inviteActions": {
+          "copyFallback": "انسخ الرابط يدويًا:",
+          "newLink": "رابط دعوة جديد",
+          "publicLabel": "الملصق العام",
+          "copy": "نسخ",
+          "copied": "تم النسخ",
+          "whatsapp": "واتساب",
+          "regenerate": "إعادة توليد الرابط",
+          "resend": "إعادة إرسال الرابط",
+          "confirmCancel": "هل تريد إلغاء هذه الدعوة الآن؟",
+          "cancel": "إلغاء الدعوة"
+        }
+      }
+    }
+  },
+  "pos": {
+    "unauthorized": {
+      "title": "غير مصرح باستخدام نقطة البيع",
+      "description": "هذه الشاشة تتطلب صلاحية الوصول إلى POS من دورك الحالي أو من التخصيص اليدوي."
+    },
+    "categories": {
+      "all": "الكل",
+      "fallback": "تصنيف"
+    },
+    "header": {
+      "title": "نقطة البيع",
+      "subtitle": "بيع مباشر سريع",
+      "user": "اسم المستخدم",
+      "role": "الدور",
+      "branch": "الفرع",
+      "business": "الكافي"
+    },
+    "search": {
+      "placeholder": "ابحث باسم المنتج أو امسح باركود..."
+    },
+    "product": {
+      "popular": "الأكثر طلبًا",
+      "lowStock": "مخزون منخفض",
+      "outOfStock": "غير متاح",
+      "tapToAdd": "اضغط للإضافة"
+    },
+    "order": {
+      "currentOrder": "الطلب الحالي",
+      "itemsCount": "{count} عنصر",
+      "emptyTitle": "لم يتم إضافة أي عناصر بعد",
+      "emptyDescription": "اختر منتج من القائمة لبدء الطلب"
+    },
+    "totals": {
+      "subtotal": "المجموع الفرعي",
+      "tax": "الضريبة",
+      "discount": "الخصم",
+      "total": "الإجمالي"
+    },
+    "payment": {
+      "title": "طريقة الدفع",
+      "cash": "كاش",
+      "banking": "خدمة مصرفية",
+      "summary": "طريقة الدفع: {method}",
+      "bankingMethods": {
+        "bank_card": "بطاقة مصرفية",
+        "edfa_li": "إدفع لي",
+        "mobi_cash": "موبي كاش",
+        "masrafi_pay": "مصرفي باي",
+        "yusr_pay": "يسر باي",
+        "yusr_pay_qr": "يسر باي - QR",
+        "sadad": "سداد",
+        "sahara_pay": "صحارى باي"
+      }
+    },
+    "actions": {
+      "goToOrders": "الانتقال إلى إدارة الطلبات",
+      "signOut": "تسجيل الخروج",
+      "completeOrder": "إتمام الطلب",
+      "submittingOrder": "جاري إتمام الطلب...",
+      "remove": "حذف"
+    },
+    "mobile": {
+      "hideCart": "إخفاء السلة",
+      "showCart": "عرض السلة ({count})"
+    },
+    "toast": {
+      "orderCompleted": "تم إتمام الطلب بنجاح",
+      "productAdded": "تمت إضافة {product}"
+    }
+  },
+  "staff": {
+    "title": "إدارة الطاقم"
+  },
+  "invite": {
+    "title": "دعوة انضمام للطاقم",
+    "page": {
+      "title": "دعوة تسجيل الطاقم",
+      "invalid": {
+        "title": "رابط دعوة غير صالح",
+        "description": "رابط الدعوة مفقود أو غير صحيح."
+      },
+      "notFound": {
+        "title": "الدعوة غير موجودة",
+        "description": "لم يتم العثور على دعوة مطابقة لهذا الرابط. اطلب رابطًا جديدًا من إدارة النشاط."
+      },
+      "fields": {
+        "businessLabel": "النشاط:",
+        "roleLabel": "الدور:",
+        "branchLabel": "الفرع:",
+        "templateLabel": "قالب الصلاحيات:",
+        "templateValue": "{template} — {count} صلاحية فعّالة",
+        "allBranches": "كل الفروع"
+      },
+      "loginHint": {
+        "prefix": "سيتم إنشاء",
+        "systemLoginTitle": "مُعرّف دخول نظامي",
+        "roleBased": "مرتبط بالدور",
+        "pattern": "نمط المعرّف:",
+        "suffix": "(مثال). احتفظ به لتسجيل الدخول."
+      },
+      "immutabilityNote": "لا يمكن تعديل الدور أو الفرع أو الصلاحيات من هذه الصفحة.",
+      "blocked": {
+        "cancelled": "تم إلغاء هذه الدعوة من إدارة النشاط.",
+        "expired": "انتهت صلاحية هذه الدعوة. اطلب رابطًا جديدًا من إدارة النشاط."
+      },
+      "signedIn": {
+        "title": "يرجى تسجيل الخروج أولًا",
+        "description": "لإكمال تسجيل الطاقم عبر هذه الدعوة، سجّل الخروج من الحساب الحالي ثم افتح الرابط مرة أخرى."
+      }
+    },
+    "register": {
+      "alreadyAccepted": "تم قبول هذه الدعوة مسبقًا.",
+      "fields": {
+        "firstNameAr": "الاسم الأول (عربي)",
+        "lastNameAr": "اسم العائلة (عربي)",
+        "firstNameEn": "الاسم الأول (إنجليزي)",
+        "lastNameEn": "اسم العائلة (إنجليزي)",
+        "arabicHint": "الأسماء العربية تظهر في لوحة التحكم والتقارير.",
+        "englishHint": "أجزاء الاسم الإنجليزية تُستخدم لبناء مُعرّف الدخول التقني.",
+        "password": "كلمة المرور (8 أحرف على الأقل)",
+        "confirmPassword": "تأكيد كلمة المرور (8 أحرف على الأقل)"
+      },
+      "submit": "إكمال التسجيل",
+      "submitPending": "جاري إكمال التسجيل...",
+      "success": {
+        "title": "اكتمل التسجيل بنجاح",
+        "description": "تم تفعيل حساب الطاقم بنجاح.",
+        "fields": {
+          "name": "الاسم (عربي)",
+          "role": "الدور"
+        },
+        "shortLoginTitle": "جزء الدخول المختصر",
+        "fullLoginLabel": "مُعرّف الدخول الكامل:",
+        "fullLoginHint": "استخدم هذا المعرّف بالكامل عند تسجيل الدخول.",
+        "fullLoginSubHint": "احتفظ بهذه القيمة في مكان آمن، فهي مطلوبة في كل تسجيل دخول لاحق.",
+        "copyButton": "نسخ مُعرّف الدخول الكامل",
+        "copied": "تم نسخ مُعرّف الدخول",
+        "copyFallbackPrompt": "انسخ المُعرّف يدويًا:",
+        "finalHint": "بعد تسجيل الدخول، سيتم تطبيق الدور وصلاحيات الفرع حسب هذه الدعوة.",
+        "signInButton": "الانتقال إلى تسجيل الدخول",
+        "signInNewTabButton": "فتح تسجيل الدخول في تبويب جديد"
+      }
+    }
+  },
+  "platform": {
+    "title": "لوحة المنصة",
+    "layout": {
+      "unauthorizedTitle": "الوصول إلى المنصة مقيّد",
+      "unauthorizedDescription": "هذا القسم متاح فقط لمشغّلي منصة CafeFlow المصرّح لهم.",
+      "unauthorizedHintTitle": "إذا كنت أنت المشغّل المفترض",
+      "unauthorizedHintDescription": "يجب توفير الشرطين معًا في بيئة التشغيل:\n• متغير البيئة PLATFORM_OWNER_EMAIL — نفس البريد الذي تسجّل به الدخول (لا يُعرض القيمة هنا).\n• حقل قاعدة البيانات isPlatformOwner — يجب أن يكون true لصف المستخدم نفسه.\nثم سجّل الدخول من جديد. حسابات الضيوف/الأعمال وحدها لا تفتح هذه الواجهة.",
+      "stepUpTitle": "تأكيد دخول لوحة المشغّل",
+      "stepUpDescription": "أدخل كلمة مرور حساب CafeFlow مرة أخرى. البريد مثبت مسبقًا عبر الجلسة؛ هذه الخطوة تثبت أنك ما زلت تملك كلمة مرور حساب المشغّل.",
+      "stepUpDescriptionTotp": "أدخل كلمة مرور الحساب والرمز المكوّن من 6 أرقام من تطبيق المصادقة. أسرار الخادم لا تُعرض هنا.",
+      "stepUpDescriptionExtra": "أدخل كلمة مرور الحساب وعبارة المرور الإضافية المعرّفة في البيئة (PLATFORM_EXTRA_SECRET). القيمة نفسها لا تُعرض هنا.",
+      "stepUpDescriptionBoth": "أدخل كلمة مرور الحساب ورمز المصادقة الثنائية وعبارة المرور الإضافية. أسرار الخادم لا تُعرض على هذه الشاشة.",
+      "stepUpPasswordLabel": "كلمة مرور الحساب",
+      "stepUpTotpLabel": "رمز المصادقة (6 أرقام)",
+      "stepUpTotpHint": "رمز زمني من التطبيق الذي سجّلت فيه سرّ TOTP الخاص بالمشغّل.",
+      "stepUpExtraSecretLabel": "عبارة مرور المشغّل",
+      "stepUpExtraSecretHint": "يجب أن تطابق PLATFORM_EXTRA_SECRET في بيئة التشغيل (وليس البريد).",
+      "stepUpSubmit": "فتح لوحة المشغّل",
+      "stepUpSubmitting": "جارٍ التحقق…",
+      "stepUpSecurityNote": "يفضّل استخدام HTTPS في الإنتاج. بعد مدة ستُطلب إعادة الإدخال. تسجيل الخروج يلغي هذا القفل الإضافي."
+    },
+    "dashboard": {
+      "title": "لوحة المنصة",
+      "description": "لوحة تشغيل مركزية لمتابعة الاشتراكات وصحة الأعمال عبر جميع المستأجرين.",
+      "cards": {
+        "businesses": "الأعمال",
+        "subscriptions": "الاشتراكات",
+        "trialing": "في التجربة",
+        "active": "نشط",
+        "pastDue": "متأخر الدفع",
+        "expired": "منتهي",
+        "canceled": "ملغي",
+        "withoutPlan": "بدون باقة"
+      },
+      "status": {
+        "TRIALING": "تجريبي",
+        "ACTIVE": "نشط",
+        "PENDING_PAYMENT": "بانتظار الدفع",
+        "PAST_DUE": "متأخر",
+        "CANCELED": "ملغي",
+        "EXPIRED": "منتهي"
+      },
+      "billing": {
+        "monthly": "شهري",
+        "yearly": "سنوي"
+      },
+      "trial": {
+        "none": "لا توجد فترة تجريبية",
+        "expired": "انتهت التجربة بتاريخ {date}",
+        "active": "تنتهي التجربة في {date} (متبقي {days} يوم)"
+      },
+      "landingManager": {
+        "title": "إدارة المحتوى المركزية",
+        "description": "إدارة رسائل صفحة الهبوط بالعربية والإنجليزية من شاشة تشغيل واحدة.",
+        "action": "فتح إدارة محتوى صفحة الهبوط"
+      },
+      "listHint": "يتم عرض أحدث الأعمال أولًا لتسهيل المتابعة التشغيلية السريعة.",
+      "fields": {
+        "businessCode": "رمز النشاط",
+        "owner": "المالك",
+        "status": "الحالة",
+        "plan": "الباقة",
+        "billing": "دورة الفوترة",
+        "amount": "المبلغ المحصّل",
+        "startsAt": "تاريخ البداية",
+        "endsAt": "تاريخ الانتهاء",
+        "trialEndsAt": "نهاية التجربة",
+        "latestPayment": "آخر عملية دفع"
+      },
+      "noSubscription": "لا يوجد اشتراك فعّال مرتبط بهذا النشاط.",
+      "withoutSubscriptionLabel": "بدون اشتراك",
+      "notApplicable": "—",
+      "table": {
+        "business": "النشاط",
+        "code": "الرمز",
+        "owner": "المالك",
+        "plan": "الباقة",
+        "status": "الحالة",
+        "trialEnds": "نهاية التجربة"
+      },
+      "quickNav": {
+        "financeTitle": "المالية والأرقام",
+        "financeDescription": "الاشتراكات، طلبات الدفع، أسعار الباقات، وإيراد نقاط البيع (الطلبات المكتملة) لجميع الأعمال.",
+        "financeCta": "فتح شاشة المالية",
+        "reportsTitle": "تقارير تفصيلية",
+        "reportsDescription": "التسجيلات الجديدة، التجارب القاربة على الانتهاء، الاشتراكات المتأخرة، وأحدث انضمام الأعمال.",
+        "reportsCta": "فتح تقارير المشغّل"
+      }
+    },
+    "finance": {
+      "title": "مالية المنصّة",
+      "description": "لقطة مالية شاملة عبر المستأجرين: فوترة الاشتراك، طلبات الدفع، أسعار الباقات، وإيراد الطلبات المكتملة.",
+      "backPlatform": "← الرئيسية",
+      "openReports": "تقارير المشغّل ←",
+      "cards": {
+        "activeSubscriptions": "صفوف اشتراك فعّالة",
+        "recordedSubscriptionCharges": "مجموع المبالغ المحصّلة في الاشتراك",
+        "recordedSubscriptionChargesHint": "حقل chargedAmount على الاشتراكات غير المؤرشفة",
+        "pendingPaymentRequests": "طلبات دفع معلّقة",
+        "paidPaymentRequests": "طلبات دفع مدفوعة (كل الفترات)",
+        "paidPaymentRequestsHint": "مجموع المبالغ بحالة PAID"
+      },
+      "gmv": {
+        "title": "مبيعات المستأجرين (نقطة البيع)",
+        "hint": "مجموع أسطر الطلبات المكتملة: الكمية × سعر المنتج الأساسي. إضافات الطلب خارج النطاق في هذه المرحلة.",
+        "allTime": "إيراد مكتمل (كل الوقت)",
+        "last30Days": "إيراد مكتمل (آخر 30 يومًا)",
+        "mrrHintLabel": "السعر الشهري للاشتراكات النشطة/التجريبية (مرجع)"
+      },
+      "paymentMix": {
+        "title": "طلبات الدفع حسب الحالة"
+      },
+      "subscriptionsByStatus": {
+        "title": "الاشتراكات حسب الحالة",
+        "status": "الحالة",
+        "count": "العدد",
+        "charged": "المحصّل (مجموع)",
+        "monthlyPrice": "السعر الشهري (مجموع)"
+      },
+      "plans": {
+        "title": "باقات الأسعار والاعتماد",
+        "code": "الرمز",
+        "name": "الاسم",
+        "listPrice": "سعر القائمة",
+        "branchLimit": "الفروع",
+        "staffLimit": "الطاقم",
+        "activeSubs": "اشتراكات فعّالة"
+      },
+      "recentPayments": {
+        "title": "أحدث طلبات الدفع",
+        "when": "تاريخ الإنشاء",
+        "business": "النشاط",
+        "plan": "الباقة",
+        "amount": "المبلغ",
+        "status": "الحالة",
+        "provider": "المزوّد",
+        "empty": "لا توجد طلبات دفع بعد."
+      },
+      "subscriptionStatus": {
+        "ACTIVE": "نشط",
+        "TRIALING": "تجريبي",
+        "PENDING_PAYMENT": "بانتظار الدفع",
+        "PAST_DUE": "متأخر",
+        "CANCELED": "ملغي",
+        "EXPIRED": "منتهي"
+      },
+      "paymentStatus": {
+        "PENDING": "معلّق",
+        "PAID": "مدفوع",
+        "FAILED": "فشل",
+        "CANCELED": "ملغي"
+      }
+    },
+    "reports": {
+      "title": "تقارير المنصّة",
+      "description": "متابعة تشغيلية عبر الأعمال: وتيرة التسجيل، مخاطر الاشتراك، وأحدث الانضمامات.",
+      "backPlatform": "← الرئيسية",
+      "openFinance": "شاشة المالية ←",
+      "subscriptionStatus": {
+        "ACTIVE": "نشط",
+        "TRIALING": "تجريبي",
+        "PENDING_PAYMENT": "بانتظار الدفع",
+        "PAST_DUE": "متأخر",
+        "CANCELED": "ملغي",
+        "EXPIRED": "منتهي"
+      },
+      "cards": {
+        "totalBusinesses": "الأعمال (الكل)",
+        "new30d": "أعمال جديدة (30 يومًا)",
+        "new30dHint": "أنشئت خلال آخر 30 يومًا",
+        "new90d": "أعمال جديدة (90 يومًا)",
+        "new90dHint": "أنشئت خلال آخر 90 يومًا",
+        "trialEndingSoon": "تجارب تنتهي خلال 7 أيام",
+        "trialEndingSoonHint": "اشتراكات تجريبية تنتهي تجربتها خلال أسبوع"
+      },
+      "sections": {
+        "empty": "لا يوجد شيء لعرضه في هذه القائمة حاليًا.",
+        "ends": "الانتهاء",
+        "trialing": {
+          "title": "تجارب قاربة على الانتهاء",
+          "hint": "ركّز المتابعة قبل مسارات الإيقاف التلقائي.",
+          "ends": "نهاية التجربة"
+        },
+        "pastDue": {
+          "title": "اشتراكات متأخرة الدفع",
+          "hint": "أعمال تحتاج تواصلًا لتجديد أو سداد."
+        },
+        "pendingPayment": {
+          "title": "دفع معلّق (حالة الاشتراك)",
+          "hint": "بدأ السداد لكن الاشتراك ما زال في انتظار إتمام الدفع."
+        },
+        "expired": {
+          "title": "اشتراكات منتهية (عيّنة)",
+          "hint": "أحدث الصفوف بحالة منتهي (حد أقصى للعرض)."
+        },
+        "signups": {
+          "title": "أحدث تسجيلات الأعمال"
+        }
+      },
+      "table": {
+        "business": "النشاط",
+        "code": "الرمز",
+        "owner": "المالك",
+        "created": "تاريخ الإنشاء",
+        "subscription": "الاشتراك",
+        "noSubscription": "بدون اشتراك",
+        "plan": "الباقة",
+        "amount": "المبلغ",
+        "starts": "البداية"
+      }
+    },
+    "landingEditor": {
+      "title": "محرر محتوى صفحة الهبوط",
+      "description": "محرر خاص بالمنصة لإدارة رسائل صفحة الهبوط ثنائية اللغة.",
+      "arPrefix": "عربي",
+      "enPrefix": "إنجليزي",
+      "saveButton": "حفظ محتوى صفحة الهبوط",
+      "fields": {
+        "heroBadge": "شارة المقدمة",
+        "heroTitle": "عنوان المقدمة",
+        "heroDescription": "وصف المقدمة",
+        "primaryCta": "نص زر الإجراء الأساسي",
+        "pricingIntro": "مقدمة الأسعار",
+        "featuresTitle": "عنوان المزايا",
+        "faqTitle": "عنوان الأسئلة الشائعة",
+        "contactText": "نص التواصل"
+      }
+    }
+  },
+  "serverActions": {
+    "subscription": {
+      "noSubscription": "لا يوجد اشتراك أو باقة فعّالة لهذا العمل.",
+      "notUsable": "حالة الاشتراك الحالية ({status}) لا تسمح بهذه العملية.",
+      "branchLimit": "لقد وصلت إلى حد الفروع المسموح في خطتك الحالية ({limit}).",
+      "staffLimit": "لقد وصلت إلى حد الطاقم في خطتك الحالية ({limit})، بما في ذلك الدعوات المعلّقة.",
+      "unknown": "تعذّر التحقق من حدود الاشتراك."
+    },
+    "catalog": {
+      "mustSignIn": "يجب تسجيل الدخول أولاً.",
+      "selectBusinessFirst": "يجب اختيار العمل الحالي من صفحة اختيار العمل قبل المتابعة.",
+      "notAuthorizedCatalog": "ليست لديك صلاحية إدارة هذا القسم من الكتالوج."
+    },
+    "auth": {
+      "signIn": {
+        "missingFields": "يرجى إدخال البريد الإلكتروني أو معرّف الدخول وكلمة المرور.",
+        "invalidCredentials": "بيانات الدخول غير صحيحة."
+      },
+      "signUp": {
+        "missingFields": "يرجى تعبئة جميع الحقول المطلوبة.",
+        "invalidEmail": "يرجى إدخال بريد إلكتروني صالح.",
+        "passwordTooShort": "يجب أن تكون كلمة المرور 8 أحرف على الأقل.",
+        "passwordMismatch": "كلمة المرور وتأكيدها غير متطابقتين.",
+        "emailTaken": "هذا البريد الإلكتروني مسجّل مسبقًا.",
+        "nameEnTooLong": "الاسم بالإنجليزية طويل جدًا (الحد الأقصى 120 حرفًا)."
+      }
+    },
+    "invite": {
+      "completeStaff": {
+        "missingToken": "رابط الدعوة غير موجود.",
+        "alreadySignedIn": "أنت مسجّل الدخول بالفعل. افتح لوحة التحكم بدلًا من إكمال دعوة في هذه الجلسة.",
+        "missingArabicNames": "يرجى إدخال الاسم الأول والأخير بالعربية.",
+        "invalidEnglishNameParts": "يرجى إدخال أحرف إنجليزية صالحة لأجزاء اسم الدخول التقني.",
+        "passwordTooShort": "يجب أن تكون كلمة المرور 8 أحرف على الأقل.",
+        "passwordMismatch": "كلمة المرور وتأكيدها غير متطابقتين.",
+        "invalidInvite": "هذه الدعوة غير صالحة أو لم يعد العمل متاحًا.",
+        "inviteAlreadyAccepted": "تم قبول هذه الدعوة مسبقًا.",
+        "inviteCancelled": "تم إلغاء هذه الدعوة.",
+        "inviteInvalidStatus": "لا يمكن استخدام هذه الدعوة بعد الآن.",
+        "inviteExpired": "انتهت صلاحية هذه الدعوة.",
+        "roleNotAssignable": "الدعوة تشير إلى دور لا يمكن تسجيله من صفحة الدعوة.",
+        "inviteBranchMissing": "الفرع المرتبط بهذه الدعوة لم يعد متاحًا.",
+        "permissionSafety": "لا يمكن أن يتضمّن هذا الدور صلاحيات حساسة: {permissions}",
+        "systemLoginAllocationFailed": "تعذّر إنشاء معرّف دخول فريد. حاول مرة أخرى أو تواصل مع الدعم.",
+        "notPendingAfterLock": "لم تعد هذه الدعوة قيد الانتظار. ربما تم قبولها من قبل شخص آخر.",
+        "expiredAfterLock": "انتهت صلاحية الدعوة أثناء المعالجة.",
+        "duplicateUser": "يوجد مستخدم بنفس الهوية مسبقًا. تواصل مع مالك العمل."
+      }
+    },
+    "checkout": {
+      "customerNameShort": "يرجى إدخال اسم مكوّن من حرفين على الأقل.",
+      "customerPhoneShort": "يرجى إدخال رقم هاتف مكوّن من 7 أرقام على الأقل.",
+      "invalidPaymentMethod": "يرجى اختيار طريقة دفع صالحة.",
+      "mustSignIn": "يجب تسجيل الدخول لإتمام الدفع.",
+      "noBusinessForUser": "تعذّر العثور على عمل مملوك لحسابك."
+    },
+    "business": {
+      "create": {
+        "mustSignIn": "يجب تسجيل الدخول لإنشاء عمل.",
+        "alreadyOwnsBusiness": "لديك عمل مملوك فعّال بالفعل.",
+        "staffCannotCreate": "لا يمكن لأعضاء الطاقم إنشاء عمل منفصل من هذه الخطوة.",
+        "codeLength": "رمز العمل يجب أن يكون بين 2 و 32 حرفًا.",
+        "codeFormat": "رمز العمل يمكن أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.",
+        "nameArLength": "اسم العمل بالعربية يجب أن يكون بين 2 و 120 حرفًا.",
+        "nameEnLength": "اسم العمل بالإنجليزية يجب ألا يتجاوز 120 حرفًا.",
+        "createFailed": "تعذّر إنشاء العمل. قد يكون الرمز مستخدمًا مسبقًا."
+      },
+      "defaultPlanName": "باقة البداية (تجريبية)"
+    },
+    "branches": {
+      "mustSignIn": "يجب تسجيل الدخول.",
+      "selectBusinessFirst": "يجب اختيار العمل الحالي أولاً.",
+      "noPermission": "ليست لديك صلاحية إدارة الفروع.",
+      "codeInvalid": "رمز الفرع يجب أن يكون بين 1 و 20 حرفًا.",
+      "nameArLength": "اسم الفرع بالعربية يجب أن يكون بين 2 و 120 حرفًا.",
+      "nameEnLength": "اسم الفرع بالإنجليزية يجب ألا يتجاوز 120 حرفًا.",
+      "saveFailed": "تعذّر حفظ الفرع. قد يكون الرمز موجودًا مسبقًا لهذا العمل.",
+      "branchNotFound": "لم يتم العثور على الفرع.",
+      "updateFailed": "تعذّر تحديث الفرع."
+    },
+    "categories": {
+      "codeLength": "رمز التصنيف يجب أن يكون بين 2 و 40 حرفًا.",
+      "codeFormat": "رمز التصنيف يمكن أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.",
+      "nameArLength": "اسم التصنيف بالعربية يجب أن يكون بين 2 و 120 حرفًا.",
+      "notFound": "لم يتم العثور على التصنيف.",
+      "codeDuplicate": "رمز التصنيف هذا مستخدم مسبقًا.",
+      "updateFailed": "تعذّر تحديث التصنيف.",
+      "createDuplicate": "رمز التصنيف هذا مستخدم مسبقًا.",
+      "createFailed": "تعذّر إنشاء التصنيف."
+    },
+    "addons": {
+      "codeLength": "رمز الإضافة يجب أن يكون بين 2 و 40 حرفًا.",
+      "codeFormat": "رمز الإضافة يمكن أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.",
+      "nameArLength": "اسم الإضافة بالعربية يجب أن يكون بين 2 و 120 حرفًا.",
+      "priceInvalid": "يرجى إدخال سعر إضافي صالح (حتى منزلتين عشريتين).",
+      "createFailed": "تعذّر إنشاء الإضافة. قد يكون الرمز مستخدمًا مسبقًا.",
+      "notFound": "لم يتم العثور على الإضافة.",
+      "updateFailed": "تعذّر تحديث الإضافة.",
+      "createFailedGeneric": "تعذّر إنشاء الإضافة."
+    },
+    "units": {
+      "codeLength": "رمز الوحدة يجب أن يكون بين 1 و 20 حرفًا.",
+      "codeFormat": "رمز الوحدة يمكن أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.",
+      "nameArLength": "اسم الوحدة بالعربية يجب أن يكون بين 1 و 80 حرفًا.",
+      "createFailed": "تعذّر إنشاء الوحدة. قد يكون الرمز مستخدمًا مسبقًا.",
+      "notFound": "لم يتم العثور على الوحدة.",
+      "updateFailed": "تعذّر تحديث الوحدة."
+    },
+    "suppliers": {
+      "nameLength": "اسم المورّد يجب أن يكون بين 2 و 120 حرفًا.",
+      "invalidEmail": "يرجى إدخال بريد إلكتروني صالح للمورّد.",
+      "notFound": "لم يتم العثور على المورّد."
+    },
+    "rawMaterials": {
+      "codeLength": "رمز المادة يجب أن يكون بين 2 و 40 حرفًا.",
+      "codeFormat": "رمز المادة يمكن أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.",
+      "nameArLength": "اسم المادة بالعربية يجب أن يكون بين 2 و 120 حرفًا.",
+      "unitRequired": "يرجى اختيار وحدة قياس.",
+      "unitInvalid": "الوحدة المختارة غير صالحة.",
+      "supplierInvalid": "المورّد المختار غير صالح.",
+      "costInvalid": "يرجى إدخال تكلفة وحدة صالحة (حتى 4 منازل عشرية).",
+      "minQtyInvalid": "الحد الأدنى للكمية يجب أن يكون عددًا صحيحًا بين 0 و 1,000,000.",
+      "createFailed": "تعذّر إنشاء المادة الخام. قد يكون الرمز مستخدمًا مسبقًا.",
+      "notFound": "لم يتم العثور على المادة الخام.",
+      "updateFailed": "تعذّر تحديث المادة الخام.",
+      "createFailedSave": "تعذّر إنشاء المادة الخام."
+    },
+    "products": {
+      "codeLength": "رمز المنتج يجب أن يكون بين 2 و 40 حرفًا.",
+      "codeFormat": "رمز المنتج يمكن أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.",
+      "nameArLength": "اسم المنتج بالعربية يجب أن يكون بين 2 و 120 حرفًا.",
+      "nameEnLength": "اسم المنتج بالإنجليزية يجب ألا يتجاوز 120 حرفًا.",
+      "basePriceInvalid": "يرجى إدخال سعر أساس صالح (حتى منزلتين عشريتين).",
+      "categoryInvalid": "التصنيف المختار غير صالح.",
+      "notFound": "لم يتم العثور على المنتج.",
+      "codeDuplicate": "رمز المنتج هذا مستخدم مسبقًا.",
+      "saveFailed": "تعذّر حفظ المنتج.",
+      "createCodeDuplicate": "رمز المنتج هذا مستخدم مسبقًا.",
+      "createFailed": "تعذّر إنشاء المنتج."
+    },
+    "orders": {
+      "quantity": {
+        "EMPTY": "يرجى إدخال الكمية.",
+        "INVALID_FORMAT": "يجب أن تكون الكمية رقمًا موجبًا (حتى 3 منازل عشرية).",
+        "NOT_POSITIVE": "يجب أن تكون الكمية أكبر من صفر."
+      },
+      "addItem": {
+        "missingOrderId": "الطلب غير موجود.",
+        "missingProductId": "المنتج غير موجود.",
+        "orderNotFound": "لم يتم العثور على الطلب.",
+        "orderNotOpen": "لا يمكن تعديل هذا الطلب بعد الآن.",
+        "productNotFound": "لم يتم العثور على المنتج أو أنه غير مفعّل.",
+        "success": "تمت إضافة السطر إلى الطلب."
+      },
+      "removeItem": {
+        "missingIds": "سطر الطلب غير موجود.",
+        "lineNotFound": "لم يتم العثور على سطر الطلب.",
+        "orderClosed": "هذا الطلب مغلق ولا يمكن تغييره.",
+        "genericError": "تعذّر حذف سطر الطلب.",
+        "success": "تم حذف السطر من الطلب."
+      },
+      "updateQuantity": {
+        "missingIds": "سطر الطلب غير موجود.",
+        "lineNotFound": "لم يتم العثور على سطر الطلب.",
+        "orderClosed": "هذا الطلب مغلق ولا يمكن تغييره.",
+        "genericError": "تعذّر تحديث الكمية.",
+        "success": "تم تحديث الكمية."
+      },
+      "complete": {
+        "mustSignIn": "يجب تسجيل الدخول.",
+        "selectBusinessFirst": "يجب اختيار العمل الحالي أولاً.",
+        "notAllowed": "ليست لديك صلاحية إتمام الطلبات مع خصم المخزون.",
+        "missingOrderId": "الطلب غير موجود.",
+        "errors": {
+          "ORDER_NOT_FOUND": "لم يتم العثور على الطلب.",
+          "ORDER_NOT_OPEN": "لا يمكن إتمام طلب مكتمل أو ملغى.",
+          "ORDER_EMPTY": "لا يمكن إتمام طلب بلا عناصر.",
+          "PRODUCT_NOT_FOUND": "أحد المنتجات غير صالح أو غير مفعّل.",
+          "RECIPE_REQUIRED": "أحد المنتجات بلا وصفة.",
+          "RECIPE_EMPTY": "إحدى الوصفات فارغة.",
+          "INSUFFICIENT_STOCK": "المخزون غير كافٍ. لم يتم إتمام الطلب.",
+          "MATERIAL_NOT_FOUND": "أحد مواد الوصفة غير صالح.",
+          "UNKNOWN": "تعذّر إتمام الطلب."
+        }
+      }
+    },
+    "recipes": {
+      "productIdRequired": "المنتج مطلوب.",
+      "productNotFound": "لم يتم العثور على المنتج.",
+      "recipeExists": "يوجد بالفعل وصفة لهذا المنتج.",
+      "idsRequired": "الوصفة والمادة الخام مطلوبان.",
+      "recipeNotFound": "لم يتم العثور على الوصفة.",
+      "materialNotFound": "لم يتم العثور على المادة الخام.",
+      "quantityFormat": "يجب أن تكون الكمية رقمًا موجبًا (حتى 6 منازل عشرية).",
+      "quantityPositive": "يجب أن تكون الكمية أكبر من صفر.",
+      "duplicateIngredient": "هذه المادة الخام مضافة مسبقًا إلى الوصفة.",
+      "itemIdRequired": "سطر الوصفة غير موجود.",
+      "itemRecipeMismatch": "لم يتم العثور على سطر الوصفة لهذا العمل.",
+      "materialArchived": "هذه المادة الخام مؤرشفة ولا يمكن استخدامها.",
+      "updateQuantityInvalid": "يجب أن تكون الكمية رقمًا موجبًا (حتى 6 منازل عشرية).",
+      "updateQuantityPositive": "يجب أن تكون الكمية أكبر من صفر."
+    },
+    "pos": {
+      "cartMissing": "بيانات السلة مفقودة.",
+      "cartInvalid": "بيانات السلة غير صالحة.",
+      "cartEmpty": "أضف منتجًا واحدًا على الأقل إلى السلة.",
+      "orderNotes": "طلب نقطة البيع",
+      "executorUnknown": "مستخدم نقطة البيع",
+      "executorRole": "نقطة البيع",
+      "sourceLabel": "طلب نقطة البيع",
+      "productNotFound": "أحد المنتجات غير صالح أو غير مفعّل.",
+      "insufficientStock": "المخزون غير كافٍ لإتمام هذا البيع.",
+      "genericError": "تعذّر إتمام طلب نقطة البيع.",
+      "success": "تم إنشاء الطلب #{id}."
+    },
+    "stockMovements": {
+      "invalidType": "نوع حركة المخزون هذا غير مسموح هنا.",
+      "materialRequired": "يرجى اختيار مادة خام.",
+      "quantityFormat": "يجب أن تكون الكمية رقمًا موجبًا (حتى 4 منازل عشرية).",
+      "unitCostFormat": "يجب أن تكون تكلفة الوحدة رقمًا صالحًا (حتى 4 منازل عشرية).",
+      "insufficientStock": "المخزون غير كافٍ لهذه الحركة.",
+      "materialNotFound": "لم يتم العثور على المادة الخام.",
+      "quantityInvalid": "الكمية غير صالحة لهذه الحركة.",
+      "genericError": "تعذّر تسجيل حركة المخزون."
+    },
+    "inventory": {
+      "materialRequired": "المادة الخام مفقودة.",
+      "reasonRequired": "يرجى إدخال سبب التسوية.",
+      "balanceFormat": "يجب أن يكون الرصيد الجديد رقمًا صالحًا (حتى 4 منازل عشرية).",
+      "materialNotFound": "لم يتم العثور على المادة الخام.",
+      "noChange": "الرصيد الجديد يطابق الرصيد الحالي.",
+      "insufficientStock": "المخزون غير كافٍ لهذه التسوية.",
+      "materialNotFoundCatch": "لم يتم العثور على المادة الخام.",
+      "quantityInvalid": "الكمية غير صالحة لهذه التسوية.",
+      "genericError": "تعذّر تسوية المخزون."
+    },
+    "consumption": {
+      "referenceManual": "تشغيل يدوي: {product}",
+      "testReference": "اختبار الاستهلاك",
+      "executorRole": "اختبار الاستهلاك",
+      "sourceLabel": "استهلاك يدوي",
+      "executorUnknown": "مستخدم غير معروف",
+      "productRequired": "المنتج مطلوب.",
+      "quantityFormat": "يجب أن تكون الكمية رقمًا موجبًا (حتى 3 منازل عشرية).",
+      "quantityPositive": "يجب أن تكون الكمية أكبر من صفر.",
+      "shortage": "المخزون غير كافٍ لبعض المواد.",
+      "productNotFound": "لم يتم العثور على المنتج.",
+      "recipeRequired": "هذا المنتج بلا وصفة.",
+      "recipeEmpty": "وصفة هذا المنتج لا تحتوي على مكونات.",
+      "insufficientStock": "المخزون غير كافٍ.",
+      "materialNotFound": "لم يتم العثور على مادة من وصفة المنتج.",
+      "quantityInvalid": "الكمية غير صالحة.",
+      "genericError": "تعذّر تسجيل الاستهلاك."
+    },
+    "staff": {
+      "mustSignIn": "يجب تسجيل الدخول.",
+      "selectBusinessFirst": "يجب اختيار العمل الحالي أولاً.",
+      "cannotManageUsers": "ليست لديك صلاحية إدارة الطاقم لهذا العمل.",
+      "noWorkspaceContext": "سياق مساحة العمل مفقود.",
+      "cannotAssignOwnerRoles": "لا يمكن تعيين أدوار الملكية أو المنصة من شاشة الطاقم.",
+      "roleNotAssignable": "لا يمكن تعيين هذا الدور من شاشة الطاقم.",
+      "cannotAssignPermissionOverrides": "ليست لديك صلاحية تعديل تجاوزات الصلاحيات.",
+      "branchRequiredForScope": "يرجى اختيار فرع للوصول المحدود بالفرع.",
+      "branchNotFound": "لم يتم العثور على الفرع.",
+      "permissionSafety": "لا يمكن أن يتضمّن هذا الدور صلاحيات حساسة: {permissions}",
+      "membershipNotFound": "لم يتم العثور على عضوية الطاقم.",
+      "cannotEditPrimaryOwner": "لا يمكن تعديل عضوية مالك العمل الأساسي من هنا.",
+      "duplicateMembershipSameScope": "هذا المستخدم لديه عضوية فعّالة بنفس نطاق الفرع.",
+      "membershipUpdated": "تم تحديث عضوية الطاقم.",
+      "newMembersViaInviteOnly": "يجب دعوة أعضاء جدد عبر رابط الدعوة.",
+      "invalidContactEmail": "يرجى إدخال بريد اتصال صالح.",
+      "businessNotFound": "لم يتم العثور على العمل.",
+      "pendingInviteExistsForEmail": "توجد دعوة معلّقة مسبقًا لنفس بريد الاتصال.",
+      "missingInviteId": "الدعوة مفقودة.",
+      "inviteNotFound": "لم يتم العثور على الدعوة.",
+      "inviteAlreadyAccepted": "تم قبول هذه الدعوة مسبقًا.",
+      "inviteCancelled": "تم إلغاء هذه الدعوة.",
+      "cannotAssignRoles": "ليست لديك صلاحية تعيين الأدوار.",
+      "missingMembershipId": "العضوية مفقودة.",
+      "membershipNotFoundReset": "لم يتم العثور على العضوية.",
+      "shareInviteBody": "مرحبًا، تمت دعوتك للانضمام إلى {business} على CafeFlow كـ {role}. لإكمال الانضمام افتح الرابط: {url}",
+      "roles": {
+        "MANAGER": "مدير",
+        "ACCOUNTANT": "محاسب",
+        "CASHIER": "كاشير",
+        "BARISTA": "باريستا",
+        "WAITER": "نادل",
+        "KITCHEN_STAFF": "طاقم مطبخ",
+        "INVENTORY_MANAGER": "مسؤول مخزون",
+        "JUICE_STAFF": "طاقم عصائر",
+        "PURCHASING_MANAGER": "مسؤول مشتريات",
+        "fallback": "{role}"
+      }
+    },
+    "platformStepUp": {
+      "missingPassword": "يرجى إدخال كلمة مرور الحساب.",
+      "invalidPassword": "كلمة المرور غير صحيحة.",
+      "locked": "تجاوزت عدد المحاولات المسموح. حاول بعد نحو 15 دقيقة، أو سجّل الخروج ثم الدخول من جديد.",
+      "notOperator": "هذا الحساب ليس مشغّل المنصة المعرّف في الإعدادات.",
+      "misconfigured": "تعذّر إصدار ملف تعريف المشغّل (تحقق من AUTH_SECRET في بيئة التشغيل).",
+      "misconfiguredTotp": "المتغير PLATFORM_TOTP_SECRET مضبوط لكنه غير صالح (يجب أن يكون Base32). صحّح القيمة أو احذف المتغير.",
+      "missingTotp": "يرجى إدخال رمز المصادقة المكوّن من 6 أرقام.",
+      "invalidTotp": "رمز المصادقة غير صحيح أو منتهي.",
+      "missingExtra": "يرجى إدخال عبارة مرور المشغّل.",
+      "invalidExtra": "عبارة مرور المشغّل غير صحيحة."
+    },
+    "landing": {
+      "unauthorized": "غير مصرّح لك بتعديل محتوى الصفحة الرئيسية."
+    }
+  }
+}
