@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { LOCALE_PREFERENCE_COOKIE } from "@/lib/i18n/locale-preference";
 
 /**
@@ -14,6 +15,12 @@ const handleI18nRouting = createMiddleware(routing);
  * If user navigates explicitly to /ar or /en, we store that choice and prioritize it on future root visits.
  */
 export default function middleware(request: NextRequest) {
+  // Server Actions and other non-navigation requests should not be locale-rewritten.
+  // Rewriting POST requests (e.g. sign-in form action) can turn valid action posts into 404s.
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return NextResponse.next();
+  }
+
   const response = handleI18nRouting(request);
   const localeFromPath = request.nextUrl.pathname.split("/")[1];
   if (localeFromPath === "ar" || localeFromPath === "en") {
