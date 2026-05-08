@@ -1,44 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CafeFlow
 
-## Getting Started
+Multi-tenant SaaS web app for cafe operations, built with Next.js App Router, NextAuth, and Prisma.
 
-First, run the development server:
+## Tech Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Prisma ORM + PostgreSQL
+- NextAuth v5 (credentials flow)
+- next-intl (AR/EN localization)
+
+## Requirements
+
+- Node.js 20+ (recommended)
+- npm 10+
+- PostgreSQL 14+ (or compatible)
+
+## Quick Start (Local Development)
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create environment file:
+
+```bash
+cp .env.example .env
+```
+
+3. Update `.env` values (at minimum `DATABASE_URL` and `PLATFORM_OWNER_EMAIL`).
+
+4. Generate Prisma client:
+
+```bash
+npx prisma generate
+```
+
+5. Apply database migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+6. Optional but recommended: create a local credentials test user:
+
+```bash
+npm run auth:create-test-user
+```
+
+7. Run development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables (Example)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Use `.env.example` as reference. Core variables:
 
-## Prisma Note (Important for Development)
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/DBNAME"
+PLATFORM_OWNER_EMAIL="operator@your-domain.example"
+```
 
-CafeFlow currently uses a Prisma 6-style setup for simplicity and explainability.
+Optional platform step-up variables are documented in `.env.example`:
 
-- Prisma CLI is the source of truth for schema validity.
-- If the VS Code Prisma extension shows a warning about datasource `url`, but `npx prisma validate` and `npx prisma generate` both succeed, treat that warning as an editor false positive.
-- Do not switch to Prisma 7 configuration in this project stage.
+- `PLATFORM_STEP_UP_TTL_MINUTES`
+- `PLATFORM_TOTP_SECRET`
+- `PLATFORM_TOTP_STEPS`
+- `PLATFORM_TOTP_DEBUG`
+- `PLATFORM_EXTRA_SECRET`
 
-## Learn More
+## Prisma Workflow
 
-To learn more about Next.js, take a look at the following resources:
+- Validate schema:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx prisma validate
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Generate client after schema changes:
 
-## Deploy on Vercel
+```bash
+npx prisma generate
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Create/apply new migration:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npx prisma migrate dev --name <migration_name>
+```
+
+### Seed Notes
+
+There is currently no dedicated `prisma/seed` script configured in `package.json`.
+For demo bootstrap, use:
+
+```bash
+npm run auth:create-test-user
+```
+
+## Useful Scripts
+
+- `npm run dev` - run app in development mode
+- `npm run build` - create production build
+- `npm run start` - run production server
+- `npm run lint` - run ESLint
+- `npm run auth:create-test-user` - create/update local test credentials user
+- `npm run platform:totp-secret` - generate TOTP secret for platform step-up
+- `npm run platform:totp-now` - print current TOTP value for verification
+
+## Notes
+
+- The project uses `patch-package` during install and dev startup.
+- If Prisma VS Code extension shows datasource URL warnings while `prisma validate` and `prisma generate` pass, treat that as editor false positive for this phase.
