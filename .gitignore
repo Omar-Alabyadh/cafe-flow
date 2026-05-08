@@ -39,3 +39,25 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE / editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Cursor
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
+# local debug / temp artifacts
+*.log
+*.tmp
+tmp/
+
+# Prisma local databases
+prisma/*.db
+prisma/*.db-journal
+prisma/*.sqlite
+prisma/*.sqlite-journal
