@@ -57,19 +57,19 @@ export function StickySalesCta({ locale }: StickySalesCtaProps) {
 
   return (
     <div
-      className={`pointer-events-none fixed inset-x-0 bottom-3 z-40 px-3 transition-all duration-300 ${
+      className={`pointer-events-none fixed inset-x-0 bottom-2 z-40 px-3 transition-all duration-300 sm:bottom-3 ${
         shouldHide ? "translate-y-2 opacity-0" : "translate-y-0 opacity-95"
       }`}
       aria-hidden={shouldHide}
     >
-      <div className="pointer-events-auto mx-auto w-full max-w-3xl rounded-xl border border-zinc-200 bg-white/95 p-3 shadow-lg backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/95">
+      <div className="pointer-events-auto mx-auto w-full max-w-3xl rounded-2xl border border-border bg-card/92 p-3 shadow-[0_16px_40px_-20px_rgba(2,6,23,0.65)] backdrop-blur-xl max-[430px]:rounded-xl max-[430px]:p-2.5">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs font-medium text-zinc-600 dark:text-zinc-300">
+          <p className="text-xs font-medium text-muted-foreground max-[430px]:text-[11px]">
             {t("text")}
           </p>
           <Link
             href={`/${locale}/sign-up`}
-            className="inline-flex justify-center rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-500"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-md transition hover:-translate-y-0.5 hover:opacity-95 max-[430px]:py-2.5"
           >
             {t("button")}
           </Link>

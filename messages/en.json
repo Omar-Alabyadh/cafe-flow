@@ -4,6 +4,7 @@
     "emDash": "—",
     "language": "English",
     "platformBrand": "CafeFlow Coffee OS",
+    "brandSubtitle": "Coffee Operations OS",
     "localeSwitcher": {
       "arabic": "العربية",
       "english": "English"
@@ -40,6 +41,7 @@
       "button": "Start free now"
     },
     "whatsapp": {
+      "phoneDigits": "218925340789",
       "prefilledMessage": "Hello, I want to try CafeFlow for my coffee shop",
       "ariaLabel": "Contact us on WhatsApp",
       "button": "I want to try the system"
@@ -170,6 +172,197 @@
           "total": "Charge now",
           "trialHint": "Includes {days} free trial days before paid cycle."
         }
+      }
+    },
+    "landing": {
+      "nav": {
+        "features": "Features",
+        "howItWorks": "How it works",
+        "pricing": "Pricing",
+        "faq": "FAQ",
+        "terms": "Terms",
+        "openMenu": "Open navigation menu",
+        "closeMenu": "Close navigation menu",
+        "skipToContent": "Skip to main content",
+        "mainNavAria": "Primary navigation"
+      },
+      "hero": {
+        "secondaryCta": "Chat on WhatsApp",
+        "metricOrdersLabel": "Orders flowing (demo)",
+        "metricOrdersValue": "142",
+        "metricStockLabel": "Low-stock alerts",
+        "metricStockValue": "3",
+        "metricBranchesLabel": "Branches in sync",
+        "metricBranchesValue": "2",
+        "mockupAriaLabel": "Illustrative CafeFlow dashboard preview",
+        "pillPos": "POS",
+        "pillInventory": "Inventory",
+        "pillStaff": "Staff",
+        "floatingAlert": "Low stock: Arabica",
+        "completeSale": "Complete sale"
+      },
+      "preview": {
+        "sectionTitle": "Interfaces your team touches every shift",
+        "sectionSubtitle": "Inside your workspace",
+        "cardPosTitle": "POS · Live ticket",
+        "cardPosBody": "Latte ×2 · Iced Americano ×1",
+        "cardSalesTitle": "Today's sales",
+        "cardSalesValue": "1,240 LYD",
+        "cardLowStockTitle": "Low stock",
+        "cardLowStockBody": "Arabica beans under minimum",
+        "cardBranchesTitle": "Branches",
+        "cardBranchesBody": "Main · Mall kiosk · Synced",
+        "cardStaffTitle": "Staff pulse",
+        "cardStaffBody": "Cashier online · Manager in reports",
+        "cardDashTitle": "Operations pulse",
+        "cardDashBody": "Orders, stock, and roles together",
+        "cardInventoryTitle": "Recipe consumption",
+        "cardInventoryBody": "Ingredients move when sales settle"
+      },
+      "problemSolution": {
+        "sectionTitle": "From noisy shifts to one calm system",
+        "sectionSubtitle": "CafeFlow speaks the language of owners, not generic SaaS dashboards.",
+        "beforeTitle": "Before CafeFlow",
+        "afterTitle": "After CafeFlow",
+        "before1": "Orders scattered across chats, paper tabs, and memory",
+        "before2": "Inventory guesses instead of live balances",
+        "before3": "Limited clarity on staff moves and branch performance",
+        "before4": "Reports that rarely explain profit and loss simply",
+        "after1": "One workspace for POS, orders, and fulfillment rhythm",
+        "after2": "Recipes tie every cup to measurable ingredient usage",
+        "after3": "Roles, branches, and permissions mapped to real cafes",
+        "after4": "Actionable reporting you can trust during service"
+      },
+      "features": {
+        "sectionSubtitle": "Purpose-built for cafe floors",
+        "posTitle": "Fast POS flow",
+        "posDesc": "Keep lines moving with a selling rhythm tuned for espresso bars.",
+        "ordersTitle": "Order management",
+        "ordersDesc": "Track drafts, prep, and completion without losing context.",
+        "inventoryTitle": "Inventory intelligence",
+        "inventoryDesc": "Live balances, thresholds, and alerts before guests notice gaps.",
+        "recipesTitle": "Recipes & ingredients",
+        "recipesDesc": "Link cups to raw materials with predictable consumption math.",
+        "staffTitle": "Staff roles & permissions",
+        "staffDesc": "Cashiers, managers, and specialists each see exactly what they need.",
+        "branchesTitle": "Multi-branch control",
+        "branchesDesc": "Operate satellites and flagship stores from shared foundations.",
+        "reportsTitle": "Operational reports",
+        "reportsDesc": "Understand sales, stock risk, and bestsellers without spreadsheets.",
+        "subscriptionTitle": "SaaS subscriptions",
+        "subscriptionDesc": "Monthly or yearly billing that mirrors how crews budget.",
+        "bilingualTitle": "Arabic & English",
+        "bilingualDesc": "RTL-first experience with English paths for mixed teams.",
+        "darkModeTitle": "Dark mode comfort",
+        "darkModeDesc": "Late shifts stay easy on the eyes with light, dark, or system themes."
+      },
+      "workflow": {
+        "sectionTitle": "Launch in focused steps",
+        "sectionSubtitle": "Move from signup to confident selling without consultant jargon.",
+        "step1Title": "Create your cafe business",
+        "step1Desc": "Register, capture codes, and activate your trial workspace.",
+        "step2Title": "Add branches & invite staff",
+        "step2Desc": "Define locations and onboard cashiers with scoped roles.",
+        "step3Title": "Enter products & recipes",
+        "step3Desc": "Mirror your menu with ingredient logic tied to inventory.",
+        "step4Title": "Run sales through POS",
+        "step4Desc": "Serve guests with structured tickets and instant totals.",
+        "step5Title": "Watch stock & reports",
+        "step5Desc": "Spot shortages early and coach teams with shared numbers."
+      },
+      "dashboardShowcase": {
+        "sectionTitle": "Leadership view without spreadsheet gymnastics",
+        "sectionSubtitle": "Illustrative widgets show how owners skim the day between rounds.",
+        "salesToday": "Sales today",
+        "salesTodayValue": "3,480 LYD",
+        "ordersToday": "Orders today",
+        "ordersTodayValue": "62",
+        "lowStock": "Low-stock materials",
+        "lowStockValue": "5 items",
+        "topProducts": "Top movers",
+        "product1": "Spanish latte",
+        "product2": "Cold brew bottle",
+        "branchesTitle": "Branch heartbeat",
+        "branchMain": "Main · Active",
+        "branchSatellite": "Mall kiosk · Closing count",
+        "rolesTitle": "Recent activity",
+        "roleOwner": "Owner approved summary",
+        "roleCashier": "Cashier closed 14 tickets",
+        "chartAria": "Stylized sparkline representing steady daily orders",
+        "product1Percent": "38%",
+        "product2Percent": "21%"
+      },
+      "inventoryIntel": {
+        "sectionTitle": "Inventory tied to every pour",
+        "sectionSubtitle": "Reduce surprises during rush by trusting automated consumption.",
+        "point1Title": "Low-stock alerts reach you early",
+        "point1Desc": "Minimum levels flag beans, dairy, and syrups before the rush drains them.",
+        "point2Title": "Automatic deductions on completion",
+        "point2Desc": "Closing an order triggers recipe usage down to tracked movements.",
+        "point3Title": "Products anchored to recipes",
+        "point3Desc": "Every SKU knows its ingredient bill per sold unit.",
+        "point4Title": "Trim waste with disciplined adjustments",
+        "point4Desc": "Manual counts and corrections stay auditable for accountants."
+      },
+      "localeHighlight": {
+        "sectionTitle": "Arabic-first with English muscle",
+        "sectionSubtitle": "Serve local crews fluently while staying export-ready.",
+        "point1": "RTL layouts polished for cashier muscle memory",
+        "point2": "English UI paths for bilingual shifts and suppliers",
+        "point3": "Switch languages without disturbing roles or business data",
+        "badgeRtl": "RTL native",
+        "badgeLtr": "English LTR",
+        "badgeLocals": "Hybrid teams"
+      },
+      "pricing": {
+        "sectionTitle": "Pick the cadence that fits your counters",
+        "sectionEyebrow": "Transparent SaaS billing",
+        "trialBanner": "14-day trial · No bank card · WhatsApp onboarding",
+        "compareLink": "Open full pricing details",
+        "planBullets": {
+          "basic": [
+            "Daily POS and structured orders",
+            "Starter inventory & recipes",
+            "Operational reporting essentials"
+          ],
+          "pro": [
+            "Everything in Basic",
+            "Coordinate multiple branches smoothly",
+            "Deeper inventory & sales signals"
+          ],
+          "business": [
+            "Everything in Pro",
+            "High limits for ambitious chains",
+            "Room for complex staffing models"
+          ]
+        }
+      },
+      "faq": {
+        "q1": "Do I need a bank card to begin?",
+        "a1": "No. Start the trial without a card; billing begins only after checkout.",
+        "q2": "How quickly can we activate?",
+        "a2": "Most cafes finish core setup the same day—branches, invites, menu, POS.",
+        "q3": "Is Arabic supported?",
+        "a3": "Yes. Arabic-first RTL layouts ship beside English for bilingual crews.",
+        "q4": "Does it handle multiple branches?",
+        "a4": "Yes. Plans scale branch and staff ceilings; Business lifts practical caps.",
+        "q5": "Does stock deduct automatically?",
+        "a5": "Completing POS orders applies recipe consumption when recipes exist.",
+        "q6": "Can we reach you on WhatsApp?",
+        "a6": "Absolutely—WhatsApp is our primary onboarding and support lane."
+      },
+      "finalCta": {
+        "title": "Give your baristas one trustworthy operating layer",
+        "subtitle": "Trial CafeFlow, invite the crew, and settle sales with cleaner inventory math.",
+        "primaryButton": "Start free trial",
+        "secondaryButton": "WhatsApp the team"
+      },
+      "footer": {
+        "blurb": "CafeFlow unifies POS, inventory, people, and reporting for ambitious coffee operators.",
+        "columnProduct": "Product",
+        "columnLegal": "Legal",
+        "rights": "All rights reserved.",
+        "copyright": "© {year} {brand}. {rights}"
       }
     }
   },
@@ -2185,4 +2378,3 @@
     }
   }
 }
-

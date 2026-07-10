@@ -13,6 +13,8 @@
   --primary: #047857;
   --primary-foreground: #ecfdf5;
   --accent: #f59e0b;
+  --landing-grid: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --landing-glow: color-mix(in oklab, var(--primary) 22%, transparent);
 }
 
 @theme inline {
@@ -30,18 +32,20 @@
 
 /* Dark: layered surfaces (not pure black) for SaaS-style depth and readable borders. */
 .dark {
-  --background: #0c0c0f;
+  --background: #08090c;
   --foreground: #f4f4f5;
-  --card: #141417;
+  --card: #12141a;
   --card-foreground: #fafafa;
-  --muted: #1e1e22;
+  --muted: #1a1d24;
   --muted-foreground: #b0b0ba;
-  --border: #45454e;
-  --popover: #16161a;
+  --border: #363b46;
+  --popover: #151821;
   --popover-foreground: #fafafa;
   --primary: #10b981;
   --primary-foreground: #052e16;
   --accent: #fbbf24;
+  --landing-grid: color-mix(in oklab, var(--foreground) 8%, transparent);
+  --landing-glow: color-mix(in oklab, var(--primary) 28%, transparent);
 }
 
 body {
@@ -53,16 +57,51 @@ body {
 /* Premium surface system for cards/sections across dashboard/public pages. */
 .cf-surface {
   border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 94%, var(--background) 6%);
+  background: linear-gradient(
+      165deg,
+      color-mix(in oklab, var(--card) 95%, white 5%) 0%,
+      color-mix(in oklab, var(--card) 92%, var(--background) 8%) 100%
+    );
   border-radius: 0.9rem;
   box-shadow: 0 1px 2px color-mix(in oklab, var(--foreground) 8%, transparent),
-    0 10px 28px color-mix(in oklab, var(--foreground) 6%, transparent);
+    0 12px 30px color-mix(in oklab, var(--foreground) 7%, transparent);
 }
 
 .dark .cf-surface {
-  background: color-mix(in oklab, var(--card) 88%, var(--background) 12%);
+  background: linear-gradient(
+      165deg,
+      color-mix(in oklab, var(--card) 86%, white 2%) 0%,
+      color-mix(in oklab, var(--card) 80%, var(--background) 20%) 100%
+    );
   border-color: var(--border);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.32), 0 14px 30px rgb(0 0 0 / 0.28);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 40px rgb(0 0 0 / 0.36);
+}
+
+.cf-landing-bg {
+  background-image:
+    radial-gradient(circle at 12% 0%, var(--landing-glow), transparent 42%),
+    radial-gradient(circle at 82% 10%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 38%),
+    linear-gradient(to bottom, color-mix(in oklab, var(--background) 92%, var(--card) 8%), var(--background));
+}
+
+.cf-landing-grid {
+  background-image:
+    linear-gradient(to right, var(--landing-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--landing-grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at top, black 48%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at top, black 48%, transparent 100%);
+}
+
+.cf-hover-card {
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.cf-hover-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--primary) 34%, var(--border));
+  box-shadow: 0 18px 40px color-mix(in oklab, var(--foreground) 10%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--primary) 20%, transparent);
 }
 
 /* Stronger form controls globally for clearer SaaS feel. */
