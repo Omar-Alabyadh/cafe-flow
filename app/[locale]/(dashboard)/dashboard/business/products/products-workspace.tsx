@@ -122,7 +122,7 @@ export function ProductsWorkspace({ locale, categories, products }: ProductsWork
     setDrawerOpen(false);
     setEditing(null);
     bumpDraft();
-  }, [bumpDraft]);
+  }, [bumpDraft, t]);
 
   const openCreate = useCallback(() => {
     if (drawerOpen && dirtyRef.current && !window.confirm(t("confirmProceedUnsaved"))) {
@@ -132,7 +132,7 @@ export function ProductsWorkspace({ locale, categories, products }: ProductsWork
     setEditing(null);
     bumpDraft();
     setDrawerOpen(true);
-  }, [bumpDraft, drawerOpen]);
+  }, [bumpDraft, drawerOpen, t]);
 
   const openEdit = useCallback(
     (p: ProductListItem) => {
@@ -155,7 +155,7 @@ export function ProductsWorkspace({ locale, categories, products }: ProductsWork
       });
       setDrawerOpen(true);
     },
-    [drawerOpen],
+    [drawerOpen, t],
   );
 
   const handleSaveSuccess = useCallback(() => {
@@ -170,7 +170,7 @@ export function ProductsWorkspace({ locale, categories, products }: ProductsWork
     setEditing(null);
     bumpDraft();
     router.refresh();
-  }, [bumpDraft, router]);
+  }, [bumpDraft, router, t]);
 
   const defaultEmpty = useMemo((): ProductFieldValues => {
     return {

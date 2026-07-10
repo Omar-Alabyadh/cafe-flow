@@ -96,7 +96,7 @@ export function AddonsWorkspace({ locale, addons }: AddonsWorkspaceProps) {
     setDrawerOpen(false);
     setEditing(null);
     bumpDraft();
-  }, [bumpDraft]);
+  }, [bumpDraft, t]);
 
   const openCreate = useCallback(() => {
     dirtyRef.current = false;
@@ -129,7 +129,7 @@ export function AddonsWorkspace({ locale, addons }: AddonsWorkspaceProps) {
     setEditing(null);
     bumpDraft();
     router.refresh();
-  }, [bumpDraft, router]);
+  }, [bumpDraft, router, t]);
 
   const initialValues: AddonFieldValues = editing
     ? {

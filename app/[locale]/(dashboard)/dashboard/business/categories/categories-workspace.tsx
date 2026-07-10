@@ -111,7 +111,7 @@ export function CategoriesWorkspace({ locale, categories }: CategoriesWorkspaceP
     setDrawerOpen(false);
     setEditing(null);
     bumpDraft();
-  }, [bumpDraft]);
+  }, [bumpDraft, t]);
 
   const openCreate = useCallback(() => {
     if (drawerOpen && dirtyRef.current && !window.confirm(t("confirmProceedUnsaved"))) {
@@ -121,7 +121,7 @@ export function CategoriesWorkspace({ locale, categories }: CategoriesWorkspaceP
     setEditing(null);
     bumpDraft();
     setDrawerOpen(true);
-  }, [bumpDraft, drawerOpen]);
+  }, [bumpDraft, drawerOpen, t]);
 
   const openEdit = useCallback(
     (c: CategoryListItem) => {
@@ -142,7 +142,7 @@ export function CategoriesWorkspace({ locale, categories }: CategoriesWorkspaceP
       });
       setDrawerOpen(true);
     },
-    [drawerOpen],
+    [drawerOpen, t],
   );
 
   const handleSaveSuccess = useCallback(() => {
@@ -157,7 +157,7 @@ export function CategoriesWorkspace({ locale, categories }: CategoriesWorkspaceP
     setEditing(null);
     bumpDraft();
     router.refresh();
-  }, [bumpDraft, router]);
+  }, [bumpDraft, router, t]);
 
   const defaultEmpty = useMemo((): CategoryFieldValues => {
     return {

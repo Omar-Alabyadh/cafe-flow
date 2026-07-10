@@ -6,6 +6,7 @@ import { TableDateTimeCell } from "@/components/ui/foundations/table-datetime-ce
 import { formatDateLine } from "@/lib/format/arabic-datetime";
 import { formatArabicLatnInteger } from "@/lib/format/numbers";
 import { prisma } from "@/lib/prisma";
+import { requestTimeMs } from "@/lib/time/request-ms";
 import { SubscriptionStatus } from "@prisma/client";
 import { Activity, BarChart3, Building2, CircleDollarSign, ShieldCheck, Wallet } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -57,14 +58,14 @@ export default async function PlatformDashboardPage({ params }: PageProps) {
     if (current) byState[current.status] += 1;
   }
 
+  const requestNowMs = requestTimeMs();
   const statusLabel = (status: SubscriptionStatus) => t(`status.${status}`);
 
   const trialSummary = (trialEndsAt: Date | null): string => {
     if (!trialEndsAt) return t("trial.none");
     const end = trialEndsAt.getTime();
-    const now = Date.now();
-    if (end < now) return t("trial.expired", { date: formatDateLine(trialEndsAt) });
-    const daysLeft = Math.max(0, Math.ceil((end - now) / 86_400_000));
+    if (end < requestNowMs) return t("trial.expired", { date: formatDateLine(trialEndsAt) });
+    const daysLeft = Math.max(0, Math.ceil((end - requestNowMs) / 86_400_000));
     return t("trial.active", { date: formatDateLine(trialEndsAt), days: formatArabicLatnInteger(daysLeft) });
   };
 

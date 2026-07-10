@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
@@ -9,6 +9,10 @@ const OPTIONS = ["light", "dark", "system"] as const;
 
 type ThemeOption = (typeof OPTIONS)[number];
 
+const subscribeToHydration = () => () => {};
+const getClientHydrationSnapshot = () => true;
+const getServerHydrationSnapshot = () => false;
+
 /**
  * Theme selector: light / dark / system with icons.
  * Defers rendering until mounted so `next-themes` matches the server HTML and avoids hydration warnings.
@@ -16,11 +20,11 @@ type ThemeOption = (typeof OPTIONS)[number];
 export function ThemeToggle() {
   const t = useTranslations("common.theme");
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    subscribeToHydration,
+    getClientHydrationSnapshot,
+    getServerHydrationSnapshot,
+  );
 
   const current: ThemeOption =
     theme === "light" || theme === "dark" || theme === "system" ? theme : "system";

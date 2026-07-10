@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { formatArabicLatnInteger } from "@/lib/format/numbers";
 import {
@@ -17,17 +17,21 @@ type OrdersWeekChartProps = {
   data: Array<{ day: string; orders: number }>;
 };
 
+const subscribeToHydration = () => () => {};
+const getClientHydrationSnapshot = () => true;
+const getServerHydrationSnapshot = () => false;
+
 /**
  * Weekly orders trend for operational monitoring.
  * Stroke and grid colors follow the active theme so the chart stays readable in dark mode.
  */
 export function OrdersWeekChart({ data }: OrdersWeekChartProps) {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    subscribeToHydration,
+    getClientHydrationSnapshot,
+    getServerHydrationSnapshot,
+  );
 
   const palette = useMemo(() => {
     const dark = mounted && resolvedTheme === "dark";
