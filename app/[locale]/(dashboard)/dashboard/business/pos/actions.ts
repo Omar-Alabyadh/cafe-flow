@@ -13,7 +13,7 @@ import {
 import { prisma } from "@/lib/prisma";
 import { OrderStatus, Prisma } from "@prisma/client";
 
-type PosCartLine = {
+type ValidatedPosCartLine = {
   productId: string;
   quantity: number;
 };
@@ -24,6 +24,73 @@ export type PosSubmitState = {
 };
 
 const initialState: PosSubmitState = { error: null, success: null };
+const MAX_POS_CART_LINES = 100;
+const MAX_POS_LINE_QUANTITY = 999;
+const POS_ID_PATTERN = /^c[a-z0-9]{8,}$/i;
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isValidPosId(value: unknown): value is string {
+  return typeof value === "string" && POS_ID_PATTERN.test(value.trim());
+}
+
+function parsePosCartPayload(payloadRaw: string): { ok: true; lines: ValidatedPosCartLine[] } | { ok: false; reason: "empty" | "invalid" } {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(payloadRaw);
+  } catch {
+    return { ok: false, reason: "invalid" };
+  }
+
+  if (!Array.isArray(parsed)) {
+    return { ok: false, reason: "invalid" };
+  }
+  if (parsed.length === 0) {
+    return { ok: false, reason: "empty" };
+  }
+  if (parsed.length > MAX_POS_CART_LINES) {
+    return { ok: false, reason: "invalid" };
+  }
+
+  const quantityByProductId = new Map<string, number>();
+  for (const line of parsed) {
+    if (!isPlainRecord(line)) {
+      return { ok: false, reason: "invalid" };
+    }
+
+    const keys = Object.keys(line);
+    if (keys.some((key) => key !== "productId" && key !== "quantity")) {
+      return { ok: false, reason: "invalid" };
+    }
+
+    if (!isValidPosId(line.productId)) {
+      return { ok: false, reason: "invalid" };
+    }
+    if (
+      typeof line.quantity !== "number" ||
+      !Number.isSafeInteger(line.quantity) ||
+      line.quantity <= 0 ||
+      line.quantity > MAX_POS_LINE_QUANTITY
+    ) {
+      return { ok: false, reason: "invalid" };
+    }
+
+    const productId = line.productId.trim();
+    const nextQuantity = (quantityByProductId.get(productId) ?? 0) + line.quantity;
+    if (nextQuantity > MAX_POS_LINE_QUANTITY) {
+      return { ok: false, reason: "invalid" };
+    }
+    quantityByProductId.set(productId, nextQuantity);
+  }
+
+  const lines = Array.from(quantityByProductId, ([productId, quantity]) => ({ productId, quantity }));
+  if (lines.length === 0) {
+    return { ok: false, reason: "empty" };
+  }
+  return { ok: true, lines };
+}
 
 /**
  * POS rail:         (Auth.js signOut)          .
@@ -65,17 +132,14 @@ export async function submitPosOrder(
     return { ...initialState, error: t("pos.cartMissing") };
   }
 
-  let cart: PosCartLine[] = [];
-  try {
-    cart = JSON.parse(payloadRaw) as PosCartLine[];
-  } catch {
+  const parsedCart = parsePosCartPayload(payloadRaw);
+  if (!parsedCart.ok && parsedCart.reason === "invalid") {
     return { ...initialState, error: t("pos.cartInvalid") };
   }
-
-  const cleanCart = cart.filter((line) => line.productId && Number.isFinite(line.quantity) && line.quantity > 0);
-  if (cleanCart.length === 0) {
+  if (!parsedCart.ok) {
     return { ...initialState, error: t("pos.cartEmpty") };
   }
+  const cleanCart = parsedCart.lines;
 
   try {
     const orderId = await prisma.$transaction(async (tx) => {
@@ -87,7 +151,7 @@ export async function submitPosOrder(
           archivedAt: null,
           isActive: true,
         },
-        select: { id: true, nameAr: true },
+        select: { id: true, nameAr: true, basePrice: true },
       });
       const productMap = new Map(products.map((product) => [product.id, product]));
       const actor = await tx.user.findUnique({
@@ -95,8 +159,26 @@ export async function submitPosOrder(
         select: { fullName: true },
       });
 
-      const missing = cleanCart.find((line) => !productMap.has(line.productId));
-      if (missing) {
+      if (productMap.size !== productIds.length) {
+        throw new Error("PRODUCT_NOT_FOUND");
+      }
+
+      const verifiedLines = cleanCart.map((line) => {
+        const product = productMap.get(line.productId);
+        if (!product) {
+          throw new Error("PRODUCT_NOT_FOUND");
+        }
+        return {
+          product,
+          quantity: new Prisma.Decimal(line.quantity.toString()),
+          unitPrice: new Prisma.Decimal(product.basePrice.toString()),
+        };
+      });
+      const serverSubtotal = verifiedLines.reduce(
+        (sum, line) => sum.add(line.unitPrice.mul(line.quantity)),
+        new Prisma.Decimal(0),
+      );
+      if (serverSubtotal.lt(new Prisma.Decimal(0))) {
         throw new Error("PRODUCT_NOT_FOUND");
       }
 
@@ -108,12 +190,12 @@ export async function submitPosOrder(
         },
       });
 
-      for (const line of cleanCart) {
+      for (const line of verifiedLines) {
         await tx.orderItem.create({
           data: {
             orderId: order.id,
-            productId: line.productId,
-            quantity: new Prisma.Decimal(line.quantity),
+            productId: line.product.id,
+            quantity: line.quantity,
           },
         });
       }
@@ -121,9 +203,9 @@ export async function submitPosOrder(
       // POS rule in this phase:
       // if product has recipe items => deduct stock.
       // if product has no recipe => keep order completion without deduction.
-      for (const line of cleanCart) {
+      for (const line of verifiedLines) {
         const recipe = await tx.recipe.findFirst({
-          where: { businessId: ctx.businessId, productId: line.productId },
+          where: { businessId: ctx.businessId, productId: line.product.id },
           include: { items: { select: { id: true } } },
         });
         if (!recipe || recipe.items.length === 0) {
@@ -132,8 +214,8 @@ export async function submitPosOrder(
 
         await consumeProductFromRecipeInTransaction(tx, {
           businessId: ctx.businessId,
-          productId: line.productId,
-          quantity: new Prisma.Decimal(line.quantity),
+          productId: line.product.id,
+          quantity: line.quantity,
           orderId: order.id,
           executorLabel: actor?.fullName ?? t("pos.executorUnknown"),
           executorRole: t("pos.executorRole"),
