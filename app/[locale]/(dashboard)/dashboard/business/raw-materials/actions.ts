@@ -1,6 +1,6 @@
 "use server";
 
-import { requireOwnerBusinessForCatalog } from "@/lib/catalog/require-owner-business";
+import { requireCatalogMutationPermission } from "@/lib/catalog/require-owner-business";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import { revalidateAfterRawMaterialMasterChange } from "@/lib/cache/revalidate-tenant-ui";
 import { prisma } from "@/lib/prisma";
@@ -15,7 +15,7 @@ export async function createRawMaterial(
   _prev: RawMaterialFormState,
   formData: FormData,
 ): Promise<RawMaterialFormState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "raw_materials.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -108,7 +108,7 @@ export async function saveRawMaterial(
   _prev: SaveRawMaterialState,
   formData: FormData,
 ): Promise<SaveRawMaterialState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "raw_materials.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -210,7 +210,7 @@ export async function saveRawMaterial(
 }
 
 export async function archiveRawMaterial(formData: FormData) {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "raw_materials.manage");
   if (!ctx.ok) {
     return;
   }

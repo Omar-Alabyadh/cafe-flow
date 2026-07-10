@@ -1,6 +1,6 @@
 "use server";
 
-import { requireOwnerBusinessForCatalog } from "@/lib/catalog/require-owner-business";
+import { requireCatalogMutationPermission } from "@/lib/catalog/require-owner-business";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import { revalidateAfterSupplierMasterChange } from "@/lib/cache/revalidate-tenant-ui";
 import { prisma } from "@/lib/prisma";
@@ -14,7 +14,7 @@ export async function createSupplier(
   _prev: SupplierFormState,
   formData: FormData,
 ): Promise<SupplierFormState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData, ["suppliers.view"]);
+  const ctx = await requireCatalogMutationPermission(formData, "suppliers.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -60,7 +60,7 @@ export async function saveSupplier(
   _prev: SaveSupplierState,
   formData: FormData,
 ): Promise<SaveSupplierState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData, ["suppliers.view"]);
+  const ctx = await requireCatalogMutationPermission(formData, "suppliers.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -115,7 +115,7 @@ export async function saveSupplier(
 }
 
 export async function archiveSupplier(formData: FormData) {
-  const ctx = await requireOwnerBusinessForCatalog(formData, ["suppliers.view"]);
+  const ctx = await requireCatalogMutationPermission(formData, "suppliers.manage");
   if (!ctx.ok) {
     return;
   }

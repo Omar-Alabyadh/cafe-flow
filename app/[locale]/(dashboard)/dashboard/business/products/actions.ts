@@ -1,6 +1,6 @@
 "use server";
 
-import { requireOwnerBusinessForCatalog } from "@/lib/catalog/require-owner-business";
+import { requireCatalogMutationPermission } from "@/lib/catalog/require-owner-business";
 import type { ServerActionTranslator } from "@/lib/i18n/server-action-translator";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import {
@@ -112,7 +112,11 @@ function revalidateProductCatalogSurfaces(locale: string) {
  * Revalidates catalog views after a successful write.
  */
 export async function saveProduct(_prev: ProductFormState, formData: FormData): Promise<ProductFormState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const productIdRaw = String(formData.get("productId") ?? "").trim();
+  const ctx = await requireCatalogMutationPermission(
+    formData,
+    productIdRaw.length > 0 ? "products.update" : "products.create",
+  );
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -202,7 +206,7 @@ export async function saveProduct(_prev: ProductFormState, formData: FormData): 
  * Soft-delete (archive) a product from the owner UI — keeps history for orders/audit.
  */
 export async function archiveProduct(formData: FormData) {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "products.delete");
   if (!ctx.ok) {
     return;
   }

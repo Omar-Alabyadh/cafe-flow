@@ -1,6 +1,6 @@
 "use server";
 
-import { requireOwnerBusinessForCatalog } from "@/lib/catalog/require-owner-business";
+import { requireCatalogMutationPermission } from "@/lib/catalog/require-owner-business";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import {
   revalidateAfterSharedCatalogUxChange,
@@ -34,7 +34,7 @@ function parseCategoryForm(formData: FormData) {
  *         —                        .
  */
 export async function saveCategory(_prev: CategoryFormState, formData: FormData): Promise<CategoryFormState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "categories.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -111,7 +111,7 @@ export async function saveCategory(_prev: CategoryFormState, formData: FormData)
 
 /** Soft-delete: hide from lists but keep history in the database. */
 export async function archiveCategory(formData: FormData) {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "categories.manage");
   if (!ctx.ok) {
     return;
   }

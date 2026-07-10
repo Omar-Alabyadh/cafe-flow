@@ -1,6 +1,6 @@
 "use server";
 
-import { requireOwnerBusinessForCatalog } from "@/lib/catalog/require-owner-business";
+import { requireCatalogMutationPermission } from "@/lib/catalog/require-owner-business";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import { revalidateAfterUnitMasterChange } from "@/lib/cache/revalidate-tenant-ui";
 import { prisma } from "@/lib/prisma";
@@ -14,7 +14,7 @@ export async function createUnit(
   _prev: UnitFormState,
   formData: FormData,
 ): Promise<UnitFormState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "units.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -66,7 +66,7 @@ export type SaveUnitState = {
 };
 
 export async function saveUnit(_prev: SaveUnitState, formData: FormData): Promise<SaveUnitState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "units.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -131,7 +131,7 @@ export async function saveUnit(_prev: SaveUnitState, formData: FormData): Promis
 }
 
 export async function archiveUnit(formData: FormData) {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "units.manage");
   if (!ctx.ok) {
     return;
   }

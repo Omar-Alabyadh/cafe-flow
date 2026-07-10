@@ -1,6 +1,6 @@
 "use server";
 
-import { requireOwnerBusinessForCatalog } from "@/lib/catalog/require-owner-business";
+import { requireCatalogMutationPermission } from "@/lib/catalog/require-owner-business";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import {
   revalidateAddonsPage,
@@ -19,7 +19,7 @@ export async function createAddon(
   _prev: AddonFormState,
   formData: FormData,
 ): Promise<AddonFormState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "addons.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -80,7 +80,7 @@ export type SaveAddonState = {
  * Create or update add-on while preserving existing validation and ownership checks.
  */
 export async function saveAddon(_prev: SaveAddonState, formData: FormData): Promise<SaveAddonState> {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "addons.manage");
   if (!ctx.ok) {
     return { error: ctx.error };
   }
@@ -165,7 +165,7 @@ export async function saveAddon(_prev: SaveAddonState, formData: FormData): Prom
 }
 
 export async function archiveAddon(formData: FormData) {
-  const ctx = await requireOwnerBusinessForCatalog(formData);
+  const ctx = await requireCatalogMutationPermission(formData, "addons.manage");
   if (!ctx.ok) {
     return;
   }
