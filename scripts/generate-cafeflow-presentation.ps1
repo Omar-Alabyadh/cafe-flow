@@ -467,18 +467,3 @@ $pp.Quit()
 [GC]::WaitForPendingFinalizers()
 
 Write-Output "Presentation created: $outputPath"
-�ق المحلي بمنهجية هندسية واضحة."
-    "تم التصميم والتنفيذ والاختبار على مراحل لضمان الجودة."
-    "شكراً لكم — أسئلة واستفسارات."
-  )
-
-$presentation.SaveAs($outputPath)
-$presentation.Close()
-$pp.Quit()
-
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($presentation) | Out-Null
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($pp) | Out-Null
-[GC]::Collect()
-[GC]::WaitForPendingFinalizers()
-
-Write-Output "Presentation created: $outputPath"
