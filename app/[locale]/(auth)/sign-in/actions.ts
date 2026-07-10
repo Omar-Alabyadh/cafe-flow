@@ -6,6 +6,7 @@ import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i1
 import { prisma } from "@/lib/prisma";
 import { setActiveBusinessCookie } from "@/lib/tenant/active-business-cookie";
 import { BusinessStatus } from "@prisma/client";
+import { redirect } from "next/navigation";
 
 export type SignInState = {
   error: string | null;
@@ -33,6 +34,13 @@ export async function signInWithCredentials(
   }
 
   try {
+    await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+      redirectTo: defaultRoute,
+    });
+
     const user = await prisma.user.findUnique({
       where: { email },
       select: { id: true, archivedAt: true },
@@ -58,13 +66,7 @@ export async function signInWithCredentials(
         : { destination: defaultRoute };
     const redirectTo = sanitizeInternalCallback(callbackUrlRaw || resolved.destination, resolved.destination);
 
-    await signIn("credentials", {
-      email,
-      password,
-      redirectTo,
-    });
-
-    return { error: null };
+    redirect(redirectTo);
   } catch (error) {
     // We avoid `instanceof AuthError` because the thrown value may not share the same
     // constructor reference after bundling, which makes `instanceof` throw at runtime.
