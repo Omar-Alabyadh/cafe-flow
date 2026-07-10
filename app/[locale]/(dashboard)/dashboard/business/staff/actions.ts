@@ -1,7 +1,7 @@
 "use server";
 
 import { getCurrentUserId } from "@/lib/auth/session";
-import { canManageUsers, getRoleBasePermissions, getRoleDefaultScope } from "@/lib/authorization/access";
+import { getRoleBasePermissions, getRoleDefaultScope, hasPermission } from "@/lib/authorization/access";
 import { getCurrentBusinessMemberContext, isBusinessContextSelectionError } from "@/lib/authorization/context";
 import {
   PERMISSION_TEMPLATES,
@@ -133,6 +133,7 @@ const STAFF_INVITE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 async function assertStaffManagementContext(
   userId: string,
   t: ServerActionTranslator,
+  requiredPermission: PermissionKey,
 ): Promise<StaffManagementContextResult> {
   let context;
   try {
@@ -143,7 +144,7 @@ async function assertStaffManagementContext(
     }
     throw error;
   }
-  if (!canManageUsers(context.member)) return { error: t("staff.cannotManageUsers") };
+  if (!hasPermission(context.member, requiredPermission)) return { error: t("staff.cannotManageUsers") };
   return { context };
 }
 
@@ -169,7 +170,7 @@ export async function saveStaffMembership(
     return { error: t("staff.mustSignIn") };
   }
 
-  const authz = await assertStaffManagementContext(userId, t);
+  const authz = await assertStaffManagementContext(userId, t, "users.assign_roles");
   if (authz.error) return { error: authz.error };
   const context = authz.context;
   if (!context) return { error: t("staff.noWorkspaceContext") };
@@ -202,7 +203,7 @@ export async function saveStaffMembership(
     return { error: t("staff.roleNotAssignable") };
   }
   // Defense in depth: POST requests bypass the browser UI, so repeat permission checks here (same as platform vs business boundary).
-  const actorMayAssignRolesAndOverrides = getRoleBasePermissions(context.member.role).has("users.assign_roles");
+  const actorMayAssignRolesAndOverrides = hasPermission(context.member, "users.assign_roles");
   if (!actorMayAssignRolesAndOverrides) {
     return { error: t("staff.cannotAssignPermissionOverrides") };
   }
@@ -330,7 +331,7 @@ export async function createStaffInvite(
     return { error: t("staff.mustSignIn") };
   }
 
-  const authz = await assertStaffManagementContext(userId, t);
+  const authz = await assertStaffManagementContext(userId, t, "users.create");
   if (authz.error) return { error: authz.error };
   const context = authz.context;
   if (!context) return { error: t("staff.noWorkspaceContext") };
@@ -363,7 +364,7 @@ export async function createStaffInvite(
     return { error: t("staff.roleNotAssignable") };
   }
 
-  const actorMayAssignRolesAndOverrides = getRoleBasePermissions(context.member.role).has("users.assign_roles");
+  const actorMayAssignRolesAndOverrides = hasPermission(context.member, "users.assign_roles");
   if (!actorMayAssignRolesAndOverrides) {
     return { error: t("staff.cannotAssignPermissionOverrides") };
   }
@@ -525,12 +526,12 @@ export async function resendStaffInvite(
     return { error: t("staff.missingInviteId") };
   }
 
-  const authz = await assertStaffManagementContext(userId, t);
+  const authz = await assertStaffManagementContext(userId, t, "users.create");
   if (authz.error) return { error: authz.error };
   const context = authz.context;
   if (!context) return { error: t("staff.noWorkspaceContext") };
 
-  if (!getRoleBasePermissions(context.member.role).has("users.assign_roles")) {
+  if (!hasPermission(context.member, "users.assign_roles")) {
     return { error: t("staff.cannotAssignRoles") };
   }
 
@@ -630,7 +631,7 @@ export async function cancelStaffInvite(formData: FormData) {
     return;
   }
 
-  const authz = await assertStaffManagementContext(userId, t);
+  const authz = await assertStaffManagementContext(userId, t, "users.delete");
   if (authz.error) return;
   const context = authz.context;
   if (!context) return;
@@ -707,7 +708,7 @@ export async function archiveStaffMembership(formData: FormData) {
     return;
   }
 
-  const authz = await assertStaffManagementContext(userId, t);
+  const authz = await assertStaffManagementContext(userId, t, "users.delete");
   if (authz.error) return;
   const context = authz.context;
   if (!context) return;
@@ -723,6 +724,10 @@ export async function archiveStaffMembership(formData: FormData) {
   }
 
   if (row.businessId !== context.business.id) {
+    return;
+  }
+
+  if (row.userId === userId) {
     return;
   }
 
@@ -750,11 +755,11 @@ export async function resetStaffPermissions(_prev: SaveStaffState, formData: For
   const membershipId = String(formData.get("membershipId") ?? "").trim();
   if (!membershipId) return { error: t("staff.missingMembershipId") };
 
-  const authz = await assertStaffManagementContext(userId, t);
+  const authz = await assertStaffManagementContext(userId, t, "users.assign_roles");
   if (authz.error) return { error: authz.error };
   const context = authz.context;
   if (!context) return { error: t("staff.noWorkspaceContext") };
-  if (!getRoleBasePermissions(context.member.role).has("users.assign_roles")) {
+  if (!hasPermission(context.member, "users.assign_roles")) {
     return { error: t("staff.cannotAssignRoles") };
   }
 
