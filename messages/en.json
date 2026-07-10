@@ -2279,6 +2279,9 @@
       "sourceLabel": "POS order",
       "productNotFound": "One of the products is invalid or inactive.",
       "insufficientStock": "Insufficient stock to complete this sale.",
+      "idempotencyKeyInvalid": "Could not verify this checkout attempt. Please try again.",
+      "idempotencyConflict": "This checkout attempt was already used with a different cart. Please start a new order.",
+      "idempotencyDuplicateFailed": "Could not safely confirm this repeated checkout attempt. Please refresh orders before trying again.",
       "genericError": "Could not complete the POS order.",
       "success": "Order #{id} was created."
     },

@@ -367,16 +367,17 @@ model StockMovement {
 
 /// Internal order header for Phase 8 (no payments/taxes in this stage).
 model Order {
-  id          String      @id @default(cuid())
-  businessId  String
-  business    Business    @relation("BusinessOrders", fields: [businessId], references: [id])
-  status      OrderStatus @default(DRAFT)
-  notes       String?     @db.Text
+  id             String      @id @default(cuid())
+  businessId     String
+  business       Business    @relation("BusinessOrders", fields: [businessId], references: [id])
+  status         OrderStatus @default(DRAFT)
+  notes          String?     @db.Text
   // Filled only when order reaches COMPLETED status.
-  completedAt DateTime?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  archivedAt  DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  archivedAt     DateTime?
+  idempotencyKey String?     @unique
 
   items OrderItem[] @relation("OrderItems")
 

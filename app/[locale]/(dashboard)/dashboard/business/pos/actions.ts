@@ -27,6 +27,7 @@ const initialState: PosSubmitState = { error: null, success: null };
 const MAX_POS_CART_LINES = 100;
 const MAX_POS_LINE_QUANTITY = 999;
 const POS_ID_PATTERN = /^c[a-z0-9]{8,}$/i;
+const POS_IDEMPOTENCY_KEY_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function isPlainRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -34,6 +35,17 @@ function isPlainRecord(value: unknown): value is Record<string, unknown> {
 
 function isValidPosId(value: unknown): value is string {
   return typeof value === "string" && POS_ID_PATTERN.test(value.trim());
+}
+
+function parsePosIdempotencyKey(value: FormDataEntryValue | null): string | null {
+  if (typeof value !== "string") {
+    return null;
+  }
+  const key = value.trim();
+  if (key.length !== 36 || !POS_IDEMPOTENCY_KEY_PATTERN.test(key)) {
+    return null;
+  }
+  return key.toLowerCase();
 }
 
 function parsePosCartPayload(payloadRaw: string): { ok: true; lines: ValidatedPosCartLine[] } | { ok: false; reason: "empty" | "invalid" } {
@@ -92,6 +104,71 @@ function parsePosCartPayload(payloadRaw: string): { ok: true; lines: ValidatedPo
   return { ok: true, lines };
 }
 
+function cartSignature(lines: ValidatedPosCartLine[]): string {
+  return [...lines]
+    .sort((a, b) => a.productId.localeCompare(b.productId))
+    .map((line) => `${line.productId}:${line.quantity}`)
+    .join("|");
+}
+
+function decimalToSafeInteger(value: Prisma.Decimal): number | null {
+  if (!value.isInteger()) {
+    return null;
+  }
+  const n = value.toNumber();
+  return Number.isSafeInteger(n) ? n : null;
+}
+
+type ExistingPosOrder = {
+  id: string;
+  status: OrderStatus;
+  items: Array<{ productId: string; quantity: Prisma.Decimal }>;
+};
+
+function existingOrderMatchesCart(order: ExistingPosOrder, lines: ValidatedPosCartLine[]): boolean {
+  if (order.status !== OrderStatus.COMPLETED || order.items.length !== lines.length) {
+    return false;
+  }
+  const persistedLines: ValidatedPosCartLine[] = [];
+  for (const item of order.items) {
+    const quantity = decimalToSafeInteger(item.quantity);
+    if (quantity === null) {
+      return false;
+    }
+    persistedLines.push({ productId: item.productId, quantity });
+  }
+  return cartSignature(persistedLines) === cartSignature(lines);
+}
+
+async function findExistingPosOrder(businessId: string, idempotencyKey: string): Promise<ExistingPosOrder | null> {
+  return prisma.order.findFirst({
+    where: { businessId, idempotencyKey },
+    select: {
+      id: true,
+      status: true,
+      items: {
+        select: { productId: true, quantity: true },
+        orderBy: { productId: "asc" },
+      },
+    },
+  });
+}
+
+function isExpectedPosIdempotencyConflict(error: unknown): boolean {
+  if (error === null || typeof error !== "object" || !("code" in error)) {
+    return false;
+  }
+  const candidate = error as { code?: unknown; meta?: { target?: unknown } };
+  if (candidate.code !== "P2002") {
+    return false;
+  }
+  const target = candidate.meta?.target;
+  if (Array.isArray(target)) {
+    return target.includes("idempotencyKey");
+  }
+  return typeof target === "string" && target.includes("idempotencyKey");
+}
+
 /**
  * POS rail:         (Auth.js signOut)          .
  *                          .
@@ -126,6 +203,10 @@ export async function submitPosOrder(
   }
 
   const t = await getServerActionTranslator(normalizeServerActionLocale(ctx.locale));
+  const idempotencyKey = parsePosIdempotencyKey(formData.get("idempotencyKey"));
+  if (!idempotencyKey) {
+    return { ...initialState, error: t("pos.idempotencyKeyInvalid") };
+  }
 
   const payloadRaw = String(formData.get("cart") ?? "").trim();
   if (!payloadRaw) {
@@ -140,6 +221,13 @@ export async function submitPosOrder(
     return { ...initialState, error: t("pos.cartEmpty") };
   }
   const cleanCart = parsedCart.lines;
+  const existingOrder = await findExistingPosOrder(ctx.businessId, idempotencyKey);
+  if (existingOrder) {
+    if (!existingOrderMatchesCart(existingOrder, cleanCart)) {
+      return { ...initialState, error: t("pos.idempotencyConflict") };
+    }
+    return { error: null, success: t("pos.success", { id: existingOrder.id.slice(0, 8) }) };
+  }
 
   try {
     const orderId = await prisma.$transaction(async (tx) => {
@@ -185,6 +273,7 @@ export async function submitPosOrder(
       const order = await tx.order.create({
         data: {
           businessId: ctx.businessId,
+          idempotencyKey,
           status: OrderStatus.DRAFT,
           notes: t("pos.orderNotes"),
         },
@@ -241,6 +330,16 @@ export async function submitPosOrder(
 
     return { error: null, success: t("pos.success", { id: orderId.slice(0, 8) }) };
   } catch (error) {
+    if (isExpectedPosIdempotencyConflict(error)) {
+      const replayedOrder = await findExistingPosOrder(ctx.businessId, idempotencyKey);
+      if (!replayedOrder) {
+        return { ...initialState, error: t("pos.idempotencyDuplicateFailed") };
+      }
+      if (!existingOrderMatchesCart(replayedOrder, cleanCart)) {
+        return { ...initialState, error: t("pos.idempotencyConflict") };
+      }
+      return { error: null, success: t("pos.success", { id: replayedOrder.id.slice(0, 8) }) };
+    }
     const message = error instanceof Error ? error.message : "";
     if (message === "PRODUCT_NOT_FOUND") {
       return { ...initialState, error: t("pos.productNotFound") };

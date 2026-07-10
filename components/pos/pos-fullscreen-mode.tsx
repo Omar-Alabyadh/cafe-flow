@@ -53,6 +53,23 @@ function isTypingInField(el: EventTarget | null): boolean {
   return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
 }
 
+function createPosRequestKey(): string {
+  const cryptoApi = globalThis.crypto;
+  if (typeof cryptoApi?.randomUUID === "function") {
+    return cryptoApi.randomUUID();
+  }
+  if (typeof cryptoApi?.getRandomValues !== "function") {
+    return "";
+  }
+
+  const bytes = new Uint8Array(16);
+  cryptoApi.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
 /**
  * Hold-to-repeat for cart +/- (after a short delay) — faster for high-volume POS without extra taps.
  */
@@ -121,6 +138,7 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
   const [isMobileCartOpen, setIsMobileCartOpen] = useState(false);
   const [paymentMode, setPaymentMode] = useState<PosPaymentMode>("cash");
   const [bankingMethod, setBankingMethod] = useState<PosBankingMethod>("bank_card");
+  const [requestKey, setRequestKey] = useState("");
   const [state, formAction, pending] = useActionState(submitPosOrder, initialState);
   const [signOutPending, startSignOut] = useTransition();
   const lastHandledSuccessMessageRef = useRef<string | null>(null);
@@ -179,9 +197,18 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
     };
   }, []);
 
+  useEffect(() => {
+    const runId = window.setTimeout(() => {
+      setRequestKey((current) => current || createPosRequestKey());
+    }, 0);
+    return () => window.clearTimeout(runId);
+  }, []);
+
   /**
    * After successful checkout: clear cart and show toast.
    * Deferred to a macrotask to avoid synchronous state updates inside effects.
+   * The request key rotates only after confirmed success; transient retries keep
+   * the same database-backed identity for this checkout attempt.
    */
   useEffect(() => {
     if (!state.success) {
@@ -193,6 +220,7 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
 
     const runId = window.setTimeout(() => {
       setCart([]);
+      setRequestKey(createPosRequestKey());
       setIsMobileCartOpen(false);
       setLastAddedProductId(null);
       setTapAnimProductId(null);
@@ -366,6 +394,7 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
 
     <form action={formAction} className="fixed inset-0 z-50 h-dvh overflow-hidden bg-background text-foreground">
       <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="idempotencyKey" value={requestKey} />
       <input
         type="hidden"
         name="cart"
@@ -675,7 +704,7 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
             {/* Disabled when cart is empty or during submit. */}
             <button
               type="submit"
-              disabled={pending || cart.length === 0}
+              disabled={pending || cart.length === 0 || !requestKey}
               className="flex min-h-[44px] w-full items-center justify-center gap-1 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-extrabold text-white shadow-sm transition hover:bg-emerald-500 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-55 disabled:active:scale-100 data-loading:animate-pulse"
               data-loading={pending ? true : undefined}
             >
