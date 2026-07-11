@@ -184,7 +184,15 @@ function InventoryAdjustmentForm({
   );
 }
 
-export function InventoryWorkspace({ locale, rows }: { locale: string; rows: InventoryRow[] }) {
+export function InventoryWorkspace({
+  locale,
+  rows,
+  operationalTimeZone,
+}: {
+  locale: string;
+  rows: InventoryRow[];
+  operationalTimeZone: string;
+}) {
   const t = useTranslations("dashboard.business.inventory.workspace");
   const router = useRouter();
   const [search, setSearch] = useState("");
@@ -308,7 +316,7 @@ export function InventoryWorkspace({ locale, rows }: { locale: string; rows: Inv
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <TableDateTimeCell at={row.stockUpdatedAt ? new Date(row.stockUpdatedAt) : null} />
+                      <TableDateTimeCell at={row.stockUpdatedAt} timeZone={operationalTimeZone} locale={locale} />
                     </td>
                     <td className="px-4 py-3">
                       <button

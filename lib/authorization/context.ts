@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { BusinessStatus, MembershipRole, PermissionScope } from "@prisma/client";
 import { ROLE_SCOPE_DEFAULT } from "./permissions";
 import { getActiveBusinessCookie } from "@/lib/tenant/active-business-cookie";
+import { resolveOperationalTimeZone } from "@/lib/time-zone/effective-time-zone";
 
 /**
  * Tenant isolation (SaaS): every server action and data loader must scope queries by `businessId` from this context
@@ -9,7 +10,9 @@ import { getActiveBusinessCookie } from "@/lib/tenant/active-business-cookie";
  */
 
 export type CurrentBusinessMemberContext = {
-  business: { id: string; nameAr: string; nameEn: string | null; ownerId: string };
+  business: { id: string; nameAr: string; nameEn: string | null; ownerId: string; timeZone: string };
+  selectedBranch: { id: string; timeZone: string | null } | null;
+  operationalTimeZone: string;
   member: {
     id: string;
     userId: string;
@@ -50,7 +53,7 @@ export async function getCurrentBusinessMemberContext(
 ): Promise<CurrentBusinessMemberContext> {
   const ownerBusiness = await prisma.business.findFirst({
     where: { ownerId: userId, archivedAt: null, status: { not: BusinessStatus.ARCHIVED } },
-    select: { id: true, nameAr: true, nameEn: true, ownerId: true },
+    select: { id: true, nameAr: true, nameEn: true, ownerId: true, timeZone: true },
   });
 
   if (ownerBusiness) {
@@ -74,8 +77,21 @@ export async function getCurrentBusinessMemberContext(
       },
     });
 
+    const branch = ownerMembership?.branchId
+      ? await prisma.branch.findFirst({
+          where: { id: ownerMembership.branchId, businessId: ownerBusiness.id, archivedAt: null },
+          select: { id: true, timeZone: true },
+        })
+      : null;
+    const operationalTimeZone = resolveOperationalTimeZone({
+      branchTimeZone: branch?.timeZone ?? null,
+      businessTimeZone: ownerBusiness.timeZone,
+    });
+
     return {
       business: ownerBusiness,
+      selectedBranch: branch,
+      operationalTimeZone,
       member: ownerMembership ?? {
         id: `owner-${ownerBusiness.id}`,
         userId,
@@ -128,7 +144,8 @@ export async function getCurrentBusinessMemberContext(
       scope: true,
       grantedPermissions: true,
       revokedPermissions: true,
-      business: { select: { id: true, nameAr: true, nameEn: true, ownerId: true } },
+      business: { select: { id: true, nameAr: true, nameEn: true, ownerId: true, timeZone: true } },
+      branch: { select: { id: true, timeZone: true } },
     },
   });
 
@@ -143,6 +160,11 @@ export async function getCurrentBusinessMemberContext(
 
   return {
     business: membership.business,
+    selectedBranch: membership.branch,
+    operationalTimeZone: resolveOperationalTimeZone({
+      branchTimeZone: membership.branch?.timeZone ?? null,
+      businessTimeZone: membership.business.timeZone,
+    }),
     member: {
       id: membership.id,
       userId: membership.userId,

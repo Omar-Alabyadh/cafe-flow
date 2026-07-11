@@ -139,6 +139,7 @@ export default async function StockMovementsPage({ params }: PageProps) {
         materialOptions={materialOptions}
         rows={ledgerRows}
         executorLabel={executorLabel}
+        operationalTimeZone={context.operationalTimeZone}
       />
     </PageContainer>
   );

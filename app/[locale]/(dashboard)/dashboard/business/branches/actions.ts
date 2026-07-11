@@ -5,8 +5,13 @@ import { getCurrentBusinessMemberContext, isBusinessContextSelectionError } from
 import { hasPermission } from "@/lib/authorization/access";
 import { getServerActionTranslator, normalizeServerActionLocale, translateBranchLimitCheck } from "@/lib/i18n/server-action-translator";
 import { assertBranchLimitForBusiness } from "@/lib/subscription/business-subscription";
-import { revalidateBranchesPage, revalidateStaffManagementPages } from "@/lib/cache/revalidate-tenant-ui";
+import {
+  revalidateBranchesPage,
+  revalidateOperationalTimeZoneSurfaces,
+  revalidateStaffManagementPages,
+} from "@/lib/cache/revalidate-tenant-ui";
 import { prisma } from "@/lib/prisma";
+import { normalizeTimeZoneInput, validateTimeZone } from "@/lib/time-zone/validation";
 
 export type CreateBranchState = { error: string | null };
 
@@ -52,6 +57,8 @@ export async function createBranch(
   const nameAr = String(formData.get("nameAr") ?? "").trim();
   const nameEnRaw = String(formData.get("nameEn") ?? "").trim();
   const nameEn = nameEnRaw.length > 0 ? nameEnRaw : null;
+  const timeZoneRaw = normalizeTimeZoneInput(formData.get("timeZone"));
+  const timeZone = timeZoneRaw ? validateTimeZone(timeZoneRaw) : null;
 
   if (code.length < 1 || code.length > 20) {
     return { error: t("branches.codeInvalid") };
@@ -62,6 +69,9 @@ export async function createBranch(
   if (nameEn && nameEn.length > 120) {
     return { error: t("branches.nameEnLength") };
   }
+  if (timeZone && !timeZone.ok) {
+    return { error: t("branches.invalidTimeZone") };
+  }
 
   try {
     await prisma.branch.create({
@@ -70,6 +80,7 @@ export async function createBranch(
         code,
         nameAr,
         nameEn,
+        timeZone: timeZone?.ok ? timeZone.value : null,
       },
     });
   } catch {
@@ -121,6 +132,8 @@ export async function saveBranch(_prev: SaveBranchState, formData: FormData): Pr
   const nameAr = String(formData.get("nameAr") ?? "").trim();
   const nameEnRaw = String(formData.get("nameEn") ?? "").trim();
   const nameEn = nameEnRaw.length > 0 ? nameEnRaw : null;
+  const timeZoneRaw = normalizeTimeZoneInput(formData.get("timeZone"));
+  const timeZone = timeZoneRaw ? validateTimeZone(timeZoneRaw) : null;
 
   if (code.length < 1 || code.length > 20) {
     return { error: t("branches.codeInvalid") };
@@ -131,9 +144,12 @@ export async function saveBranch(_prev: SaveBranchState, formData: FormData): Pr
   if (nameEn && nameEn.length > 120) {
     return { error: t("branches.nameEnLength") };
   }
+  if (timeZone && !timeZone.ok) {
+    return { error: t("branches.invalidTimeZone") };
+  }
 
   const revalidate = () => {
-    revalidateBranchesPage(locale);
+    revalidateOperationalTimeZoneSurfaces(locale);
     revalidateStaffManagementPages(locale);
   };
 
@@ -149,7 +165,7 @@ export async function saveBranch(_prev: SaveBranchState, formData: FormData): Pr
     try {
       await prisma.branch.update({
         where: { id: branchId },
-        data: { code, nameAr, nameEn },
+        data: { code, nameAr, nameEn, timeZone: timeZone?.ok ? timeZone.value : null },
       });
     } catch {
       return { error: t("branches.updateFailed") };
@@ -167,7 +183,7 @@ export async function saveBranch(_prev: SaveBranchState, formData: FormData): Pr
 
   try {
     await prisma.branch.create({
-      data: { businessId, code, nameAr, nameEn },
+      data: { businessId, code, nameAr, nameEn, timeZone: timeZone?.ok ? timeZone.value : null },
     });
   } catch {
     return { error: t("branches.saveFailed") };
@@ -218,6 +234,6 @@ export async function archiveBranch(formData: FormData) {
     },
   });
 
-  revalidateBranchesPage(locale);
+  revalidateOperationalTimeZoneSurfaces(locale);
   revalidateStaffManagementPages(locale);
 }

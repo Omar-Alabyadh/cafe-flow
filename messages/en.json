@@ -622,6 +622,19 @@
         "unavailableProduct": "Unavailable product",
         "soldUnitsLabel": "{count} units sold"
       },
+      "timeZone": {
+        "label": "Time zone",
+        "businessTitle": "Business time zone",
+        "help": "This time zone is used for orders, reports, stock movements, and operational-day boundaries.",
+        "customHint": "You may enter any valid IANA time zone supported by the server runtime.",
+        "save": "Save time zone",
+        "saving": "Saving...",
+        "saveSuccess": "Business time zone was saved.",
+        "invalid": "Enter a valid IANA time zone.",
+        "operationalTime": "Operational time",
+        "myLocalTime": "My local time",
+        "detectFromBrowser": "Detect from browser"
+      },
       "products": {
         "title": "Products",
         "description": "Sellable items; links to recipes and orders come next.",
@@ -987,6 +1000,7 @@
           "archive": "Archive",
           "edit": "Edit",
           "close": "Close",
+          "usesBusinessTimeZone": "Uses business time zone ({timeZone})",
           "savedToast": "Branch saved successfully",
           "status": {
             "active": "Active",
@@ -996,6 +1010,7 @@
             "code": "Code",
             "name": "Name",
             "status": "Status",
+            "timeZone": "Branch time zone",
             "actions": "Actions"
           },
           "drawer": {
@@ -1010,6 +1025,9 @@
           "codeHint": "Use a clear code such as MAIN or EAST",
           "nameAr": "Branch name (Arabic)",
           "nameEn": "Branch name (English) - optional",
+          "timeZone": "Branch time zone",
+          "useBusinessTimeZone": "Use business time zone ({timeZone})",
+          "timeZoneHint": "Leave empty to inherit the business time zone. Changing it affects future display and date filters only.",
           "saving": "Saving...",
           "update": "Update branch",
           "save": "Save branch",
@@ -2134,7 +2152,14 @@
         "nameEnLength": "English business name must be at most 120 characters.",
         "createFailed": "Could not create the business. The code may already be taken."
       },
-      "defaultPlanName": "Starter (trial)"
+      "defaultPlanName": "Starter (trial)",
+      "timeZone": {
+        "mustSignIn": "You must sign in.",
+        "selectBusinessFirst": "You must select the current business first.",
+        "noPermission": "You are not allowed to manage business settings.",
+        "invalid": "Enter a valid IANA time zone.",
+        "saveFailed": "Could not save the business time zone."
+      }
     },
     "branches": {
       "mustSignIn": "You must sign in.",
@@ -2143,6 +2168,7 @@
       "codeInvalid": "Branch code must be between 1 and 20 characters.",
       "nameArLength": "Arabic branch name must be between 2 and 120 characters.",
       "nameEnLength": "English branch name must be at most 120 characters.",
+      "invalidTimeZone": "Enter a valid IANA time zone or leave the branch time zone empty.",
       "saveFailed": "Could not save the branch. The code may already exist for this business.",
       "branchNotFound": "Branch was not found.",
       "updateFailed": "Could not update the branch."

@@ -62,6 +62,7 @@ export default async function StaffPage({ params }: StaffPageProps) {
   }
 
   const canManageStaff = canManageUsers(context.member);
+  const operationalTimeZone = context.operationalTimeZone;
 
   const business = await prisma.business.findFirst({
     where: { id: context.business.id, archivedAt: null },
@@ -137,8 +138,8 @@ export default async function StaffPage({ params }: StaffPageProps) {
               : "—"
             : t("allBranches"),
           status: inv.status,
-          createdAtLabel: formatFullDateTime(inv.createdAt),
-          expiresAtLabel: formatFullDateTime(inv.expiresAt),
+          createdAtLabel: formatFullDateTime(inv.createdAt, operationalTimeZone, locale),
+          expiresAtLabel: formatFullDateTime(inv.expiresAt, operationalTimeZone, locale),
           isExpired: inv.expiresAt.getTime() < now && inv.status !== StaffInviteStatus.ACCEPTED,
           invitedByLabel: `${inv.invitedBy.fullName} (${inv.invitedBy.email})`,
         }))}

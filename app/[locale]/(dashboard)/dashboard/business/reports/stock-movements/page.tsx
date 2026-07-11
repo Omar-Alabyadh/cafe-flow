@@ -42,6 +42,7 @@ export default async function RecentStockMovementsReportPage({ params }: PagePro
     return <UnauthorizedState locale={locale} title={t("unauthorizedTitle")} description={t("unauthorizedDescription")} />;
   }
   const businessId = context.business.id;
+  const operationalTimeZone = context.operationalTimeZone;
 
   const rows = await prisma.stockMovement.findMany({
     where: { businessId },
@@ -78,7 +79,7 @@ export default async function RecentStockMovementsReportPage({ params }: PagePro
                     {formatArabicLatnQuantity(row.quantity.toNumber())}
                   </td>
                   <td className="px-4 py-3">
-                    <TableDateTimeCell at={row.createdAt} />
+                    <TableDateTimeCell at={row.createdAt} timeZone={operationalTimeZone} locale={locale} />
                   </td>
                 </tr>
               ))}

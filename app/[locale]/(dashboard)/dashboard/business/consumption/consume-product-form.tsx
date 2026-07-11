@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useActionState } from "react";
 import { useTranslations } from "next-intl";
 import { consumeProductByRecipe, type ConsumeProductFormState } from "./actions";
+import { formatDateTimeInTimeZone } from "@/lib/time-zone/format";
 
 type RecipeMaterialPreview = {
   rawMaterialId: string;
@@ -33,9 +34,11 @@ function formatDecimal(value: string): string {
 export function ConsumeProductForm({
   locale,
   products,
+  operationalTimeZone,
 }: {
   locale: string;
   products: ProductOption[];
+  operationalTimeZone: string;
 }) {
   const t = useTranslations("dashboard.business.consumption.form");
   const [state, formAction, pending] = useActionState(consumeProductByRecipe, initialState);
@@ -294,7 +297,14 @@ export function ConsumeProductForm({
             <li>{t("success.product")}: {state.success.productName}</li>
             <li>{t("success.quantity")}: {formatDecimal(state.success.quantity)}</li>
             <li>{t("success.movementsCount")}: {state.success.movementsCount}</li>
-            <li>{t("success.executedAt")}: {new Date(state.success.executedAtIso).toLocaleString("ar-LY")}</li>
+            <li>
+              {t("success.executedAt")}:{" "}
+              {formatDateTimeInTimeZone(state.success.executedAtIso, {
+                timeZone: operationalTimeZone,
+                locale,
+                includeWeekday: true,
+              })}
+            </li>
             <li>{t("success.executor")}: {state.success.executor}</li>
             <li>{t("success.reference")}: {state.success.reference}</li>
           </ul>

@@ -3,6 +3,7 @@
 import { CatalogSideDrawer } from "@/components/ui/foundations/catalog-side-drawer";
 import { MoneyValue } from "@/components/ui/foundations/money-value";
 import { formatArabicLatnQuantity } from "@/lib/format/numbers";
+import { formatDateInputValueInTimeZone, formatDateTimeInTimeZone } from "@/lib/time-zone/format";
 import {
   ArrowDownCircle,
   ArrowUpCircle,
@@ -92,35 +93,18 @@ function toNum(v: string): number {
   return Number.isFinite(n) ? n : 0;
 }
 
-function formatLedgerDate(dateIso: string): string {
-  const d = new Date(dateIso);
-  const dd = String(d.getDate()).padStart(2, "0");
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  return `${dd} / ${mm} / ${yyyy}`;
-}
-
-function formatLedgerDateTime(dateIso: string): string {
-  const d = new Date(dateIso);
-  const h24 = d.getHours();
-  const mins = String(d.getMinutes()).padStart(2, "0");
-  const isPm = h24 >= 12;
-  const h12 = h24 % 12 || 12;
-  const hour = String(h12).padStart(2, "0");
-  const suffix = isPm ? "PM" : "AM";
-  return `${formatLedgerDate(dateIso)} - ${hour}:${mins} ${suffix}`;
-}
-
 export function StockMovementsWorkspace({
   locale,
   materialOptions,
   rows,
   executorLabel,
+  operationalTimeZone,
 }: {
   locale: string;
   materialOptions: MaterialOption[];
   rows: LedgerRow[];
   executorLabel: string;
+  operationalTimeZone: string;
 }) {
   const t = useTranslations("dashboard.business.stockMovements.workspace");
   const router = useRouter();
@@ -143,12 +127,12 @@ export function StockMovementsWorkspace({
         if (!inMaterial && !inCode) return false;
       }
 
-      const d = row.createdAtIso.slice(0, 10);
+      const d = formatDateInputValueInTimeZone(row.createdAtIso, operationalTimeZone);
       if (dateFrom && d < dateFrom) return false;
       if (dateTo && d > dateTo) return false;
       return true;
     });
-  }, [rows, typeFilter, q, dateFrom, dateTo]);
+  }, [rows, typeFilter, q, dateFrom, dateTo, operationalTimeZone]);
 
   const summary = useMemo(() => {
     const total = rows.length;
@@ -284,7 +268,13 @@ export function StockMovementsWorkspace({
                   return (
                     <tr key={row.id} className="border-t border-zinc-200 dark:border-zinc-800">
                       <td className="px-4 py-3">
-                        <span className="block text-right text-xs tabular-nums">{formatLedgerDateTime(row.createdAtIso)}</span>
+                        <span className="block text-right text-xs tabular-nums">
+                          {formatDateTimeInTimeZone(row.createdAtIso, {
+                            timeZone: operationalTimeZone,
+                            locale,
+                            includeWeekday: true,
+                          })}
+                        </span>
                       </td>
                       <td className="px-4 py-3">
                         <div className="font-medium">{row.materialName}</div>
@@ -419,7 +409,13 @@ export function StockMovementsWorkspace({
             </div>
             <div className="grid grid-cols-[120px,1fr] gap-2">
               <span className="text-zinc-500">{t("detail.createdAt")}</span>
-              <span className="tabular-nums">{formatLedgerDateTime(detailRow.createdAtIso)}</span>
+              <span className="tabular-nums">
+                {formatDateTimeInTimeZone(detailRow.createdAtIso, {
+                  timeZone: operationalTimeZone,
+                  locale,
+                  includeWeekday: true,
+                })}
+              </span>
             </div>
             <div className="grid grid-cols-[120px,1fr] gap-2">
               <span className="text-zinc-500">{t("detail.executor")}</span>

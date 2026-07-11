@@ -113,7 +113,7 @@ export default async function ConsumptionPage({ params }: PageProps) {
         <EmptyState title={t("emptyTitle")} description={t("emptyDescription")} />
       ) : (
         <div className="grid gap-6 lg:grid-cols-2">
-          <ConsumeProductForm locale={locale} products={productPreviewData} />
+          <ConsumeProductForm locale={locale} products={productPreviewData} operationalTimeZone={context.operationalTimeZone} />
 
           <div className="rounded-xl border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
             <p className="mb-2 font-medium">{t("productsCardTitle")}</p>

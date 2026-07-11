@@ -64,7 +64,9 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
           nameAr: b.nameAr,
           nameEn: b.nameEn,
           isActive: b.isActive,
+          timeZone: b.timeZone,
         }))}
+        businessTimeZone={business.timeZone}
       />
     </PageContainer>
   );

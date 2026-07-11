@@ -13,6 +13,7 @@ export type BranchListItem = {
   code: string;
   nameAr: string;
   nameEn: string | null;
+  timeZone: string | null;
   isActive: boolean;
 };
 
@@ -37,7 +38,15 @@ function ArchiveBranchButton({ locale, branchId, branchName }: { locale: string;
   );
 }
 
-export function BranchesWorkspace({ locale, branches }: { locale: string; branches: BranchListItem[] }) {
+export function BranchesWorkspace({
+  locale,
+  branches,
+  businessTimeZone,
+}: {
+  locale: string;
+  branches: BranchListItem[];
+  businessTimeZone: string;
+}) {
   const t = useTranslations("dashboard.business.branches.workspace");
   const router = useRouter();
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -54,8 +63,8 @@ export function BranchesWorkspace({ locale, branches }: { locale: string; branch
   }, [search, branches]);
 
   const initialValues: BranchFieldValues = editing
-    ? { code: editing.code, nameAr: editing.nameAr, nameEn: editing.nameEn ?? "" }
-    : { code: "", nameAr: "", nameEn: "" };
+    ? { code: editing.code, nameAr: editing.nameAr, nameEn: editing.nameEn ?? "", timeZone: editing.timeZone ?? "" }
+    : { code: "", nameAr: "", nameEn: "", timeZone: "" };
 
   const closeDrawer = () => {
     if (dirtyRef.current && !window.confirm(t("confirmCloseUnsaved"))) return;
@@ -115,6 +124,7 @@ export function BranchesWorkspace({ locale, branches }: { locale: string; branch
                 <th className="px-4 py-3 text-start font-semibold">{t("table.code")}</th>
                 <th className="px-4 py-3 text-start font-semibold">{t("table.name")}</th>
                 <th className="px-4 py-3 text-start font-semibold">{t("table.status")}</th>
+                <th className="px-4 py-3 text-start font-semibold">{t("table.timeZone")}</th>
                 <th className="px-4 py-3 text-start font-semibold">{t("table.actions")}</th>
               </tr>
             </thead>
@@ -125,7 +135,7 @@ export function BranchesWorkspace({ locale, branches }: { locale: string; branch
                   role="button"
                   tabIndex={0}
                   onClick={() => {
-                    setEditing({ id: b.id, code: b.code, nameAr: b.nameAr, nameEn: b.nameEn });
+                    setEditing({ id: b.id, code: b.code, nameAr: b.nameAr, nameEn: b.nameEn, timeZone: b.timeZone });
                     setDrawerOpen(true);
                   }}
                   className="cursor-pointer border-t border-zinc-200 hover:bg-zinc-100/90 dark:border-zinc-800 dark:hover:bg-zinc-800/65"
@@ -133,12 +143,15 @@ export function BranchesWorkspace({ locale, branches }: { locale: string; branch
                   <td className="px-4 py-3 font-mono text-xs">{b.code}</td>
                   <td className="px-4 py-3">{b.nameAr}</td>
                   <td className="px-4 py-3">{b.isActive ? t("status.active") : t("status.inactive")}</td>
+                  <td className="px-4 py-3 text-xs">
+                    {b.timeZone ? b.timeZone : t("usesBusinessTimeZone", { timeZone: businessTimeZone })}
+                  </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                       <button
                         type="button"
                         onClick={() => {
-                          setEditing({ id: b.id, code: b.code, nameAr: b.nameAr, nameEn: b.nameEn });
+                          setEditing({ id: b.id, code: b.code, nameAr: b.nameAr, nameEn: b.nameEn, timeZone: b.timeZone });
                           setDrawerOpen(true);
                         }}
                         className="inline-flex items-center gap-1 rounded-md border-2 border-zinc-300 px-2 py-1 text-xs font-medium"
@@ -170,6 +183,7 @@ export function BranchesWorkspace({ locale, branches }: { locale: string; branch
           locale={locale}
           fieldsKey={editing ? editing.id : `new-${draftTick}`}
           initialValues={initialValues}
+          businessTimeZone={businessTimeZone}
           editingBranchId={editing?.id ?? null}
           onCancel={closeDrawer}
           onSaveSuccess={() => {

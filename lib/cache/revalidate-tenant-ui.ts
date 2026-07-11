@@ -91,6 +91,18 @@ export function revalidateStaffManagementPages(locale: string) {
   revalidatePath(`/${locale}/dashboard/business/staff`, "page");
 }
 
+export function revalidateOperationalTimeZoneSurfaces(locale: string) {
+  revalidateDashboardHome(locale);
+  revalidateBusinessHub(locale);
+  revalidateBranchesPage(locale);
+  revalidatePosSurface(locale);
+  revalidateOrdersIndex(locale);
+  revalidateInventoryPage(locale);
+  revalidateStockMovementsPage(locale);
+  revalidateConsumptionPage(locale);
+  revalidateReportsSubtree(locale);
+}
+
 /**
  * Category/product label changes should refresh POS shelves and dashboard “products” KPI without a reload.
  */

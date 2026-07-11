@@ -163,6 +163,7 @@ model Business {
   nameEn          String?
   status          BusinessStatus @default(ACTIVE)
   defaultLanguage LanguageCode   @default(AR)
+  timeZone        String         @default("Africa/Tripoli")
 
   // Each business has one primary owner user for accountability.
   ownerId String
@@ -424,13 +425,14 @@ model Branch {
   code       String
   nameAr     String
   nameEn     String?
+  timeZone   String?
   isActive   Boolean   @default(true)
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   archivedAt DateTime?
 
-  memberships Membership[] @relation("BranchMemberships")
-  auditLogs   AuditLog[]   @relation("BranchAuditLogs")
+  memberships  Membership[]  @relation("BranchMemberships")
+  auditLogs    AuditLog[]    @relation("BranchAuditLogs")
   staffInvites StaffInvite[] @relation("BranchStaffInvites")
 
   // Branch code is unique only inside the same business.
@@ -474,34 +476,34 @@ model Membership {
 /// `publicInviteLabel` is a human-readable **temporary** handle for owners (e.g. invite-cashier-abc123) — not the employee login.
 /// Final login identifier is `fname.lname.roleSlug@businessSlug.cafeflow.local`, created only when the employee completes registration.
 model StaffInvite {
-  id                   String            @id @default(cuid())
-  businessId           String
-  business             Business          @relation("BusinessStaffInvites", fields: [businessId], references: [id])
+  id                 String            @id @default(cuid())
+  businessId         String
+  business           Business          @relation("BusinessStaffInvites", fields: [businessId], references: [id])
   /// Legacy / optional; new invites leave this null until acceptance creates the real system identifier.
-  email                String?
-  contactEmail         String?
-  contactPhone         String?
+  email              String?
+  contactEmail       String?
+  contactPhone       String?
   /// Stable demo-friendly label; never presented as final employee email.
-  publicInviteLabel    String            @unique
-  role                 MembershipRole
-  scope                PermissionScope
-  branchId             String?
-  branch               Branch?           @relation("BranchStaffInvites", fields: [branchId], references: [id])
-  grantedPermissions   String[]          @default([])
-  revokedPermissions   String[]          @default([])
+  publicInviteLabel  String            @unique
+  role               MembershipRole
+  scope              PermissionScope
+  branchId           String?
+  branch             Branch?           @relation("BranchStaffInvites", fields: [branchId], references: [id])
+  grantedPermissions String[]          @default([])
+  revokedPermissions String[]          @default([])
   /// Permission template selected in the owner UI (DEFAULT, POS_ONLY, …) for audit clarity; CUSTOM or null = fully manual overrides.
-  templateKey          String?
-  note                 String?           @db.Text
+  templateKey        String?
+  note               String?           @db.Text
   /// SHA-256 hex of the raw token from the invite URL. Lookup is by hash only.
-  tokenHash            String            @unique
-  status               StaffInviteStatus @default(PENDING)
-  invitedByUserId      String
-  invitedBy            User              @relation("StaffInviteInviter", fields: [invitedByUserId], references: [id])
-  expiresAt            DateTime
-  acceptedAt           DateTime?
-  cancelledAt          DateTime?
-  createdAt            DateTime          @default(now())
-  updatedAt            DateTime          @updatedAt
+  tokenHash          String            @unique
+  status             StaffInviteStatus @default(PENDING)
+  invitedByUserId    String
+  invitedBy          User              @relation("StaffInviteInviter", fields: [invitedByUserId], references: [id])
+  expiresAt          DateTime
+  acceptedAt         DateTime?
+  cancelledAt        DateTime?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
 
   @@index([businessId, status])
   @@index([email])

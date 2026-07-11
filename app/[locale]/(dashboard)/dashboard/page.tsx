@@ -9,6 +9,8 @@ import { resolvePostSignInDestination } from "@/lib/auth/post-sign-in-route";
 import { getCurrentBusinessMemberContext, isBusinessContextSelectionError } from "@/lib/authorization/context";
 import { formatDateLine } from "@/lib/format/arabic-datetime";
 import { formatArabicLatnInteger } from "@/lib/format/numbers";
+import { getUtcRangeForLocalDate } from "@/lib/time-zone/day-boundaries";
+import { formatDateInputValueInTimeZone } from "@/lib/time-zone/format";
 import { prisma } from "@/lib/prisma";
 import { localizedCatalogName } from "@/lib/i18n/localized-catalog-name";
 import { getCurrentBusinessSubscription } from "@/lib/subscription/business-subscription";
@@ -74,13 +76,18 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
     );
   }
 
-  const now = new Date();
-  const startOfToday = new Date(now);
-  startOfToday.setHours(0, 0, 0, 0);
-  const endOfToday = new Date(now);
-  endOfToday.setHours(23, 59, 59, 999);
-  const startOfWeek = new Date(startOfToday);
-  startOfWeek.setDate(startOfWeek.getDate() - 6);
+  const operationalTimeZone = context.operationalTimeZone;
+  const todayKey = formatDateInputValueInTimeZone(new Date(), operationalTimeZone);
+  const todayRange = getUtcRangeForLocalDate({ date: todayKey, timeZone: operationalTimeZone });
+  const todayStart = todayRange?.startUtc ?? new Date(0);
+  const tomorrowStart = todayRange?.nextDayStartUtc ?? new Date();
+  const chartDateKeys = Array.from({ length: 7 }).map((_, index) => {
+    const base = new Date(`${todayKey}T12:00:00Z`);
+    base.setUTCDate(base.getUTCDate() - (6 - index));
+    return base.toISOString().slice(0, 10);
+  });
+  const firstChartRange = getUtcRangeForLocalDate({ date: chartDateKeys[0], timeZone: operationalTimeZone });
+  const startOfWeek = firstChartRange?.startUtc ?? todayStart;
 
   const [staffCount, totalOrdersToday, totalOrdersAllTime, totalProductsCount, lowStockRows, currentSubscription, ordersLastWeek, recentOrders, todayOrders] =
     await Promise.all([
@@ -89,7 +96,7 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
         where: {
           businessId: business.id,
           archivedAt: null,
-          createdAt: { gte: startOfToday, lte: endOfToday },
+          createdAt: { gte: todayStart, lt: tomorrowStart },
         },
       }),
       prisma.order.count({ where: { businessId: business.id, archivedAt: null } }),
@@ -107,7 +114,7 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
         include: { _count: { select: { items: true } } },
       }),
       prisma.order.findMany({
-        where: { businessId: business.id, archivedAt: null, createdAt: { gte: startOfToday, lte: endOfToday } },
+        where: { businessId: business.id, archivedAt: null, createdAt: { gte: todayStart, lt: tomorrowStart } },
         select: { id: true },
       }),
     ]);
@@ -138,15 +145,14 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
   ];
 
   const weeklyOrdersData = Array.from({ length: 7 }).map((_, index) => {
-    const date = new Date(startOfWeek);
-    date.setDate(startOfWeek.getDate() + index);
-    const dayStart = new Date(date);
-    dayStart.setHours(0, 0, 0, 0);
-    const dayEnd = new Date(date);
-    dayEnd.setHours(23, 59, 59, 999);
+    const dateKey = chartDateKeys[index];
+    const range = getUtcRangeForLocalDate({ date: dateKey, timeZone: operationalTimeZone });
+    const dayStart = range?.startUtc ?? new Date(0);
+    const nextDayStart = range?.nextDayStartUtc ?? new Date(0);
+    const weekday = new Date(`${dateKey}T12:00:00Z`).getUTCDay();
 
-    const ordersCount = ordersLastWeek.filter((row) => row.createdAt >= dayStart && row.createdAt <= dayEnd).length;
-    return { day: weekDays[date.getDay()], orders: ordersCount };
+    const ordersCount = ordersLastWeek.filter((row) => row.createdAt >= dayStart && row.createdAt < nextDayStart).length;
+    return { day: weekDays[weekday], orders: ordersCount };
   });
 
   const weeklyOrdersTotal = weeklyOrdersData.reduce((sum, row) => sum + row.orders, 0);
@@ -200,7 +206,7 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
           <p className="text-sm font-semibold">{homeT("subscription.title")}</p>
           <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-300">{homeT("subscription.status")}: {currentSubscription ? currentSubscription.status : "-"}</p>
           <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-300">{homeT("subscription.plan")}: {currentSubscription?.planNameAr ?? "-"}</p>
-          <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-300">{homeT("subscription.trialEnds")}: {currentSubscription?.trialEndsAt ? formatDateLine(currentSubscription.trialEndsAt) : "-"}</p>
+          <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-300">{homeT("subscription.trialEnds")}: {currentSubscription?.trialEndsAt ? formatDateLine(currentSubscription.trialEndsAt, operationalTimeZone, locale) : "-"}</p>
           <Link href={`/${locale}/pricing`} className="mt-3 inline-flex rounded-md border border-zinc-300 px-4 py-1.5 text-sm dark:border-zinc-700">
             {homeT("subscription.manage")}
           </Link>

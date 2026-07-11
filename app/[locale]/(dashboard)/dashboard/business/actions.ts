@@ -1,14 +1,24 @@
 "use server";
 
 import { getCurrentUserId } from "@/lib/auth/session";
+import { hasPermission } from "@/lib/authorization/access";
+import { getCurrentBusinessMemberContext, isBusinessContextSelectionError } from "@/lib/authorization/context";
+import { revalidateOperationalTimeZoneSurfaces } from "@/lib/cache/revalidate-tenant-ui";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import { prisma } from "@/lib/prisma";
+import { validateTimeZone } from "@/lib/time-zone/validation";
 import { BusinessStatus, MembershipRole } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export type CreateBusinessState = {
   error: string | null;
+};
+
+export type SaveBusinessTimeZoneState = {
+  error: string | null;
+  success?: boolean;
+  completedAt?: number;
 };
 
 /**
@@ -146,4 +156,43 @@ export async function createBusiness(
   revalidatePath(`/${locale}/dashboard`, "layout");
   revalidatePath(`/${locale}/dashboard/business`, "page");
   redirect(`/${locale}/dashboard/business`);
+}
+
+export async function saveBusinessTimeZone(
+  _prev: SaveBusinessTimeZoneState,
+  formData: FormData,
+): Promise<SaveBusinessTimeZoneState> {
+  const userId = await getCurrentUserId();
+  const locale = normalizeServerActionLocale(String(formData.get("locale") ?? "ar"));
+  const t = await getServerActionTranslator(locale);
+  if (!userId) return { error: t("business.timeZone.mustSignIn") };
+
+  let context;
+  try {
+    context = await getCurrentBusinessMemberContext(userId);
+  } catch (error) {
+    if (isBusinessContextSelectionError(error)) return { error: t("business.timeZone.selectBusinessFirst") };
+    throw error;
+  }
+
+  if (!hasPermission(context.member, "settings.business.manage")) {
+    return { error: t("business.timeZone.noPermission") };
+  }
+
+  const result = validateTimeZone(formData.get("timeZone"));
+  if (!result.ok) {
+    return { error: t("business.timeZone.invalid") };
+  }
+
+  try {
+    await prisma.business.update({
+      where: { id: context.business.id },
+      data: { timeZone: result.value },
+    });
+  } catch {
+    return { error: t("business.timeZone.saveFailed") };
+  }
+
+  revalidateOperationalTimeZoneSurfaces(locale);
+  return { error: null, success: true, completedAt: Date.now() };
 }

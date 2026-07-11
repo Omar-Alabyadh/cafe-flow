@@ -77,7 +77,7 @@ export default async function InventoryPage({ params }: PageProps) {
           description={t("emptyDescription")}
         />
       ) : (
-        <InventoryWorkspace locale={locale} rows={rows} />
+        <InventoryWorkspace locale={locale} rows={rows} operationalTimeZone={context.operationalTimeZone} />
       )}
     </PageContainer>
   );

@@ -33,6 +33,7 @@ export default async function OrdersReportPage({ params }: PageProps) {
     return <UnauthorizedState locale={locale} title={t("unauthorizedTitle")} description={t("unauthorizedDescription")} />;
   }
   const businessId = context.business.id;
+  const operationalTimeZone = context.operationalTimeZone;
 
   const orders = await prisma.order.findMany({
     where: { businessId, archivedAt: null },
@@ -67,10 +68,10 @@ export default async function OrdersReportPage({ params }: PageProps) {
                   </td>
                   <td className="px-4 py-3 text-right tabular-nums">{formatArabicLatnInteger(o._count.items)}</td>
                   <td className="px-4 py-3">
-                    <TableDateTimeCell at={o.createdAt} />
+                    <TableDateTimeCell at={o.createdAt} timeZone={operationalTimeZone} locale={locale} />
                   </td>
                   <td className="px-4 py-3">
-                    <TableDateTimeCell at={o.completedAt} />
+                    <TableDateTimeCell at={o.completedAt} timeZone={operationalTimeZone} locale={locale} />
                   </td>
                 </tr>
               ))}

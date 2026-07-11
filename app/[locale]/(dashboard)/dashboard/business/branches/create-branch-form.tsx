@@ -3,12 +3,14 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { saveBranch, type SaveBranchState } from "./actions";
 import { useTranslations } from "next-intl";
+import { CURATED_TIME_ZONE_OPTIONS } from "@/lib/time-zone/options";
 
 type CreateBranchFormProps = {
   locale: string;
   fieldsKey: string;
   initialValues: BranchFieldValues;
   editingBranchId: string | null;
+  businessTimeZone: string;
   onCancel: () => void;
   onSaveSuccess: () => void;
   onDirtyChange?: (dirty: boolean) => void;
@@ -23,12 +25,14 @@ export type BranchDraft = {
   code: string;
   nameAr: string;
   nameEn: string | null;
+  timeZone: string | null;
 };
 
 export type BranchFieldValues = {
   code: string;
   nameAr: string;
   nameEn: string;
+  timeZone: string;
 };
 
 export function CreateBranchForm({
@@ -36,6 +40,7 @@ export function CreateBranchForm({
   fieldsKey,
   initialValues,
   editingBranchId,
+  businessTimeZone,
   onCancel,
   onSaveSuccess,
   onDirtyChange,
@@ -47,6 +52,7 @@ export function CreateBranchForm({
   const [code, setCode] = useState(initialValues.code);
   const [nameAr, setNameAr] = useState(initialValues.nameAr);
   const [nameEn, setNameEn] = useState(initialValues.nameEn);
+  const [timeZone, setTimeZone] = useState(initialValues.timeZone);
   const onSaveSuccessRef = useRef(onSaveSuccess);
   const baselineRef = useRef(JSON.stringify(initialValues));
 
@@ -55,8 +61,8 @@ export function CreateBranchForm({
   }, [onSaveSuccess]);
   useEffect(() => {
     if (!onDirtyChange) return;
-    onDirtyChange(JSON.stringify({ code, nameAr, nameEn }) !== baselineRef.current);
-  }, [code, nameAr, nameEn, onDirtyChange]);
+    onDirtyChange(JSON.stringify({ code, nameAr, nameEn, timeZone }) !== baselineRef.current);
+  }, [code, nameAr, nameEn, timeZone, onDirtyChange]);
   useEffect(() => {
     if (!state.success || !state.completedAt) return;
     const t = window.setTimeout(() => onSaveSuccessRef.current(), 0);
@@ -110,6 +116,29 @@ export function CreateBranchForm({
           onChange={(e) => setNameEn(e.target.value)}
           className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
         />
+      </div>
+
+      <div className="space-y-1">
+        <label htmlFor="b-time-zone" className="text-sm font-medium">
+          {t("timeZone")}
+        </label>
+        <input
+          id="b-time-zone"
+          name="timeZone"
+          list="branch-time-zone-options"
+          value={timeZone}
+          onChange={(e) => setTimeZone(e.target.value)}
+          placeholder={t("useBusinessTimeZone", { timeZone: businessTimeZone })}
+          className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+        />
+        <datalist id="branch-time-zone-options">
+          {CURATED_TIME_ZONE_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.group} - {option.label}
+            </option>
+          ))}
+        </datalist>
+        <p className="text-xs text-zinc-500">{t("timeZoneHint")}</p>
       </div>
 
       {state.error ? (

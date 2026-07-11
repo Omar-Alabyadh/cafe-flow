@@ -14,6 +14,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { TableDateTimeCell } from "@/components/ui/foundations/table-datetime-cell";
 import { formatArabicLatnInteger } from "@/lib/format/numbers";
+import { getUtcRangeForLocalDate } from "@/lib/time-zone/day-boundaries";
 import { getTranslations } from "next-intl/server";
 
 type PageProps = {
@@ -38,6 +39,7 @@ function isOrderStatusFilter(value: string): value is OrderStatus {
 function buildWhere(
   businessId: string,
   raw: Record<string, string | string[] | undefined>,
+  operationalTimeZone: string,
 ): Prisma.OrderWhereInput {
   const q = firstParam(raw.q)?.trim();
   const statusRaw = firstParam(raw.status)?.trim();
@@ -56,17 +58,15 @@ function buildWhere(
 
   const created: Prisma.DateTimeFilter = {};
   if (from) {
-    const d = new Date(from);
-    if (!Number.isNaN(d.getTime())) {
-      d.setHours(0, 0, 0, 0);
-      created.gte = d;
+    const range = getUtcRangeForLocalDate({ date: from, timeZone: operationalTimeZone });
+    if (range) {
+      created.gte = range.startUtc;
     }
   }
   if (to) {
-    const d = new Date(to);
-    if (!Number.isNaN(d.getTime())) {
-      d.setHours(23, 59, 59, 999);
-      created.lte = d;
+    const range = getUtcRangeForLocalDate({ date: to, timeZone: operationalTimeZone });
+    if (range) {
+      created.lt = range.nextDayStartUtc;
     }
   }
   if (Object.keys(created).length > 0) {
@@ -100,7 +100,8 @@ export default async function OrdersPage({ params, searchParams }: PageProps) {
   const businessId = context.business.id;
   const showPosLink = canUsePOS(context.member) && context.member.role !== MembershipRole.BARISTA;
 
-  const where = buildWhere(businessId, sp);
+  const operationalTimeZone = context.operationalTimeZone;
+  const where = buildWhere(businessId, sp, operationalTimeZone);
 
   const orders = await prisma.order.findMany({
     where,
@@ -235,10 +236,10 @@ export default async function OrdersPage({ params, searchParams }: PageProps) {
                   </td>
                   <td className="px-4 py-3 text-right tabular-nums">{formatArabicLatnInteger(o._count.items)}</td>
                   <td className="px-4 py-3">
-                    <TableDateTimeCell at={o.createdAt} />
+                    <TableDateTimeCell at={o.createdAt} timeZone={operationalTimeZone} locale={locale} />
                   </td>
                   <td className="px-4 py-3">
-                    <TableDateTimeCell at={o.completedAt} />
+                    <TableDateTimeCell at={o.completedAt} timeZone={operationalTimeZone} locale={locale} />
                   </td>
                   <td className="px-4 py-3">
                     <Link

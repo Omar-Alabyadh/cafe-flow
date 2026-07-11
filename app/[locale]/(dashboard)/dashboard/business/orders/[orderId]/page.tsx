@@ -38,6 +38,7 @@ export default async function OrderDetailsPage({ params }: PageProps) {
     return <UnauthorizedState locale={locale} title={t("unauthorizedTitle")} description={t("unauthorizedDescription")} />;
   }
   const businessId = context.business.id;
+  const operationalTimeZone = context.operationalTimeZone;
 
   const [order, products] = await Promise.all([
     prisma.order.findFirst({
@@ -106,12 +107,14 @@ export default async function OrderDetailsPage({ params }: PageProps) {
         <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-xs text-zinc-500 dark:text-zinc-400">{t("createdAt")}</dt>
-            <dd className="mt-0.5 text-right font-medium tabular-nums">{formatFullDateTime(order.createdAt)}</dd>
+            <dd className="mt-0.5 text-right font-medium tabular-nums">
+              {formatFullDateTime(order.createdAt, operationalTimeZone, locale)}
+            </dd>
           </div>
           <div>
             <dt className="text-xs text-zinc-500 dark:text-zinc-400">{t("completedAt")}</dt>
             <dd className="mt-0.5 text-right font-medium tabular-nums">
-              {order.completedAt ? formatFullDateTime(order.completedAt) : "—"}
+              {order.completedAt ? formatFullDateTime(order.completedAt, operationalTimeZone, locale) : "—"}
             </dd>
           </div>
         </dl>

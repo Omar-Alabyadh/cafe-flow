@@ -11,9 +11,12 @@ import { AlertTriangle, Boxes, Coffee, MonitorPlay, PackagePlus, ShoppingCart, U
 import { redirect } from "next/navigation";
 import { FadeIn } from "@/components/ui/motion/fade-in";
 import { CreateBusinessForm } from "./create-business-form";
+import { BusinessTimeZoneForm } from "./business-time-zone-form";
 import { MoneyValue } from "@/components/ui/foundations/money-value";
 import { TableDateTimeCell } from "@/components/ui/foundations/table-datetime-cell";
 import { formatArabicLatnInteger } from "@/lib/format/numbers";
+import { getUtcRangeForLocalDate } from "@/lib/time-zone/day-boundaries";
+import { formatDateInputValueInTimeZone } from "@/lib/time-zone/format";
 import { getDefaultRouteByRole } from "@/lib/authorization/role-access";
 import { isPlatformOperator } from "@/lib/platform/require-platform-operator";
 import { getTranslations } from "next-intl/server";
@@ -67,11 +70,14 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
 
   const businessId = business.id;
   const businessDisplayName = localizedCatalogName(locale, business.nameAr, business.nameEn);
+  const operationalTimeZone = business.timeZone;
 
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
-  const todayEnd = new Date();
-  todayEnd.setHours(23, 59, 59, 999);
+  const todayRange = getUtcRangeForLocalDate({
+    date: formatDateInputValueInTimeZone(new Date(), operationalTimeZone),
+    timeZone: operationalTimeZone,
+  });
+  const todayStart = todayRange?.startUtc ?? new Date(0);
+  const tomorrowStart = todayRange?.nextDayStartUtc ?? new Date();
 
   const [
     staffCount,
@@ -134,7 +140,7 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
     }),
     // Metric definition: all orders created today regardless of status.
     prisma.order.count({
-      where: { businessId, archivedAt: null, createdAt: { gte: todayStart, lte: todayEnd } },
+      where: { businessId, archivedAt: null, createdAt: { gte: todayStart, lt: tomorrowStart } },
     }),
     // Metric definition: completed orders only (all time).
     prisma.order.count({
@@ -151,7 +157,7 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
           businessId,
           archivedAt: null,
           status: "COMPLETED",
-          createdAt: { gte: todayStart, lte: todayEnd },
+          createdAt: { gte: todayStart, lt: tomorrowStart },
         },
       },
       select: {
@@ -296,6 +302,10 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
         </div>
       </div>
 
+      <div className="mb-5">
+        <BusinessTimeZoneForm locale={locale} currentTimeZone={operationalTimeZone} />
+      </div>
+
       <div className="mb-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           label={t("stats.todayOrdersLabel")}
@@ -402,7 +412,7 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
                       </td>
                       <td className="px-3 py-2 text-right tabular-nums">{formatArabicLatnInteger(o._count.items)}</td>
                       <td className="px-3 py-2">
-                        <TableDateTimeCell at={o.createdAt} />
+                        <TableDateTimeCell at={o.createdAt} timeZone={operationalTimeZone} locale={locale} />
                       </td>
                       <td className="px-3 py-2">
                         <Link
