@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "tsx --test tests/**/*.test.ts",
+    "finance:backfill:preview": "tsx scripts/finance-backfill.ts",
+    "finance:backfill:apply": "tsx scripts/finance-backfill.ts --apply",
     "auth:create-test-user": "node scripts/create-test-user.mjs",
     "platform:totp-secret": "node scripts/generate-platform-totp-secret.mjs",
     "platform:totp-now": "node scripts/show-platform-totp-now.mjs"
