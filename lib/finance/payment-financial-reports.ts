@@ -6,13 +6,15 @@ import { prisma } from "@/lib/prisma";
 export const BANKING_PAYMENT_METHODS = Object.values(PosPaymentMethod).filter((method) => method !== PosPaymentMethod.CASH);
 export type FinancialReportInput = { businessId: string; branchId?: string | null; currency: string; startUtc: Date; endUtc: Date; page?: number; pageSize?: number };
 export function validateFinancialReportRange(input: Pick<FinancialReportInput, "startUtc" | "endUtc">) { if (Number.isNaN(input.startUtc.getTime()) || Number.isNaN(input.endUtc.getTime()) || input.startUtc >= input.endUtc) throw new Error("FINANCIAL_REPORT_RANGE_INVALID"); }
+function utcTimestamp(value: Date) { return value.toISOString().replace("T", " ").replace("Z", ""); }
 
 function eligible(input: FinancialReportInput) {
   const branch = input.branchId ? Prisma.sql`AND p."branchId" = ${input.branchId}` : Prisma.empty;
+  const startUtc = utcTimestamp(input.startUtc); const endUtc = utcTimestamp(input.endUtc);
   return Prisma.sql`
     FROM "Payment" p JOIN "Order" o ON o.id = p."orderId"
     WHERE p."businessId" = ${input.businessId} ${branch} AND p.status = 'CAPTURED' AND p.currency = ${input.currency}
-      AND p."paidAt" >= ${input.startUtc} AND p."paidAt" < ${input.endUtc}
+      AND p."paidAt" >= ${startUtc}::timestamp AND p."paidAt" < ${endUtc}::timestamp
       AND p.amount IS NOT NULL AND p.method IS NOT NULL AND p."branchId" IS NOT NULL AND p."paidAt" IS NOT NULL AND p."receivedByUserId" IS NOT NULL
       AND o."branchId" IS NOT NULL AND o.currency IS NOT NULL AND o."totalAmount" IS NOT NULL
       AND p."businessId" = o."businessId" AND p."branchId" = o."branchId" AND p.currency = o.currency AND p.amount = o."totalAmount"
