@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "tsx --test tests/**/*.test.ts",
+    "test:finance:f4": "node --conditions=react-server --import tsx --test tests/legacy-reconciliation.integration.test.ts",
     "finance:backfill:preview": "tsx scripts/finance-backfill.ts",
     "finance:backfill:apply": "tsx scripts/finance-backfill.ts --apply",
     "auth:create-test-user": "node scripts/create-test-user.mjs",
@@ -28,7 +29,8 @@
     "prisma": "^6.19.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "recharts": "^3.8.1"
+    "recharts": "^3.8.1",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

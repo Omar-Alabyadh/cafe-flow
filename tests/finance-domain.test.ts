@@ -94,3 +94,11 @@ test("native payment rejects amount and tenant mismatches", () => {
   assert.throws(() => validateNativePaymentInvariants({ ...base, orderBusinessId: "business-2" }), /PAYMENT_BUSINESS_MISMATCH/);
   assert.throws(() => validateNativePaymentInvariants({ ...base, amount: "12.334" }), /PAYMENT_AMOUNT_MISMATCH/);
 });
+
+test("manually reconciled captured payment keeps the same financial invariants", () => {
+  assert.doesNotThrow(() => validateNativePaymentInvariants({
+    businessId: "b", branchId: "br", orderBusinessId: "b", orderBranchId: "br", amount: "1.000", orderTotalAmount: "1.000",
+    currency: "LYD", orderCurrency: "LYD", method: PosPaymentMethod.CASH, status: PosPaymentStatus.CAPTURED, paidAt: new Date(),
+    receivedByUserId: "u", receivedByDisplayNameSnapshot: "Receiver", receiptNumber: "RCT-BR-1", financialDataOrigin: FinancialDataOrigin.MANUALLY_RECONCILED,
+  }));
+});

@@ -20,7 +20,9 @@ export type NativePaymentInvariantInput = {
 };
 
 export function validateNativePaymentInvariants(input: NativePaymentInvariantInput): void {
-  if (input.financialDataOrigin !== FinancialDataOrigin.NATIVE) throw new Error("PAYMENT_ORIGIN_INVALID");
+  if (input.financialDataOrigin !== FinancialDataOrigin.NATIVE && input.financialDataOrigin !== FinancialDataOrigin.MANUALLY_RECONCILED) {
+    throw new Error("PAYMENT_ORIGIN_INVALID");
+  }
   if (!input.businessId || input.businessId !== input.orderBusinessId) throw new Error("PAYMENT_BUSINESS_MISMATCH");
   if (!input.branchId || input.branchId !== input.orderBranchId) throw new Error("PAYMENT_BRANCH_MISMATCH");
   if (!input.currency || input.currency !== input.orderCurrency) throw new Error("PAYMENT_CURRENCY_MISMATCH");
