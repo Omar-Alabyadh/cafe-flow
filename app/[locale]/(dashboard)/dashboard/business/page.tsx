@@ -21,6 +21,7 @@ import { getDefaultRouteByRole } from "@/lib/authorization/role-access";
 import { isPlatformOperator } from "@/lib/platform/require-platform-operator";
 import { getTranslations } from "next-intl/server";
 import { localizedCatalogName } from "@/lib/i18n/localized-catalog-name";
+import { getPaymentFinancialReport } from "@/lib/finance/payment-financial-reports";
 
 type BusinessPageProps = {
   params: Promise<{ locale: string }>;
@@ -88,7 +89,6 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
     activeOrdersRows,
     todayOrdersCount,
     completedOrdersCount,
-    todayRevenueRows,
     emptyDraftOrdersCount,
   ] = await Promise.all([
     prisma.membership.count({ where: { businessId, archivedAt: null } }),
@@ -146,25 +146,6 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
     prisma.order.count({
       where: { businessId, archivedAt: null, status: "COMPLETED" },
     }),
-    /**
-     * Revenue definition:
-     * no order.total in current schema, so revenue is derived from
-     * completed order items created today using quantity * product.basePrice.
-     */
-    prisma.orderItem.findMany({
-      where: {
-        order: {
-          businessId,
-          archivedAt: null,
-          status: "COMPLETED",
-          createdAt: { gte: todayStart, lt: tomorrowStart },
-        },
-      },
-      select: {
-        quantity: true,
-        product: { select: { basePrice: true } },
-      },
-    }),
     prisma.order.count({
       where: { businessId, archivedAt: null, status: "DRAFT", items: { none: {} } },
     }),
@@ -179,9 +160,8 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
     : [];
   const topProductMap = new Map(topProductRows.map((p) => [p.id, p.nameAr]));
 
-  const todayRevenueAmount = todayRevenueRows.reduce((sum, row) => {
-    return sum + Number(row.quantity) * Number(row.product.basePrice);
-  }, 0);
+  const todayFinancialReport = await getPaymentFinancialReport({ businessId, currency: business.defaultCurrency, startUtc: todayStart, endUtc: tomorrowStart });
+  const todayRevenueAmount = todayFinancialReport.totalSales.toString();
 
   const lowStockCount = lowStockRows.filter((m) => {
     if (m.minimumQuantity <= 0) return false;

@@ -13,6 +13,7 @@ import { getUtcRangeForLocalDate } from "@/lib/time-zone/day-boundaries";
 import { formatDateInputValueInTimeZone } from "@/lib/time-zone/format";
 import { prisma } from "@/lib/prisma";
 import { localizedCatalogName } from "@/lib/i18n/localized-catalog-name";
+import { getPaymentFinancialReport } from "@/lib/finance/payment-financial-reports";
 import { getCurrentBusinessSubscription } from "@/lib/subscription/business-subscription";
 import { getActiveBusinessCookie } from "@/lib/tenant/active-business-cookie";
 import { Coffee, ShoppingCart, Users } from "lucide-react";
@@ -89,7 +90,7 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
   const firstChartRange = getUtcRangeForLocalDate({ date: chartDateKeys[0], timeZone: operationalTimeZone });
   const startOfWeek = firstChartRange?.startUtc ?? todayStart;
 
-  const [staffCount, totalOrdersToday, totalOrdersAllTime, totalProductsCount, lowStockRows, currentSubscription, ordersLastWeek, recentOrders, todayOrders] =
+  const [staffCount, totalOrdersToday, totalOrdersAllTime, totalProductsCount, lowStockRows, currentSubscription, ordersLastWeek, recentOrders] =
     await Promise.all([
       prisma.membership.count({ where: { businessId: business.id, archivedAt: null } }),
       prisma.order.count({
@@ -113,20 +114,10 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
         take: 5,
         include: { _count: { select: { items: true } } },
       }),
-      prisma.order.findMany({
-        where: { businessId: business.id, archivedAt: null, createdAt: { gte: todayStart, lt: tomorrowStart } },
-        select: { id: true },
-      }),
     ]);
 
-  const todayRevenueRows = todayOrders.length
-    ? await prisma.orderItem.findMany({
-        where: { orderId: { in: todayOrders.map((row) => row.id) } },
-        select: { quantity: true, product: { select: { basePrice: true } } },
-      })
-    : [];
-
-  const totalRevenueToday = todayRevenueRows.reduce((sum, row) => sum + Number(row.quantity) * Number(row.product.basePrice), 0);
+  const todayFinancialReport = await getPaymentFinancialReport({ businessId: context.business.id, currency: context.business.defaultCurrency, startUtc: todayStart, endUtc: tomorrowStart });
+  const totalRevenueToday = todayFinancialReport.totalSales.toString();
 
   const lowStockCount = lowStockRows.filter((material) => {
     if (material.minimumQuantity <= 0) return false;
@@ -156,7 +147,7 @@ export default async function DashboardHomePage({ params }: DashboardHomeProps) 
   });
 
   const weeklyOrdersTotal = weeklyOrdersData.reduce((sum, row) => sum + row.orders, 0);
-  const avgRevenuePerOrderToday = totalOrdersToday > 0 ? totalRevenueToday / totalOrdersToday : 0;
+  const avgRevenuePerOrderToday = totalOrdersToday > 0 ? Number(todayFinancialReport.totalSales.div(totalOrdersToday).toString()) : 0;
 
   return (
     <PageContainer>

@@ -40,6 +40,7 @@ export default async function ReportsIndexPage({ params }: PageProps) {
 
   const base = `/${locale}/dashboard/business/reports`;
   const links = [
+    { href: `${base}/financial`, label: locale === "en" ? "Financial reports" : "التقارير المالية", icon: BarChart3 },
     { href: `${base}/orders`, label: t("cards.orders"), icon: ShoppingCart },
     { href: `${base}/best-selling-products`, label: t("cards.bestSelling"), icon: Flame },
     { href: `${base}/low-stock`, label: t("cards.lowStock"), icon: PackageSearch },

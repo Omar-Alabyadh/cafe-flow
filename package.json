@@ -10,6 +10,7 @@
     "lint": "eslint",
     "test": "tsx --test tests/**/*.test.ts",
     "test:finance:f4": "node --conditions=react-server --import tsx --test tests/legacy-reconciliation.integration.test.ts",
+    "test:finance:f5": "node --conditions=react-server --import tsx --test tests/payment-financial-reports.integration.test.ts",
     "finance:backfill:preview": "tsx scripts/finance-backfill.ts",
     "finance:backfill:apply": "tsx scripts/finance-backfill.ts --apply",
     "auth:create-test-user": "node scripts/create-test-user.mjs",

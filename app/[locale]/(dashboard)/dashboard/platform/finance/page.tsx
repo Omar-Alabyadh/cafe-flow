@@ -5,7 +5,7 @@ import { StatCard } from "@/components/ui/foundations/stat-card";
 import { TableDateTimeCell } from "@/components/ui/foundations/table-datetime-cell";
 import { formatArabicLatnInteger } from "@/lib/format/numbers";
 import { prisma } from "@/lib/prisma";
-import { PaymentRequestStatus, Prisma, SubscriptionStatus } from "@prisma/client";
+import { PaymentRequestStatus, SubscriptionStatus } from "@prisma/client";
 import { Banknote, CircleDollarSign, CreditCard, PiggyBank } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -27,18 +27,12 @@ export default async function PlatformFinancePage({ params }: PageProps) {
   const { locale } = await params;
   const t = await getTranslations("platform.finance");
 
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  thirtyDaysAgo.setHours(0, 0, 0, 0);
-
   const [
     subscriptionByStatus,
     paymentByStatus,
     recentPayments,
     plans,
     activeSubCount,
-    gmvAllTime,
-    gmv30d,
   ] = await Promise.all([
     prisma.subscription.groupBy({
       by: ["status"],
@@ -77,32 +71,9 @@ export default async function PlatformFinancePage({ params }: PageProps) {
       },
     }),
     prisma.subscription.count({ where: { archivedAt: null } }),
-    prisma.$queryRaw<{ total: unknown }[]>(Prisma.sql`
-      SELECT COALESCE(SUM(oi.quantity * p."basePrice"), 0) AS total
-      FROM "OrderItem" oi
-      INNER JOIN "Order" o ON oi."orderId" = o.id
-      INNER JOIN "Product" p ON oi."productId" = p.id
-      WHERE o.status = 'COMPLETED'
-        AND o."archivedAt" IS NULL
-        AND o."completedAt" IS NOT NULL
-    `),
-    prisma.$queryRaw<{ total: unknown }[]>(Prisma.sql`
-      SELECT COALESCE(SUM(oi.quantity * p."basePrice"), 0) AS total
-      FROM "OrderItem" oi
-      INNER JOIN "Order" o ON oi."orderId" = o.id
-      INNER JOIN "Product" p ON oi."productId" = p.id
-      WHERE o.status = 'COMPLETED'
-        AND o."archivedAt" IS NULL
-        AND o."completedAt" IS NOT NULL
-        AND o."completedAt" >= ${thirtyDaysAgo}
-    `),
   ]);
 
   const totalChargedAcrossSubs = subscriptionByStatus.reduce((s, row) => s + num(row._sum.chargedAmount), 0);
-  const totalMonthlyPriceActiveTrialing = subscriptionByStatus
-    .filter((r) => r.status === SubscriptionStatus.ACTIVE || r.status === SubscriptionStatus.TRIALING)
-    .reduce((s, r) => s + num(r._sum.monthlyPrice), 0);
-
   const paidPaymentsTotal = paymentByStatus
     .filter((r) => r.status === PaymentRequestStatus.PAID)
     .reduce((s, r) => s + num(r._sum.amount), 0);
@@ -188,32 +159,7 @@ export default async function PlatformFinancePage({ params }: PageProps) {
         />
       </div>
 
-      <div className="mb-8 grid gap-4 lg:grid-cols-2">
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-          <p className="text-sm font-semibold">{t("gmv.title")}</p>
-          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{t("gmv.hint")}</p>
-          <dl className="mt-4 space-y-3 text-sm">
-            <div className="flex items-center justify-between gap-2 rounded-lg bg-zinc-50 px-3 py-2 dark:bg-zinc-950">
-              <dt>{t("gmv.allTime")}</dt>
-              <dd>
-                <MoneyValue amount={num(gmvAllTime[0]?.total)} size="md" />
-              </dd>
-            </div>
-            <div className="flex items-center justify-between gap-2 rounded-lg bg-zinc-50 px-3 py-2 dark:bg-zinc-950">
-              <dt>{t("gmv.last30Days")}</dt>
-              <dd>
-                <MoneyValue amount={num(gmv30d[0]?.total)} size="md" />
-              </dd>
-            </div>
-            <div className="flex items-center justify-between gap-2 rounded-lg bg-zinc-50 px-3 py-2 dark:bg-zinc-950">
-              <dt>{t("gmv.mrrHintLabel")}</dt>
-              <dd>
-                <MoneyValue amount={totalMonthlyPriceActiveTrialing} size="md" />
-              </dd>
-            </div>
-          </dl>
-        </div>
-
+      <div className="mb-8">
         <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-sm font-semibold">{t("paymentMix.title")}</p>
           <ul className="mt-3 space-y-2 text-sm">
