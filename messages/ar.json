@@ -1713,6 +1713,10 @@
     }
   },
   "pos": {
+    "branch": {
+      "label": "فرع نقطة البيع",
+      "placeholder": "اختر الفرع"
+    },
     "unauthorized": {
       "title": "غير مصرح باستخدام نقطة البيع",
       "description": "هذه الشاشة تتطلب صلاحية الوصول إلى POS من دورك الحالي أو من التخصيص اليدوي."
@@ -1753,13 +1757,18 @@
     "payment": {
       "title": "طريقة الدفع",
       "cash": "كاش",
-      "banking": "خدمة مصرفية",
+      "banking": "الخدمات المصرفية",
       "summary": "طريقة الدفع: {method}",
+      "manualConfirmationNotice": "يتم تأكيد الدفع يدويًا بواسطة موظف الكافيه ولم يتم التحقق منه مباشرة من مزود الخدمة المصرفية.",
+      "manualConfirmation": "أؤكد هذا الدفع المصرفي يدويًا.",
+      "referencePlaceholder": "مرجع الدفع اختياري",
       "bankingMethods": {
         "bank_card": "بطاقة مصرفية",
-        "edfa_li": "إدفع لي",
+        "one_pay": "ون باي",
+        "ly_pay": "إل واي باي",
+        "edafly": "إدافلي",
         "mobi_cash": "موبي كاش",
-        "masrafi_pay": "مصرفي باي",
+        "masrefy_pay": "مصرفي باي",
         "yusr_pay": "يسر باي",
         "yusr_pay_qr": "يسر باي - QR",
         "sadad": "سداد",
@@ -1780,7 +1789,14 @@
     "toast": {
       "orderCompleted": "تم إتمام الطلب بنجاح",
       "productAdded": "تمت إضافة {product}"
-    }
+    },
+    "branchRequired": "اختر فرع نقطة البيع قبل إتمام الطلب.",
+    "branchInvalid": "الفرع المحدد غير متاح أو غير مسموح لهذا الحساب.",
+    "paymentMethodInvalid": "اختر طريقة دفع صالحة.",
+    "bankingConfirmationRequired": "أكد الدفع المصرفي يدويًا قبل إتمام الطلب.",
+    "paymentReferenceInvalid": "مرجع الدفع غير صالح.",
+    "paymentSuccess": "تم إنشاء الطلب {orderNumber} والإيصال {receiptNumber}.",
+    "legacyReplay": "لا يمكن إعادة هذا الطلب السابق كعملية بيع مالية أصلية."
   },
   "staff": {
     "title": "إدارة الطاقم"
@@ -2309,7 +2325,14 @@
       "idempotencyConflict": "تم استخدام محاولة الدفع هذه مع سلة مختلفة. ابدأ طلبًا جديدًا.",
       "idempotencyDuplicateFailed": "تعذر تأكيد محاولة الدفع المكررة بأمان. حدّث الطلبات قبل المحاولة مجددًا.",
       "genericError": "تعذّر إتمام طلب نقطة البيع.",
-      "success": "تم إنشاء الطلب #{id}."
+      "success": "تم إنشاء الطلب #{id}.",
+      "branchRequired": "اختر فرع نقطة البيع قبل إتمام الطلب.",
+      "branchInvalid": "الفرع المحدد غير متاح أو غير مسموح لهذا الحساب.",
+      "paymentMethodInvalid": "اختر طريقة دفع صالحة.",
+      "bankingConfirmationRequired": "أكد الدفع المصرفي يدويًا قبل إتمام الطلب.",
+      "paymentReferenceInvalid": "مرجع الدفع غير صالح.",
+      "paymentSuccess": "تم إنشاء الطلب {orderNumber} والإيصال {receiptNumber}.",
+      "legacyReplay": "لا يمكن إعادة هذا الطلب السابق كعملية بيع مالية أصلية."
     },
     "stockMovements": {
       "invalidType": "نوع حركة المخزون هذا غير مسموح هنا.",

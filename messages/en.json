@@ -1713,6 +1713,10 @@
     }
   },
   "pos": {
+    "branch": {
+      "label": "POS branch",
+      "placeholder": "Select a branch"
+    },
     "unauthorized": {
       "title": "POS access is not allowed",
       "description": "This screen requires POS access permission from your current role or custom permission override."
@@ -1753,13 +1757,18 @@
     "payment": {
       "title": "Payment method",
       "cash": "Cash",
-      "banking": "Banking service",
+      "banking": "Banking services",
       "summary": "Payment method: {method}",
+      "manualConfirmationNotice": "The payment is being confirmed manually by the cafe employee and has not been directly verified by the banking provider.",
+      "manualConfirmation": "I confirm this banking payment manually.",
+      "referencePlaceholder": "Optional payment reference",
       "bankingMethods": {
         "bank_card": "Bank card",
-        "edfa_li": "Edfa Li",
+        "one_pay": "One Pay",
+        "ly_pay": "LY Pay",
+        "edafly": "Edafly",
         "mobi_cash": "Mobi Cash",
-        "masrafi_pay": "Masrafi Pay",
+        "masrefy_pay": "Masrefy Pay",
         "yusr_pay": "Yusr Pay",
         "yusr_pay_qr": "Yusr Pay - QR",
         "sadad": "Sadad",
@@ -1780,7 +1789,14 @@
     "toast": {
       "orderCompleted": "Order completed successfully",
       "productAdded": "{product} added"
-    }
+    },
+    "branchRequired": "Select a POS branch before completing the order.",
+    "branchInvalid": "The selected branch is unavailable or not allowed for this account.",
+    "paymentMethodInvalid": "Select a valid payment method.",
+    "bankingConfirmationRequired": "Confirm the banking payment manually before completing the order.",
+    "paymentReferenceInvalid": "The payment reference is invalid.",
+    "paymentSuccess": "Order {orderNumber} and receipt {receiptNumber} were created.",
+    "legacyReplay": "This earlier order cannot be replayed as a native financial sale."
   },
   "staff": {
     "title": "Staff Management"
@@ -2309,7 +2325,14 @@
       "idempotencyConflict": "This checkout attempt was already used with a different cart. Please start a new order.",
       "idempotencyDuplicateFailed": "Could not safely confirm this repeated checkout attempt. Please refresh orders before trying again.",
       "genericError": "Could not complete the POS order.",
-      "success": "Order #{id} was created."
+      "success": "Order #{id} was created.",
+      "branchRequired": "Select a POS branch before completing the order.",
+      "branchInvalid": "The selected branch is unavailable or not allowed for this account.",
+      "paymentMethodInvalid": "Select a valid payment method.",
+      "bankingConfirmationRequired": "Confirm the banking payment manually before completing the order.",
+      "paymentReferenceInvalid": "The payment reference is invalid.",
+      "paymentSuccess": "Order {orderNumber} and receipt {receiptNumber} were created.",
+      "legacyReplay": "This earlier order cannot be replayed as a native financial sale."
     },
     "stockMovements": {
       "invalidType": "This stock movement type is not allowed here.",

@@ -36,12 +36,16 @@ export type PosSessionIdentityStrip = {
   branchLabelAr: string;
   businessNameAr: string;
 };
+export type PosBranch = { id: string; label: string };
 
 type PosFullscreenModeProps = {
   categories: PosCategory[];
   products: PosProduct[];
   locale?: string;
   sessionIdentity?: PosSessionIdentityStrip;
+  branches: PosBranch[];
+  selectedBranchId: string | null;
+  branchLocked: boolean;
 };
 
 const initialState: PosSubmitState = { error: null, success: null };
@@ -111,7 +115,7 @@ function PosQtyHoldButton({
   );
 }
 
-export function PosFullscreenMode({ categories, products, locale = "ar", sessionIdentity }: PosFullscreenModeProps) {
+export function PosFullscreenMode({ categories, products, locale = "ar", sessionIdentity, branches, selectedBranchId, branchLocked }: PosFullscreenModeProps) {
   const t = useTranslations("pos");
   const tCommon = useTranslations("common");
   const tPaymentMethods = useTranslations("pos.payment.bankingMethods");
@@ -138,6 +142,9 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
   const [isMobileCartOpen, setIsMobileCartOpen] = useState(false);
   const [paymentMode, setPaymentMode] = useState<PosPaymentMode>("cash");
   const [bankingMethod, setBankingMethod] = useState<PosBankingMethod>("bank_card");
+  const [branchId, setBranchId] = useState(selectedBranchId ?? "");
+  const [bankingConfirmed, setBankingConfirmed] = useState(false);
+  const [paymentReference, setPaymentReference] = useState("");
   const [requestKey, setRequestKey] = useState("");
   const [state, formAction, pending] = useActionState(submitPosOrder, initialState);
   const [signOutPending, startSignOut] = useTransition();
@@ -364,6 +371,16 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
   }, [cart, effectiveActiveCartLineId, tryEnterAddProduct, increase, decrease]);
 
   const paymentSummary = paymentMode === "cash" ? t("payment.cash") : tPaymentMethods(bankingMethod);
+  const paymentMethod = paymentMode === "cash" ? "CASH" : bankingMethod.toUpperCase();
+
+  const changeBranch = (nextBranchId: string) => {
+    if (branchLocked) return;
+    setBranchId(nextBranchId);
+    const url = new URL(window.location.href);
+    if (nextBranchId) url.searchParams.set("branchId", nextBranchId);
+    else url.searchParams.delete("branchId");
+    router.replace(`${url.pathname}${url.search}`);
+  };
 
   function handlePosSignOut() {
     const fd = new FormData();
@@ -395,6 +412,10 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
     <form action={formAction} className="fixed inset-0 z-50 h-dvh overflow-hidden bg-background text-foreground">
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="idempotencyKey" value={requestKey} />
+      <input type="hidden" name="branchId" value={branchId} />
+      <input type="hidden" name="paymentMethod" value={paymentMethod} />
+      <input type="hidden" name="bankingConfirmed" value={bankingConfirmed ? "true" : "false"} />
+      <input type="hidden" name="paymentReference" value={paymentReference} />
       <input
         type="hidden"
         name="cart"
@@ -663,6 +684,13 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
           </div>
 
           <div className="mt-2 shrink-0 space-y-2 border-t border-border bg-card pt-2 pb-[max(env(safe-area-inset-bottom),14px)]">
+            <label className="block text-xs font-bold">
+              <span>{t("branch.label")}</span>
+              <select value={branchId} disabled={branchLocked} onChange={(event) => changeBranch(event.target.value)} className="mt-1 h-9 w-full rounded-md border border-border bg-card px-2 text-xs disabled:opacity-70">
+                {!branchLocked ? <option value="">{t("branch.placeholder")}</option> : null}
+                {branches.map((branch) => <option key={branch.id} value={branch.id}>{branch.label}</option>)}
+              </select>
+            </label>
             <div className="rounded-md border border-border bg-muted/60 p-2.5 text-xs">
               <div className="mb-1 flex items-center justify-between">
                 <span className="text-zinc-600 dark:text-zinc-300">{t("totals.subtotal")}</span>
@@ -694,6 +722,13 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
               onModeChange={setPaymentMode}
               onBankingMethodChange={setBankingMethod}
             />
+            {paymentMode === "banking" ? (
+              <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-2 text-xs text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100">
+                <p>{t("payment.manualConfirmationNotice")}</p>
+                <label className="flex items-center gap-2 font-semibold"><input type="checkbox" checked={bankingConfirmed} onChange={(event) => setBankingConfirmed(event.target.checked)} />{t("payment.manualConfirmation")}</label>
+                <input value={paymentReference} onChange={(event) => setPaymentReference(event.target.value)} maxLength={120} placeholder={t("payment.referencePlaceholder")} className="h-8 w-full rounded border border-amber-300 bg-white px-2 text-xs dark:bg-zinc-950" />
+              </div>
+            ) : null}
 
             {state.error ? (
               <p className="rounded-lg bg-red-50 p-2 text-xs font-medium text-red-800 dark:bg-red-950/40 dark:text-red-200">
@@ -704,7 +739,7 @@ export function PosFullscreenMode({ categories, products, locale = "ar", session
             {/* Disabled when cart is empty or during submit. */}
             <button
               type="submit"
-              disabled={pending || cart.length === 0 || !requestKey}
+              disabled={pending || cart.length === 0 || !requestKey || !branchId || (paymentMode === "banking" && !bankingConfirmed)}
               className="flex min-h-[44px] w-full items-center justify-center gap-1 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-extrabold text-white shadow-sm transition hover:bg-emerald-500 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-55 disabled:active:scale-100 data-loading:animate-pulse"
               data-loading={pending ? true : undefined}
             >

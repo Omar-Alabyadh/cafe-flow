@@ -2,6 +2,8 @@
 
 import { signOut } from "@/auth";
 import { requireOwnerBusinessForCatalog } from "@/lib/catalog/require-owner-business";
+import { getCurrentBusinessMemberContext } from "@/lib/authorization/context";
+import { canAccessBranch } from "@/lib/authorization/access";
 import { clearPlatformStepUpCookie } from "@/lib/platform/platform-step-up-cookie";
 import { getServerActionTranslator, normalizeServerActionLocale } from "@/lib/i18n/server-action-translator";
 import { consumeProductFromRecipeInTransaction } from "@/lib/inventory/consume-product-from-recipe";
@@ -11,7 +13,12 @@ import {
   revalidateOrdersIndex,
 } from "@/lib/cache/revalidate-tenant-ui";
 import { prisma } from "@/lib/prisma";
-import { OrderStatus, Prisma } from "@prisma/client";
+import { allocateDocumentSequence, formatFinancialDocumentNumber } from "@/lib/finance/document-sequence";
+import { calculateLineAmounts, calculateOrderAmounts } from "@/lib/finance/money";
+import { FINANCIAL_AUDIT_ACTIONS } from "@/lib/finance/audit-actions";
+import { isOfficialPosPaymentMethod } from "@/lib/finance/payment-method";
+import { validateNativePaymentInvariants } from "@/lib/finance/payment-invariants";
+import { FinancialDataOrigin, FinancialDocumentType, OrderStatus, PosPaymentMethod, PosPaymentStatus, Prisma } from "@prisma/client";
 
 type ValidatedPosCartLine = {
   productId: string;
@@ -122,11 +129,15 @@ function decimalToSafeInteger(value: Prisma.Decimal): number | null {
 type ExistingPosOrder = {
   id: string;
   status: OrderStatus;
+  branchId: string | null;
+  financialDataOrigin: FinancialDataOrigin | null;
+  orderNumber: string | null;
   items: Array<{ productId: string; quantity: Prisma.Decimal }>;
+  payments: Array<{ id: string; receiptNumber: string | null; method: PosPaymentMethod | null; amount: Prisma.Decimal; status: PosPaymentStatus; reference: string | null }>;
 };
 
-function existingOrderMatchesCart(order: ExistingPosOrder, lines: ValidatedPosCartLine[]): boolean {
-  if (order.status !== OrderStatus.COMPLETED || order.items.length !== lines.length) {
+function existingOrderMatchesRequest(order: ExistingPosOrder, lines: ValidatedPosCartLine[], branchId: string, method: PosPaymentMethod, reference: string | null): boolean {
+  if (order.status !== OrderStatus.COMPLETED || order.branchId !== branchId || order.items.length !== lines.length) {
     return false;
   }
   const persistedLines: ValidatedPosCartLine[] = [];
@@ -137,7 +148,8 @@ function existingOrderMatchesCart(order: ExistingPosOrder, lines: ValidatedPosCa
     }
     persistedLines.push({ productId: item.productId, quantity });
   }
-  return cartSignature(persistedLines) === cartSignature(lines);
+  const payment = order.payments.find((candidate) => candidate.status === PosPaymentStatus.CAPTURED);
+  return cartSignature(persistedLines) === cartSignature(lines) && payment?.method === method && (payment.reference ?? null) === reference;
 }
 
 async function findExistingPosOrder(businessId: string, idempotencyKey: string): Promise<ExistingPosOrder | null> {
@@ -146,12 +158,30 @@ async function findExistingPosOrder(businessId: string, idempotencyKey: string):
     select: {
       id: true,
       status: true,
+      branchId: true,
+      financialDataOrigin: true,
+      orderNumber: true,
       items: {
         select: { productId: true, quantity: true },
         orderBy: { productId: "asc" },
       },
+      payments: { select: { id: true, receiptNumber: true, method: true, amount: true, status: true, reference: true } },
     },
   });
+}
+
+function parseReference(value: FormDataEntryValue | null): string | null {
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().replace(/\s+/g, " ");
+  if (!normalized) return null;
+  if (normalized.length > 120 || /[\u0000-\u001f]/.test(normalized)) return null;
+  return normalized;
+}
+
+function successMessage(t: Awaited<ReturnType<typeof getServerActionTranslator>>, order: ExistingPosOrder) {
+  const payment = order.payments.find((candidate) => candidate.status === PosPaymentStatus.CAPTURED);
+  if (!payment || order.financialDataOrigin !== FinancialDataOrigin.NATIVE || !order.orderNumber || !payment.receiptNumber) return null;
+  return t("pos.paymentSuccess", { orderNumber: order.orderNumber, receiptNumber: payment.receiptNumber });
 }
 
 function isExpectedPosIdempotencyConflict(error: unknown): boolean {
@@ -203,6 +233,31 @@ export async function submitPosOrder(
   }
 
   const t = await getServerActionTranslator(normalizeServerActionLocale(ctx.locale));
+  const businessContext = await getCurrentBusinessMemberContext(ctx.userId);
+  const branchId = String(formData.get("branchId") ?? "").trim();
+  if (!branchId) return { ...initialState, error: t("pos.branchRequired") };
+  if (businessContext.member.branchId && businessContext.member.branchId !== branchId) {
+    return { ...initialState, error: t("pos.branchInvalid") };
+  }
+  const branch = await prisma.branch.findFirst({
+    where: { id: branchId, businessId: ctx.businessId, isActive: true, archivedAt: null },
+    select: { id: true, code: true },
+  });
+  if (!branch || !canAccessBranch(businessContext.member, branch.id)) {
+    return { ...initialState, error: t("pos.branchInvalid") };
+  }
+  const rawMethod = String(formData.get("paymentMethod") ?? "").trim();
+  if (!isOfficialPosPaymentMethod(rawMethod)) return { ...initialState, error: t("pos.paymentMethodInvalid") };
+  const paymentMethod = rawMethod;
+  const bankingConfirmed = String(formData.get("bankingConfirmed") ?? "") === "true";
+  if (paymentMethod !== PosPaymentMethod.CASH && !bankingConfirmed) {
+    return { ...initialState, error: t("pos.bankingConfirmationRequired") };
+  }
+  const rawReference = String(formData.get("paymentReference") ?? "").trim();
+  const reference = paymentMethod === PosPaymentMethod.CASH ? null : parseReference(formData.get("paymentReference"));
+  if (paymentMethod !== PosPaymentMethod.CASH && rawReference && !reference) {
+    return { ...initialState, error: t("pos.paymentReferenceInvalid") };
+  }
   const idempotencyKey = parsePosIdempotencyKey(formData.get("idempotencyKey"));
   if (!idempotencyKey) {
     return { ...initialState, error: t("pos.idempotencyKeyInvalid") };
@@ -223,14 +278,16 @@ export async function submitPosOrder(
   const cleanCart = parsedCart.lines;
   const existingOrder = await findExistingPosOrder(ctx.businessId, idempotencyKey);
   if (existingOrder) {
-    if (!existingOrderMatchesCart(existingOrder, cleanCart)) {
+    const success = successMessage(t, existingOrder);
+    if (!success) return { ...initialState, error: t("pos.legacyReplay") };
+    if (!existingOrderMatchesRequest(existingOrder, cleanCart, branch.id, paymentMethod, reference)) {
       return { ...initialState, error: t("pos.idempotencyConflict") };
     }
-    return { error: null, success: t("pos.success", { id: existingOrder.id.slice(0, 8) }) };
+    return { error: null, success };
   }
 
   try {
-    const orderId = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx) => {
       const productIds = cleanCart.map((line) => line.productId);
       const products = await tx.product.findMany({
         where: {
@@ -239,7 +296,7 @@ export async function submitPosOrder(
           archivedAt: null,
           isActive: true,
         },
-        select: { id: true, nameAr: true, basePrice: true },
+        select: { id: true, code: true, nameAr: true, basePrice: true },
       });
       const productMap = new Map(products.map((product) => [product.id, product]));
       const actor = await tx.user.findUnique({
@@ -259,16 +316,13 @@ export async function submitPosOrder(
         return {
           product,
           quantity: new Prisma.Decimal(line.quantity.toString()),
-          unitPrice: new Prisma.Decimal(product.basePrice.toString()),
+          amounts: calculateLineAmounts({ quantity: line.quantity, unitPrice: product.basePrice.toString() }),
         };
       });
-      const serverSubtotal = verifiedLines.reduce(
-        (sum, line) => sum.add(line.unitPrice.mul(line.quantity)),
-        new Prisma.Decimal(0),
-      );
-      if (serverSubtotal.lt(new Prisma.Decimal(0))) {
-        throw new Error("PRODUCT_NOT_FOUND");
-      }
+      const orderAmounts = calculateOrderAmounts({ lineSubtotals: verifiedLines.map((line) => line.amounts.lineSubtotal) });
+      const orderSequence = await allocateDocumentSequence(tx, ctx.businessId, FinancialDocumentType.ORDER);
+      const orderNumber = formatFinancialDocumentNumber(FinancialDocumentType.ORDER, branch.code, orderSequence);
+      const currency = businessContext.business.defaultCurrency;
 
       const order = await tx.order.create({
         data: {
@@ -276,6 +330,16 @@ export async function submitPosOrder(
           idempotencyKey,
           status: OrderStatus.DRAFT,
           notes: t("pos.orderNotes"),
+          branchId: branch.id,
+          orderNumber,
+          subtotalAmount: orderAmounts.subtotalAmount,
+          discountTotal: orderAmounts.discountTotal,
+          taxTotal: orderAmounts.taxTotal,
+          totalAmount: orderAmounts.totalAmount,
+          currency,
+          financialSnapshotVersion: 1,
+          financialDataOrigin: FinancialDataOrigin.NATIVE,
+          branchDataOrigin: FinancialDataOrigin.NATIVE,
         },
       });
 
@@ -285,6 +349,13 @@ export async function submitPosOrder(
             orderId: order.id,
             productId: line.product.id,
             quantity: line.quantity,
+            productNameSnapshot: line.product.nameAr,
+            productCodeSnapshot: line.product.code,
+            unitPrice: line.amounts.unitPrice,
+            lineSubtotal: line.amounts.lineSubtotal,
+            lineDiscountTotal: line.amounts.discountTotal,
+            lineTaxTotal: line.amounts.taxTotal,
+            lineTotal: line.amounts.lineTotal,
           },
         });
       }
@@ -312,12 +383,35 @@ export async function submitPosOrder(
         });
       }
 
+      const receiptSequence = await allocateDocumentSequence(tx, ctx.businessId, FinancialDocumentType.RECEIPT);
+      const receiptNumber = formatFinancialDocumentNumber(FinancialDocumentType.RECEIPT, branch.code, receiptSequence);
+      validateNativePaymentInvariants({
+        businessId: ctx.businessId, branchId: branch.id, orderBusinessId: ctx.businessId, orderBranchId: order.branchId,
+        amount: orderAmounts.totalAmount, orderTotalAmount: orderAmounts.totalAmount, currency, orderCurrency: currency,
+        method: paymentMethod, status: PosPaymentStatus.CAPTURED, paidAt: new Date(), receivedByUserId: ctx.userId,
+        receivedByDisplayNameSnapshot: actor?.fullName ?? null, receiptNumber, financialDataOrigin: FinancialDataOrigin.NATIVE,
+      });
+      const paidAt = new Date();
+      const payment = await tx.payment.create({ data: {
+        businessId: ctx.businessId, branchId: branch.id, orderId: order.id, receiptNumber, amount: orderAmounts.totalAmount,
+        currency, method: paymentMethod, status: PosPaymentStatus.CAPTURED, paidAt, receivedByUserId: ctx.userId,
+        receivedByDisplayNameSnapshot: actor?.fullName ?? null, reference, financialDataOrigin: FinancialDataOrigin.NATIVE,
+      } });
+
+      await tx.auditLog.createMany({ data: [
+        { actorUserId: ctx.userId, businessId: ctx.businessId, branchId: branch.id, action: FINANCIAL_AUDIT_ACTIONS.SNAPSHOT_CREATED, entityType: "Order", entityId: order.id, afterSnapshot: JSON.stringify({ orderNumber, totalAmount: orderAmounts.totalAmount.toString(), currency }) },
+        { actorUserId: ctx.userId, businessId: ctx.businessId, branchId: branch.id, action: FINANCIAL_AUDIT_ACTIONS.ORDER_NUMBER_ISSUED, entityType: "Order", entityId: order.id, afterSnapshot: JSON.stringify({ orderNumber }) },
+        { actorUserId: ctx.userId, businessId: ctx.businessId, branchId: branch.id, action: FINANCIAL_AUDIT_ACTIONS.PAYMENT_ATTEMPT_CREATED, entityType: "Payment", entityId: payment.id, afterSnapshot: JSON.stringify({ method: paymentMethod, amount: orderAmounts.totalAmount.toString() }) },
+        { actorUserId: ctx.userId, businessId: ctx.businessId, branchId: branch.id, action: FINANCIAL_AUDIT_ACTIONS.PAYMENT_CAPTURED, entityType: "Payment", entityId: payment.id, afterSnapshot: JSON.stringify({ receiptNumber }) },
+        { actorUserId: ctx.userId, businessId: ctx.businessId, branchId: branch.id, action: FINANCIAL_AUDIT_ACTIONS.RECEIPT_NUMBER_ISSUED, entityType: "Payment", entityId: payment.id, afterSnapshot: JSON.stringify({ receiptNumber }) },
+      ] });
+
       await tx.order.update({
         where: { id: order.id },
         data: { status: OrderStatus.COMPLETED, completedAt: new Date() },
       });
 
-      return order.id;
+      return { orderId: order.id, orderNumber, receiptNumber };
     });
 
     /**
@@ -326,19 +420,21 @@ export async function submitPosOrder(
      */
     revalidateAfterStockImpact(ctx.locale);
     revalidateOrdersIndex(ctx.locale);
-    revalidateOrderDetail(ctx.locale, orderId);
+    revalidateOrderDetail(ctx.locale, result.orderId);
 
-    return { error: null, success: t("pos.success", { id: orderId.slice(0, 8) }) };
+    return { error: null, success: t("pos.paymentSuccess", { orderNumber: result.orderNumber, receiptNumber: result.receiptNumber }) };
   } catch (error) {
     if (isExpectedPosIdempotencyConflict(error)) {
       const replayedOrder = await findExistingPosOrder(ctx.businessId, idempotencyKey);
       if (!replayedOrder) {
         return { ...initialState, error: t("pos.idempotencyDuplicateFailed") };
       }
-      if (!existingOrderMatchesCart(replayedOrder, cleanCart)) {
+      const success = successMessage(t, replayedOrder);
+      if (!success) return { ...initialState, error: t("pos.legacyReplay") };
+      if (!existingOrderMatchesRequest(replayedOrder, cleanCart, branch.id, paymentMethod, reference)) {
         return { ...initialState, error: t("pos.idempotencyConflict") };
       }
-      return { error: null, success: t("pos.success", { id: replayedOrder.id.slice(0, 8) }) };
+      return { error: null, success };
     }
     const message = error instanceof Error ? error.message : "";
     if (message === "PRODUCT_NOT_FOUND") {

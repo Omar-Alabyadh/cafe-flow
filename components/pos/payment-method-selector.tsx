@@ -5,9 +5,11 @@ import { useTranslations } from "next-intl";
 export type PosPaymentMode = "cash" | "banking";
 export type PosBankingMethod =
   | "bank_card"
-  | "edfa_li"
+  | "one_pay"
+  | "ly_pay"
+  | "edafly"
   | "mobi_cash"
-  | "masrafi_pay"
+  | "masrefy_pay"
   | "yusr_pay"
   | "yusr_pay_qr"
   | "sadad"
@@ -22,9 +24,11 @@ type PaymentMethodSelectorProps = {
 
 const BANKING_METHOD_OPTIONS: Array<{ value: PosBankingMethod; labelKey: string }> = [
   { value: "bank_card", labelKey: "bank_card" },
-  { value: "edfa_li", labelKey: "edfa_li" },
+  { value: "one_pay", labelKey: "one_pay" },
+  { value: "ly_pay", labelKey: "ly_pay" },
+  { value: "edafly", labelKey: "edafly" },
   { value: "mobi_cash", labelKey: "mobi_cash" },
-  { value: "masrafi_pay", labelKey: "masrafi_pay" },
+  { value: "masrefy_pay", labelKey: "masrefy_pay" },
   { value: "yusr_pay", labelKey: "yusr_pay" },
   { value: "yusr_pay_qr", labelKey: "yusr_pay_qr" },
   { value: "sadad", labelKey: "sadad" },

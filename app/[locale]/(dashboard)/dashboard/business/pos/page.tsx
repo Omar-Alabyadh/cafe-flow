@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 
 type PosPageProps = {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ branchId?: string | string[] }>;
 };
 
 /**
@@ -19,8 +20,9 @@ type PosPageProps = {
  * It loads categories + active products for the owner's current business
  * then renders a dedicated real-time cashier UI.
  */
-export default async function PosPage({ params }: PosPageProps) {
+export default async function PosPage({ params, searchParams }: PosPageProps) {
   const { locale } = await params;
+  const query = await searchParams;
   const t = await getTranslations("pos");
   const tCommon = await getTranslations("common");
   const userId = await getCurrentUserId();
@@ -47,6 +49,13 @@ export default async function PosPage({ params }: PosPageProps) {
     );
   }
   const businessId = context.business.id;
+  const activeBranches = await prisma.branch.findMany({
+    where: { businessId, isActive: true, archivedAt: null },
+    select: { id: true, nameAr: true, nameEn: true }, orderBy: { nameAr: "asc" },
+  });
+  const requestedBranchId = typeof query.branchId === "string" ? query.branchId : null;
+  const branchLocked = Boolean(context.member.branchId);
+  const selectedBranchId = context.member.branchId ?? (requestedBranchId && activeBranches.some((branch) => branch.id === requestedBranchId) ? requestedBranchId : null);
 
   const sessionIdentityRow = await loadDashboardIdentityForUser(userId);
   const dash = (v: string | null | undefined) => (v && v.trim() ? v.trim() : tCommon("emDash"));
@@ -172,6 +181,9 @@ export default async function PosPage({ params }: PosPageProps) {
         outOfStock: productStockStatus.get(product.id)?.outOfStock ?? false,
         lowStock: productStockStatus.get(product.id)?.lowStock ?? false,
       }))}
+      branches={activeBranches.map((branch) => ({ id: branch.id, label: localizedCatalogName(locale, branch.nameAr, branch.nameEn) || branch.nameAr }))}
+      selectedBranchId={selectedBranchId}
+      branchLocked={branchLocked}
     />
   );
 }

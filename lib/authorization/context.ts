@@ -10,7 +10,7 @@ import { resolveOperationalTimeZone } from "@/lib/time-zone/effective-time-zone"
  */
 
 export type CurrentBusinessMemberContext = {
-  business: { id: string; nameAr: string; nameEn: string | null; ownerId: string; timeZone: string };
+  business: { id: string; nameAr: string; nameEn: string | null; ownerId: string; timeZone: string; defaultCurrency: string };
   selectedBranch: { id: string; timeZone: string | null } | null;
   operationalTimeZone: string;
   member: {
@@ -53,7 +53,7 @@ export async function getCurrentBusinessMemberContext(
 ): Promise<CurrentBusinessMemberContext> {
   const ownerBusiness = await prisma.business.findFirst({
     where: { ownerId: userId, archivedAt: null, status: { not: BusinessStatus.ARCHIVED } },
-    select: { id: true, nameAr: true, nameEn: true, ownerId: true, timeZone: true },
+    select: { id: true, nameAr: true, nameEn: true, ownerId: true, timeZone: true, defaultCurrency: true },
   });
 
   if (ownerBusiness) {
@@ -144,7 +144,7 @@ export async function getCurrentBusinessMemberContext(
       scope: true,
       grantedPermissions: true,
       revokedPermissions: true,
-      business: { select: { id: true, nameAr: true, nameEn: true, ownerId: true, timeZone: true } },
+      business: { select: { id: true, nameAr: true, nameEn: true, ownerId: true, timeZone: true, defaultCurrency: true } },
       branch: { select: { id: true, timeZone: true } },
     },
   });
