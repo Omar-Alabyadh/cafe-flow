@@ -904,6 +904,9 @@
             "stockMovements": "تقرير أحدث حركات المخزون"
           }
         },
+        "financial": {
+          "title": "التقارير المالية", "description": "مبيعات رسمية مبنية على الدفعات المقبوضة المؤهلة فقط.", "unauthorizedTitle": "غير مصرح بعرض التقارير المالية", "unauthorizedDescription": "تحتاج إلى صلاحية عرض التقارير المالية.", "invalidBranch": "الفرع المحدد غير متاح لهذا التقرير.", "invalidRange": "اختر نطاق تاريخ صالحاً.", "period": "الفترة", "today": "اليوم", "last7Days": "آخر 7 أيام", "currentMonth": "الشهر الحالي", "custom": "نطاق مخصص", "from": "من", "to": "إلى", "branch": "الفرع", "allBranches": "كل الفروع", "apply": "تطبيق", "currency": "العملة", "operationalTimeZone": "المنطقة الزمنية التشغيلية", "totalSales": "إجمالي المبيعات", "cashSales": "المبيعات النقدية", "bankingSales": "المبيعات المصرفية", "paymentCount": "الدفعات المؤهلة: {count}", "bankingBreakdown": "المبيعات حسب الطريقة المصرفية", "manualConfirmation": "الدفعات المصرفية مؤكدة يدوياً وليست مؤكدة من مزود الدفع.", "legacyTitle": "الطلبات التاريخية غير المسوّاة: {count}", "legacyDescription": "هذه الطلبات مستبعدة من التقارير المالية الرسمية حتى تتم تسويتها.", "valueUnavailable": "القيمة المالية التاريخية غير متاحة دون دليل تاريخي موثوق.", "details": "تفاصيل الدفعات", "empty": "لا توجد دفعات مؤهلة ضمن هذا التقرير.", "receipt": "الإيصال", "order": "الطلب", "paidAt": "وقت الدفع", "method": "طريقة الدفع", "amount": "المبلغ", "receiver": "المستلم", "origin": "المصدر", "previous": "السابق", "next": "التالي", "methods": { "CASH": "نقدي", "BANK_CARD": "بطاقة مصرفية", "ONE_PAY": "ون باي", "LY_PAY": "لي باي", "EDAFLY": "إدافلي", "MOBI_CASH": "موبي كاش", "MASREFY_PAY": "مصرفي باي", "YUSR_PAY": "يسر باي", "YUSR_PAY_QR": "يسر باي QR", "SADAD": "سداد", "SAHARA_PAY": "صحارى باي" }
+        },
         "unauthorizedTitle": "غير مصرح بعرض التقارير",
         "unauthorizedDescription": "تحتاج صلاحية عرض التقارير.",
         "orders": {
