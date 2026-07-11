@@ -185,9 +185,26 @@ export async function saveBusinessTimeZone(
   }
 
   try {
-    await prisma.business.update({
-      where: { id: context.business.id },
-      data: { timeZone: result.value },
+    await prisma.$transaction(async (tx) => {
+      await tx.business.update({
+        where: { id: context.business.id },
+        data: { timeZone: result.value },
+      });
+
+      if (context.business.timeZone !== result.value) {
+        await tx.auditLog.create({
+          data: {
+            actorUserId: userId,
+            businessId: context.business.id,
+            branchId: null,
+            action: "settings.business.time_zone.update",
+            entityType: "Business",
+            entityId: context.business.id,
+            beforeSnapshot: JSON.stringify({ timeZone: context.business.timeZone }),
+            afterSnapshot: JSON.stringify({ timeZone: result.value }),
+          },
+        });
+      }
     });
   } catch {
     return { error: t("business.timeZone.saveFailed") };

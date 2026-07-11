@@ -88,6 +88,7 @@ export async function createBranch(
   }
 
   revalidateBranchesPage(locale);
+  revalidateOperationalTimeZoneSurfaces(locale);
   revalidateStaffManagementPages(locale);
   return { error: null };
 }
@@ -156,16 +157,42 @@ export async function saveBranch(_prev: SaveBranchState, formData: FormData): Pr
   if (branchId) {
     const existing = await prisma.branch.findFirst({
       where: { id: branchId, businessId, archivedAt: null },
-      select: { id: true },
+      select: { id: true, timeZone: true },
     });
     if (!existing) {
       return { error: t("branches.branchNotFound") };
     }
 
     try {
-      await prisma.branch.update({
-        where: { id: branchId },
-        data: { code, nameAr, nameEn, timeZone: timeZone?.ok ? timeZone.value : null },
+      const nextTimeZone = timeZone?.ok ? timeZone.value : null;
+      await prisma.$transaction(async (tx) => {
+        await tx.branch.update({
+          where: { id: branchId },
+          data: { code, nameAr, nameEn, timeZone: nextTimeZone },
+        });
+
+        if (existing.timeZone !== nextTimeZone) {
+          await tx.auditLog.create({
+            data: {
+              actorUserId: userId,
+              businessId,
+              branchId,
+              action: "settings.branch.time_zone.update",
+              entityType: "Branch",
+              entityId: branchId,
+              beforeSnapshot: JSON.stringify({
+                timeZone: existing.timeZone,
+                inheritsBusinessTimeZone: existing.timeZone === null,
+                businessTimeZone: context.business.timeZone,
+              }),
+              afterSnapshot: JSON.stringify({
+                timeZone: nextTimeZone,
+                inheritsBusinessTimeZone: nextTimeZone === null,
+                businessTimeZone: context.business.timeZone,
+              }),
+            },
+          });
+        }
       });
     } catch {
       return { error: t("branches.updateFailed") };

@@ -68,13 +68,7 @@ function addLocalDays(year: number, month: number, day: number, days: number) {
   };
 }
 
-export function getUtcRangeForLocalDate({
-  date,
-  timeZone,
-}: {
-  date: string;
-  timeZone: string;
-}): { startUtc: Date; nextDayStartUtc: Date } | null {
+function parseCanonicalCalendarDate(date: string): { year: number; month: number; day: number } | null {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
   if (!match) return null;
 
@@ -83,6 +77,29 @@ export function getUtcRangeForLocalDate({
   const day = Number(match[3]);
   if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return null;
 
+  const reconstructed = new Date(Date.UTC(year, month - 1, day));
+  if (
+    reconstructed.getUTCFullYear() !== year ||
+    reconstructed.getUTCMonth() + 1 !== month ||
+    reconstructed.getUTCDate() !== day
+  ) {
+    return null;
+  }
+
+  return { year, month, day };
+}
+
+export function getUtcRangeForLocalDate({
+  date,
+  timeZone,
+}: {
+  date: string;
+  timeZone: string;
+}): { startUtc: Date; nextDayStartUtc: Date } | null {
+  const parsed = parseCanonicalCalendarDate(date);
+  if (!parsed) return null;
+
+  const { year, month, day } = parsed;
   const next = addLocalDays(year, month, day, 1);
   return {
     startUtc: localWallTimeToUtc({ year, month, day, hour: 0, minute: 0, second: 0, millisecond: 0, timeZone }),
