@@ -200,6 +200,7 @@ model User {
   staffInvitesSent         StaffInvite[]            @relation("StaffInviteInviter")
   paymentsReceived         Payment[]                @relation("PaymentReceiver")
   financialBackfillBatches FinancialBackfillBatch[] @relation("FinancialBackfillActor")
+  reconciledOrders         Order[]                  @relation("OrderReconciledBy")
 }
 
 model Business {
@@ -442,14 +443,20 @@ model Order {
   financialSnapshotVersion Int?
   financialDataOrigin      FinancialDataOrigin?
   branchDataOrigin         FinancialDataOrigin?
+  reconciliationEvidenceDescription String? @db.Text
+  reconciliationReason              String? @db.Text
+  reconciledAt                      DateTime?
+  reconciledByUserId                String?
 
   branch   Branch?     @relation("BranchOrders", fields: [branchId], references: [id])
   items    OrderItem[] @relation("OrderItems")
   payments Payment[]   @relation("OrderPayments")
+  reconciledBy User?   @relation("OrderReconciledBy", fields: [reconciledByUserId], references: [id])
 
   @@unique([businessId, orderNumber])
   @@index([businessId, status, createdAt])
   @@index([businessId, branchId])
+  @@index([reconciledByUserId])
   @@index([businessId, completedAt])
 }
 
