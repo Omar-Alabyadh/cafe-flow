@@ -8,6 +8,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test tests/**/*.test.ts",
     "auth:create-test-user": "node scripts/create-test-user.mjs",
     "platform:totp-secret": "node scripts/generate-platform-totp-secret.mjs",
     "platform:totp-now": "node scripts/show-platform-totp-now.mjs"
@@ -36,6 +37,7 @@
     "eslint-config-next": "16.2.2",
     "patch-package": "^8.0.1",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }

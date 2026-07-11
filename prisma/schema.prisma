@@ -130,6 +130,41 @@ enum OrderStatus {
   CANCELED
 }
 
+/// POS-sale payment methods. This enum is intentionally separate from the
+/// existing SaaS checkout `PaymentMethod` enum used by PaymentRequest.
+enum PosPaymentMethod {
+  CASH
+  BANK_CARD
+  ONE_PAY
+  LY_PAY
+  EDAFLY
+  MOBI_CASH
+  MASREFY_PAY
+  YUSR_PAY
+  YUSR_PAY_QR
+  SADAD
+  SAHARA_PAY
+}
+
+enum PosPaymentStatus {
+  PENDING
+  CAPTURED
+  FAILED
+  CANCELLED
+}
+
+enum FinancialDataOrigin {
+  NATIVE
+  BACKFILLED
+  MANUALLY_RECONCILED
+  LEGACY_UNKNOWN
+}
+
+enum FinancialDocumentType {
+  ORDER
+  RECEIPT
+}
+
 model User {
   id                String       @id @default(cuid())
   fullName          String
@@ -154,6 +189,7 @@ model User {
   termsAcceptances TermsAcceptance[] @relation("UserTermsAcceptances")
   auditLogs        AuditLog[]        @relation("AuditActor")
   staffInvitesSent StaffInvite[]     @relation("StaffInviteInviter")
+  paymentsReceived Payment[]         @relation("PaymentReceiver")
 }
 
 model Business {
@@ -164,6 +200,7 @@ model Business {
   status          BusinessStatus @default(ACTIVE)
   defaultLanguage LanguageCode   @default(AR)
   timeZone        String         @default("Africa/Tripoli")
+  defaultCurrency String         @default("LYD") @db.VarChar(3)
 
   // Each business has one primary owner user for accountability.
   ownerId String
@@ -193,6 +230,8 @@ model Business {
   rawMaterialStocks RawMaterialStock[] @relation("BusinessRawMaterialStocks")
   stockMovements    StockMovement[]    @relation("BusinessStockMovements")
   orders            Order[]            @relation("BusinessOrders")
+  payments          Payment[]          @relation("BusinessPayments")
+  documentSequences DocumentSequence[] @relation("BusinessDocumentSequences")
 
   @@index([ownerId])
   @@index([status])
@@ -380,9 +419,27 @@ model Order {
   archivedAt     DateTime?
   idempotencyKey String?     @unique
 
-  items OrderItem[] @relation("OrderItems")
+  // Financial fields remain nullable so the additive F1 migration preserves
+  // every historical order. Phase F2 will require them for new native orders.
+  branchId                 String?
+  orderNumber              String?
+  subtotalAmount           Decimal?             @db.Decimal(18, 3)
+  discountTotal            Decimal?             @db.Decimal(18, 3)
+  taxTotal                 Decimal?             @db.Decimal(18, 3)
+  totalAmount              Decimal?             @db.Decimal(18, 3)
+  currency                 String?              @db.VarChar(3)
+  financialSnapshotVersion Int?
+  financialDataOrigin      FinancialDataOrigin?
+  branchDataOrigin         FinancialDataOrigin?
 
+  branch   Branch?     @relation("BranchOrders", fields: [branchId], references: [id])
+  items    OrderItem[] @relation("OrderItems")
+  payments Payment[]   @relation("OrderPayments")
+
+  @@unique([businessId, orderNumber])
   @@index([businessId, status, createdAt])
+  @@index([businessId, branchId])
+  @@index([businessId, completedAt])
 }
 
 /// One order line = one product and quantity.
@@ -394,6 +451,14 @@ model OrderItem {
   product   Product  @relation("ProductOrderItems", fields: [productId], references: [id])
   quantity  Decimal  @db.Decimal(10, 3)
   createdAt DateTime @default(now())
+
+  productNameSnapshot String?
+  productCodeSnapshot String?
+  unitPrice           Decimal? @db.Decimal(18, 3)
+  lineSubtotal        Decimal? @db.Decimal(18, 3)
+  lineDiscountTotal   Decimal? @db.Decimal(18, 3)
+  lineTaxTotal        Decimal? @db.Decimal(18, 3)
+  lineTotal           Decimal? @db.Decimal(18, 3)
 
   @@index([orderId])
   @@index([productId])
@@ -434,6 +499,8 @@ model Branch {
   memberships  Membership[]  @relation("BranchMemberships")
   auditLogs    AuditLog[]    @relation("BranchAuditLogs")
   staffInvites StaffInvite[] @relation("BranchStaffInvites")
+  orders       Order[]       @relation("BranchOrders")
+  payments     Payment[]     @relation("BranchPayments")
 
   // Branch code is unique only inside the same business.
   @@unique([businessId, code])
@@ -574,6 +641,56 @@ model PaymentRequest {
 
   @@index([subscriptionId, status])
   @@index([provider, status])
+}
+
+/// POS-sale payment attempt. This is deliberately separate from PaymentRequest,
+/// which belongs to CafeFlow's own SaaS subscription billing domain.
+model Payment {
+  id                            String              @id @default(cuid())
+  businessId                    String
+  branchId                      String?
+  orderId                       String
+  receiptNumber                 String?
+  amount                        Decimal             @db.Decimal(18, 3)
+  currency                      String              @db.VarChar(3)
+  method                        PosPaymentMethod?
+  status                        PosPaymentStatus    @default(PENDING)
+  paidAt                        DateTime?
+  receivedByUserId              String?
+  receivedByDisplayNameSnapshot String?
+  reference                     String?
+  financialDataOrigin           FinancialDataOrigin @default(LEGACY_UNKNOWN)
+  createdAt                     DateTime            @default(now())
+  updatedAt                     DateTime            @updatedAt
+
+  business   Business @relation("BusinessPayments", fields: [businessId], references: [id])
+  branch     Branch?  @relation("BranchPayments", fields: [branchId], references: [id])
+  order      Order    @relation("OrderPayments", fields: [orderId], references: [id])
+  receivedBy User?    @relation("PaymentReceiver", fields: [receivedByUserId], references: [id])
+
+  @@unique([businessId, receiptNumber])
+  @@index([businessId, paidAt])
+  @@index([branchId, paidAt])
+  @@index([orderId, status])
+  @@index([receivedByUserId])
+  @@index([method])
+  @@index([financialDataOrigin])
+}
+
+/// Transactional counter per business and document type. Allocation must occur
+/// in the same transaction as the document so rollback does not consume a value.
+model DocumentSequence {
+  id           String                @id @default(cuid())
+  businessId   String
+  documentType FinancialDocumentType
+  currentValue BigInt                @default(0)
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  business Business @relation("BusinessDocumentSequences", fields: [businessId], references: [id])
+
+  @@unique([businessId, documentType])
+  @@index([businessId])
 }
 
 model TermsAcceptance {

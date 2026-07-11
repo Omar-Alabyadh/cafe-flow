@@ -40,6 +40,7 @@ export const PERMISSIONS = [
   "reports.view_all",
   "reports.financial.view",
   "reports.export",
+  "financial.legacy.reconcile",
   "users.view",
   "users.create",
   "users.update",
@@ -83,7 +84,7 @@ export const PERMISSION_GROUPS: { key: string; labelAr: string; permissions: Per
       "purchases.view",
     ],
   },
-  { key: "reports", labelAr: "Reports", permissions: ["reports.view_branch", "reports.view_all", "reports.financial.view", "reports.export"] },
+  { key: "reports", labelAr: "Reports", permissions: ["reports.view_branch", "reports.view_all", "reports.financial.view", "reports.export", "financial.legacy.reconcile"] },
   { key: "users", labelAr: "Users", permissions: ["users.view", "users.create", "users.update", "users.delete", "users.assign_roles", "branches.view"] },
   { key: "settings", labelAr: "Settings and Billing", permissions: ["settings.branch.manage", "settings.business.manage", "billing.manage"] },
   { key: "system", labelAr: "System", permissions: ["audit.view", "logs.view", "permissions.manage"] },
@@ -139,7 +140,7 @@ export const ROLE_PERMISSION_MATRIX: Record<MembershipRole, PermissionKey[]> = {
   SUPER_ADMIN: ALL,
   OWNER: ALL.filter((permission) => permission !== "permissions.manage"),
   MANAGER: MANAGER_CORE,
-  ACCOUNTANT: ["reports.view_branch", "reports.financial.view", "reports.export"],
+  ACCOUNTANT: ["reports.view_branch", "reports.financial.view", "reports.export", "financial.legacy.reconcile"],
   CASHIER: ["orders.view", "orders.create", "orders.update_status", "pos.access", "pos.payment.capture", "pos.shift.open", "pos.shift.close", "products.view", "categories.view", "addons.view"],
   BARISTA: ["orders.view", "orders.update_status"],
   WAITER: ["orders.view", "orders.create", "orders.update_status"],
@@ -237,6 +238,7 @@ export const BUSINESS_STAFF_ROLE_LABELS_AR: Record<BusinessStaffAssignableRole, 
 };
 
 export const SENSITIVE_PERMISSION_WARNINGS: Partial<Record<PermissionKey, string>> = {
+  "financial.legacy.reconcile": "Granting this permission allows reconciliation of legacy financial records.",
   "pos.payment.capture": "⚠️ Removing this permission prevents the user from completing payments.",
   "pos.access": "⚠️ Removing this permission prevents the user from accessing the POS screen.",
   "inventory.adjust": "⚠️ Removing this permission prevents the user from manually adjusting inventory balances.",
@@ -268,7 +270,9 @@ export const PERMISSION_TEMPLATES: Record<Exclude<PermissionTemplateKey, "DEFAUL
 };
 
 export const ROLE_FORBIDDEN_PERMISSIONS: Partial<Record<MembershipRole, PermissionKey[]>> = {
+  MANAGER: ["financial.legacy.reconcile"],
   CASHIER: [
+    "financial.legacy.reconcile",
     "billing.manage",
     "settings.branch.manage",
     "settings.business.manage",
@@ -281,6 +285,7 @@ export const ROLE_FORBIDDEN_PERMISSIONS: Partial<Record<MembershipRole, Permissi
     "audit.view",
   ],
   BARISTA: [
+    "financial.legacy.reconcile",
     "billing.manage",
     "settings.branch.manage",
     "settings.business.manage",
@@ -294,6 +299,7 @@ export const ROLE_FORBIDDEN_PERMISSIONS: Partial<Record<MembershipRole, Permissi
     "audit.view",
   ],
   WAITER: [
+    "financial.legacy.reconcile",
     "billing.manage",
     "settings.branch.manage",
     "settings.business.manage",
@@ -307,6 +313,7 @@ export const ROLE_FORBIDDEN_PERMISSIONS: Partial<Record<MembershipRole, Permissi
     "audit.view",
   ],
   KITCHEN_STAFF: [
+    "financial.legacy.reconcile",
     "billing.manage",
     "settings.branch.manage",
     "settings.business.manage",
@@ -320,6 +327,7 @@ export const ROLE_FORBIDDEN_PERMISSIONS: Partial<Record<MembershipRole, Permissi
     "audit.view",
   ],
   JUICE_STAFF: [
+    "financial.legacy.reconcile",
     "billing.manage",
     "settings.branch.manage",
     "settings.business.manage",
@@ -333,6 +341,7 @@ export const ROLE_FORBIDDEN_PERMISSIONS: Partial<Record<MembershipRole, Permissi
     "audit.view",
   ],
   PURCHASING_MANAGER: [
+    "financial.legacy.reconcile",
     "billing.manage",
     "settings.branch.manage",
     "settings.business.manage",
@@ -345,6 +354,7 @@ export const ROLE_FORBIDDEN_PERMISSIONS: Partial<Record<MembershipRole, Permissi
     "logs.view",
     "audit.view",
   ],
+  INVENTORY_MANAGER: ["financial.legacy.reconcile"],
 };
 
 export function isPermissionKey(value: string): value is PermissionKey {
