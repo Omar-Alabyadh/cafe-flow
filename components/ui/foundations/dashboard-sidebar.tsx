@@ -101,6 +101,7 @@ export async function DashboardSidebar({ locale, platformShell = false }: Dashbo
     if (href.endsWith("/units")) return "units";
     if (href.endsWith("/raw-materials")) return "raw-materials";
     if (href.endsWith("/reports")) return "reports";
+    if (href.endsWith("/ai-forecast")) return "forecast";
     if (href.includes("/dashboard/platform/finance")) return "platform-finance";
     if (href.includes("/dashboard/platform/reports")) return "platform-reports";
     if (href.endsWith("/platform")) return "platform";
@@ -146,6 +147,7 @@ export async function DashboardSidebar({ locale, platformShell = false }: Dashbo
         { href: `${biz}/units`, label: t("items.units"), icon: "boxes" },
         { href: `${biz}/raw-materials`, label: t("items.rawMaterials"), icon: "inventory" },
         { href: `${biz}/reports`, label: t("items.reports"), icon: "reports" },
+        { href: `${biz}/ai-forecast`, label: t("items.forecast"), icon: "forecast" },
       ],
     },
   ];

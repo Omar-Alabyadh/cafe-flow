@@ -491,6 +491,7 @@
         "units": "Measurement units",
         "rawMaterials": "Raw materials",
         "reports": "Reports",
+        "forecast": "AI Forecast",
         "platform": "Platform dashboard",
         "platformFinance": "Finance & billing",
         "platformReports": "Operator reports"
@@ -566,6 +567,93 @@
       }
     },
     "business": {
+      "forecast": {
+        "title": "AI Forecast",
+        "description": "Predict product demand using explainable forecasting models.",
+        "planningDisclaimer": "Forecasts support operational planning but do not guarantee actual demand.",
+        "unauthorizedTitle": "Not authorized to use AI Forecast",
+        "unauthorizedDescription": "AI Forecast is currently available to Owners and Managers only.",
+        "controls": {
+          "title": "Forecast controls",
+          "description": "Choose a clearly separated mode, scope, and forecast horizon. Generation starts only when you request it.",
+          "mode": "Data mode",
+          "scope": "Forecast scope",
+          "business": "Business",
+          "branch": "Branch",
+          "chooseBranch": "Choose an authorized branch",
+          "horizon": "Forecast horizon",
+          "nextDay": "Next day",
+          "nextSevenDays": "Next 7 days",
+          "generate": "Generate forecast",
+          "loading": "Generating forecast…",
+          "unnamedBranch": "Authorized branch"
+        },
+        "modes": {
+          "real": {
+            "title": "Real Data — Limited Pilot",
+            "description": "Uses trusted Native demand only. LEGACY_UNKNOWN history is excluded, and insufficient history may prevent a forecast."
+          },
+          "demo": {
+            "title": "Demo Forecast",
+            "description": "Uses deterministic synthetic data for academic demonstration only. It never affects operational or financial data."
+          }
+        },
+        "sources": { "native": "Trusted Native demand only", "demo": "Synthetic academic demand only" },
+        "initial": {
+          "title": "Plan with explainable demand forecasts",
+          "description": "Choose Real Data for a limited pilot or Demo Forecast for a clearly labelled academic example. The system never invents a result when the history is insufficient."
+        },
+        "errors": {
+          "title": "Forecast could not be generated",
+          "UNAUTHENTICATED": "Sign in is required to use forecasting.",
+          "FORBIDDEN": "You are not authorized to generate this forecast.",
+          "INVALID_SCOPE": "The selected scope is not available for this forecast.",
+          "INVALID_INPUT": "Check the selected forecast options and try again.",
+          "INSUFFICIENT_HISTORY": "There is not enough historical data to generate a reliable forecast.",
+          "COMPUTATION_LIMIT": "A forecast is already being generated. Please try again shortly.",
+          "INTERNAL_ERROR": "Forecast generation is temporarily unavailable. Please try again."
+        },
+        "insufficient": {
+          "title": "Forecast unavailable",
+          "message": "There is not enough historical data to generate a reliable forecast.",
+          "explanation": "CafeFlow intentionally avoids presenting unreliable predictions. Real Data remains a limited pilot and does not switch to Demo automatically."
+        },
+        "demo": {
+          "banner": "Demo Forecast — based on synthetic data for academic demonstration only",
+          "description": "This is not real café sales history and does not enter Orders, Payments, inventory, reports, or analytics."
+        },
+        "results": {
+          "title": "Demand forecast results",
+          "mode": "Selected mode",
+          "highDemand": "Expected higher demand",
+          "unavailable": "Unavailable",
+          "safeReason": "A reliable forecast cannot be shown for the selected history."
+        },
+        "table": { "product": "Product", "date": "Forecast date", "predicted": "Predicted quantity", "lower": "Lower bound", "upper": "Upper bound", "quality": "Quality", "model": "Model" },
+        "summary": { "generated": "Last generated", "training": "Training range", "observations": "Observations", "activeDays": "Active sales days" },
+        "metrics": {
+          "title": "Backtesting metrics",
+          "description": "These aggregate metrics compare past predictions with known quantities. They do not prove production readiness by themselves.",
+          "mae": "Average absolute quantity error.",
+          "wape": "Weighted absolute percentage error; unavailable when actual demand totals are zero.",
+          "biasLabel": "Bias",
+          "bias": "Direction of average over- or under-prediction."
+        },
+        "quality": {
+          "HIGH": { "label": "High", "description": "Stronger backtesting evidence; it is not a guarantee." },
+          "MEDIUM": { "label": "Medium", "description": "Useful evidence with meaningful uncertainty." },
+          "LOW": { "label": "Low", "description": "Use cautiously for planning only." },
+          "INSUFFICIENT_HISTORY": { "label": "Insufficient history", "description": "No reliable quantity is shown." }
+        },
+        "models": {
+          "title": "How the forecast works",
+          "intro": "CafeFlow uses explainable statistical forecasting methods. It does not use an LLM or neural network for numeric forecasting. Models are selected using history gates and rolling-origin backtesting.",
+          "SEASONAL_NAIVE": { "title": "Seasonal Naive", "description": "Uses demand from a comparable earlier weekday or seasonal position." },
+          "MOVING_AVERAGE": { "title": "Moving Average", "description": "Uses recent demand averages to estimate near-term demand." },
+          "CROSTON": { "title": "Croston", "description": "Handles intermittent demand with many zero-demand periods." },
+          "NONE": { "title": "No model selected", "description": "History or backtesting rules did not permit a reliable model." }
+        }
+      },
       "page": {
         "onboardingTitle": "Create business",
         "onboardingDescription": "This page is for owners only when no business exists yet. Staff users cannot create a new business from this flow.",
