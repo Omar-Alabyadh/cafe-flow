@@ -7,7 +7,16 @@ export type ForecastUiInput = {
   branchSelection?: string;
 };
 
-export type ForecastUiActionState = { response: ForecastClientResponse | null };
+export type SubmittedForecastControls = {
+  forecastMode: "REAL_PILOT" | "ACADEMIC_DEMO";
+  scopeType: "BUSINESS" | "BRANCH";
+  horizonDays: "1" | "7";
+};
+
+export type ForecastUiActionState = {
+  response: ForecastClientResponse | null;
+  submittedControls: SubmittedForecastControls | null;
+};
 
 type BranchResolution = { ok: true; branchId: string } | { ok: false; response: ForecastClientResponse };
 type ForecastUiActionDependencies = {
@@ -17,7 +26,7 @@ type ForecastUiActionDependencies = {
 };
 
 function invalid(message: string): ForecastUiActionState {
-  return { response: { ok: false, code: "INVALID_INPUT", message } };
+  return { response: { ok: false, code: "INVALID_INPUT", message }, submittedControls: null };
 }
 
 /** Validates only small UI choices; all tenant authorization remains enforced again by A4. */
@@ -30,19 +39,28 @@ export function createForecastUiAction(dependencies: ForecastUiActionDependencie
     if (input.scopeType !== "BUSINESS" && input.scopeType !== "BRANCH") return invalid("Forecast scope is invalid.");
     if (input.horizonDays !== "1" && input.horizonDays !== "7") return invalid("Forecast horizon is invalid.");
     if (input.forecastMode === "ACADEMIC_DEMO" && input.scopeType === "BRANCH") {
-      return { response: { ok: false, code: "INVALID_SCOPE", message: "Academic Demo supports business scope only." } };
+      return { response: { ok: false, code: "INVALID_SCOPE", message: "Academic Demo supports business scope only." }, submittedControls: null };
     }
     let branchReference: string | undefined;
     if (input.scopeType === "BRANCH") {
       if (!input.branchSelection || !/^branch-\d+$/.test(input.branchSelection)) return invalid("Branch selection is invalid.");
       const branch = await dependencies.resolveAuthorizedBranch(input.branchSelection);
-      if (!branch.ok) return { response: branch.response };
+      if (!branch.ok) return { response: branch.response, submittedControls: null };
       branchReference = branch.branchId;
     }
     const request = { scopeType: input.scopeType as "BUSINESS" | "BRANCH", horizonDays: Number(input.horizonDays) as 1 | 7, ...(branchReference ? { branchReference } : {}) };
     const response = input.forecastMode === "REAL_PILOT"
       ? await dependencies.generateRealPilotForecast(request)
       : await dependencies.generateAcademicDemoForecast(request);
-    return { response };
+    return {
+      response,
+      submittedControls: response.ok
+        ? {
+          forecastMode: input.forecastMode,
+          scopeType: input.scopeType,
+          horizonDays: input.horizonDays,
+        }
+        : null,
+    };
   };
 }

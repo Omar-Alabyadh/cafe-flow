@@ -630,7 +630,7 @@
           "safeReason": "A reliable forecast cannot be shown for the selected history."
         },
         "table": { "product": "Product", "date": "Forecast date", "predicted": "Predicted quantity", "lower": "Lower bound", "upper": "Upper bound", "quality": "Quality", "model": "Model" },
-        "summary": { "generated": "Last generated", "training": "Training range", "observations": "Observations", "activeDays": "Active sales days" },
+        "summary": { "generated": "Last generated", "horizon": "Forecast horizon", "training": "Training range", "observations": "Observations", "activeDays": "Active sales days" },
         "metrics": {
           "title": "Backtesting metrics",
           "description": "These aggregate metrics compare past predictions with known quantities. They do not prove production readiness by themselves.",

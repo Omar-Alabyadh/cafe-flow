@@ -8,7 +8,7 @@ import { createForecastUiAction, type ForecastUiActionState } from "@/lib/ai/for
 import { prisma } from "@/lib/prisma";
 
 function safeFailure(code: "UNAUTHENTICATED" | "FORBIDDEN" | "INVALID_SCOPE" | "INTERNAL_ERROR", message: string): ForecastUiActionState {
-  return { response: { ok: false, code, message } };
+  return { response: { ok: false, code, message }, submittedControls: null };
 }
 
 const runForecast = createForecastUiAction({

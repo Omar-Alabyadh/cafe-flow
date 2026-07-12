@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { startTransition, useActionState, useMemo, useState, type FormEvent } from "react";
 import { Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { requestForecast } from "./actions";
@@ -10,7 +10,7 @@ import type { ClientForecastProduct, ForecastClientResponse } from "@/lib/ai/for
 type BranchOption = { reference: string; label: string };
 type ForecastWorkspaceProps = { locale: string; branches: BranchOption[] };
 
-const initialState: ForecastUiActionState = { response: null };
+const initialState: ForecastUiActionState = { response: null, submittedControls: null };
 
 function isFiniteQuantity(value: number | null): value is number {
   return value !== null && Number.isFinite(value) && value >= 0;
@@ -31,6 +31,7 @@ export function ForecastWorkspace({ locale, branches }: ForecastWorkspaceProps) 
   const [horizonDays, setHorizonDays] = useState<"1" | "7">("1");
   const [branchSelection, setBranchSelection] = useState("");
   const response = state.response;
+  const submittedControls = state.submittedControls;
 
   const rows = useMemo(() => response && response.ok ? response.products.flatMap((product) => product.forecasts.map((forecast) => ({ product, forecast }))) : [], [response]);
   const highestProducts = useMemo(() => {
@@ -62,6 +63,13 @@ export function ForecastWorkspace({ locale, branches }: ForecastWorkspaceProps) 
     }
   };
 
+  const submitForecast = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (pending) return;
+    const formData = new FormData(event.currentTarget);
+    startTransition(() => formAction(formData));
+  };
+
   return (
     <div className="space-y-6">
       <section className="cf-surface rounded-2xl border border-border p-4 shadow-sm md:p-6" aria-labelledby="forecast-controls-title">
@@ -72,7 +80,7 @@ export function ForecastWorkspace({ locale, branches }: ForecastWorkspaceProps) 
             <p className="mt-1 text-sm text-muted-foreground">{t("controls.description")}</p>
           </div>
         </div>
-        <form action={formAction} className="mt-5 space-y-5">
+        <form onSubmit={submitForecast} onReset={(event) => event.preventDefault()} className="mt-5 space-y-5">
           <input type="hidden" name="scopeType" value={scopeType} />
           <fieldset disabled={pending} className="space-y-3 disabled:opacity-70">
             <legend className="text-sm font-semibold">{t("controls.mode")}</legend>
@@ -117,7 +125,7 @@ export function ForecastWorkspace({ locale, branches }: ForecastWorkspaceProps) 
       </section>
 
       <section aria-live="polite" aria-atomic="true">
-        {!response ? <InitialState t={t} /> : !response.ok ? <ErrorState response={response} t={t} /> : response.state === "INSUFFICIENT_HISTORY" ? <InsufficientHistory t={t} /> : <ForecastResults response={response} t={t} date={date} timestamp={timestamp} number={number} sourceLabel={sourceLabel} qualityLabel={qualityLabel} qualityDescription={qualityDescription} highestProducts={highestProducts} />}
+        {!response ? <InitialState t={t} /> : !response.ok ? <ErrorState response={response} t={t} /> : response.state === "INSUFFICIENT_HISTORY" ? <InsufficientHistory t={t} /> : <ForecastResults response={response} submittedControls={submittedControls} t={t} date={date} timestamp={timestamp} number={number} sourceLabel={sourceLabel} qualityLabel={qualityLabel} qualityDescription={qualityDescription} highestProducts={highestProducts} />}
       </section>
 
       <ModelExplanation t={t} />
@@ -137,15 +145,15 @@ function InsufficientHistory({ t }: { t: ReturnType<typeof useTranslations> }) {
   return <div className="rounded-2xl border border-amber-500/40 bg-amber-500/10 p-6"><h3 className="text-lg font-semibold text-foreground">{t("insufficient.title")}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{t("insufficient.message")}</p><p className="mt-2 text-sm leading-6 text-muted-foreground">{t("insufficient.explanation")}</p></div>;
 }
 
-function ForecastResults({ response, t, date, timestamp, number, sourceLabel, qualityLabel, qualityDescription, highestProducts }: { response: Extract<ForecastClientResponse, { ok: true }>; t: ReturnType<typeof useTranslations>; date: (value: string | null) => string; timestamp: (value: string) => string; number: (value: number | null) => string; sourceLabel: (value: "NATIVE_ONLY" | "DEMO_ONLY") => string; qualityLabel: (value: string) => string; qualityDescription: (value: string) => string; highestProducts: string[] }) {
+function ForecastResults({ response, submittedControls, t, date, timestamp, number, sourceLabel, qualityLabel, qualityDescription, highestProducts }: { response: Extract<ForecastClientResponse, { ok: true }>; submittedControls: ForecastUiActionState["submittedControls"]; t: ReturnType<typeof useTranslations>; date: (value: string | null) => string; timestamp: (value: string) => string; number: (value: number | null) => string; sourceLabel: (value: "NATIVE_ONLY" | "DEMO_ONLY") => string; qualityLabel: (value: string) => string; qualityDescription: (value: string) => string; highestProducts: string[] }) {
   const rows = response.products.flatMap((product) => product.forecasts.map((forecast) => ({ product, forecast })));
   const first = rows[0]?.forecast;
   return <div className="space-y-5">
     {response.demo.isDemo ? <div className="rounded-2xl border border-violet-500/50 bg-violet-500/10 p-5"><p className="font-semibold text-violet-900 dark:text-violet-100">{t("demo.banner")}</p><p className="mt-1 text-sm text-violet-800 dark:text-violet-200">{t("demo.description")}</p></div> : null}
-    <div className="cf-surface rounded-2xl border border-border p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div><h3 className="text-lg font-semibold">{t("results.title")}</h3><p className="mt-1 text-sm text-muted-foreground">{t("results.mode")}: {response.forecastMode === "REAL_PILOT" ? t("modes.real.title") : t("modes.demo.title")} · {sourceLabel(response.dataSource)}</p></div><span className="rounded-full border border-border px-3 py-1 text-xs font-medium">{response.scopeType === "BUSINESS" ? t("controls.business") : response.branchLabel}</span></div>
+    <div className="cf-surface rounded-2xl border border-border p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div><h3 className="text-lg font-semibold">{t("results.title")}</h3><p className="mt-1 text-sm text-muted-foreground">{t("results.mode")}: {submittedControls?.forecastMode === "REAL_PILOT" ? t("modes.real.title") : submittedControls?.forecastMode === "ACADEMIC_DEMO" ? t("modes.demo.title") : t("results.unavailable")} · {sourceLabel(response.dataSource)}</p></div><span className="rounded-full border border-border px-3 py-1 text-xs font-medium">{submittedControls?.scopeType === "BUSINESS" ? t("controls.business") : submittedControls?.scopeType === "BRANCH" ? response.branchLabel : t("results.unavailable")}</span></div>
       {highestProducts.length ? <p className="mt-4 rounded-lg bg-emerald-500/10 px-3 py-2 text-sm font-medium text-emerald-900 dark:text-emerald-100">{t("results.highDemand")}: {highestProducts.join("، ")}</p> : null}
       <div className="mt-5 overflow-x-auto"><table className="w-full min-w-[880px] text-start text-sm"><thead className="border-b border-border text-xs text-muted-foreground"><tr><th className="px-3 py-2 text-start">{t("table.product")}</th><th className="px-3 py-2 text-start">{t("table.date")}</th><th className="px-3 py-2 text-start">{t("table.predicted")}</th><th className="px-3 py-2 text-start">{t("table.lower")}</th><th className="px-3 py-2 text-start">{t("table.upper")}</th><th className="px-3 py-2 text-start">{t("table.quality")}</th><th className="px-3 py-2 text-start">{t("table.model")}</th></tr></thead><tbody>{rows.map(({ product, forecast }) => <tr key={`${product.productReference}-${forecast.forecastDate}`} className="border-b border-border/70"><td className="px-3 py-3 font-medium">{product.productLabel}</td><td className="px-3 py-3">{date(forecast.forecastDate)}</td><td className="px-3 py-3 tabular-nums">{number(forecast.predictedQuantity)}</td><td className="px-3 py-3 tabular-nums">{number(forecast.lowerBound)}</td><td className="px-3 py-3 tabular-nums">{number(forecast.upperBound)}</td><td className="px-3 py-3"><span className={`inline-flex rounded-full border px-2 py-1 text-xs font-medium ${qualityTone(forecast.quality)}`}>{qualityLabel(forecast.quality)}<span className="sr-only">: {qualityDescription(forecast.quality)}</span></span></td><td className="px-3 py-3 text-xs">{t(`models.${forecast.modelFamily}.title`)}</td></tr>)}</tbody></table></div>
-      {first ? <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4"><div><dt className="text-muted-foreground">{t("summary.generated")}</dt><dd className="mt-1 font-medium">{timestamp(first.generatedAt)}</dd></div><div><dt className="text-muted-foreground">{t("summary.training")}</dt><dd className="mt-1 font-medium">{date(first.trainingStartDate)} — {date(first.trainingEndDate)}</dd></div><div><dt className="text-muted-foreground">{t("summary.observations")}</dt><dd className="mt-1 font-medium">{number(first.observationCount)}</dd></div><div><dt className="text-muted-foreground">{t("summary.activeDays")}</dt><dd className="mt-1 font-medium">{number(first.activeSalesDays)}</dd></div></dl> : null}
+      {first ? <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-5"><div><dt className="text-muted-foreground">{t("summary.generated")}</dt><dd className="mt-1 font-medium">{timestamp(first.generatedAt)}</dd></div><div><dt className="text-muted-foreground">{t("summary.horizon")}</dt><dd className="mt-1 font-medium">{submittedControls?.horizonDays === "7" ? t("controls.nextSevenDays") : submittedControls?.horizonDays === "1" ? t("controls.nextDay") : t("results.unavailable")}</dd></div><div><dt className="text-muted-foreground">{t("summary.training")}</dt><dd className="mt-1 font-medium">{date(first.trainingStartDate)} — {date(first.trainingEndDate)}</dd></div><div><dt className="text-muted-foreground">{t("summary.observations")}</dt><dd className="mt-1 font-medium">{number(first.observationCount)}</dd></div><div><dt className="text-muted-foreground">{t("summary.activeDays")}</dt><dd className="mt-1 font-medium">{number(first.activeSalesDays)}</dd></div></dl> : null}
     </div>
     <Metrics products={response.products} t={t} number={number} />
   </div>;
