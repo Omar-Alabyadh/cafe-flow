@@ -62,6 +62,7 @@ const iconMap = {
   staff: UserCircle2,
   shield: Shield,
   wallet: Wallet,
+  forecast: Sparkles,
 } as const;
 
 export function DashboardSidebarNav({ groups }: { groups: NavGroup[] }) {

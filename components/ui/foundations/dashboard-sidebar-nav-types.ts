@@ -11,7 +11,8 @@ export type IconKey =
   | "settings"
   | "staff"
   | "shield"
-  | "wallet";
+  | "wallet"
+  | "forecast";
 
 export type NavItem = { href: string; label: string; icon: IconKey };
 export type NavGroup = { title: string; items: NavItem[] };

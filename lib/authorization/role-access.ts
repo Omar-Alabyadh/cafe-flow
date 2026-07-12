@@ -22,6 +22,7 @@ export type SidebarItemKey =
   | "units"
   | "raw-materials"
   | "reports"
+  | "forecast"
   | "billing"
   | "platform";
 
@@ -67,6 +68,7 @@ export const ROLE_ACCESS_DEFINITIONS: Record<MembershipRole, RoleAccessDefinitio
       "units",
       "raw-materials",
       "reports",
+      "forecast",
       "billing",
     ],
     requiredPermissions: [],
@@ -93,6 +95,7 @@ export const ROLE_ACCESS_DEFINITIONS: Record<MembershipRole, RoleAccessDefinitio
       "units",
       "raw-materials",
       "reports",
+      "forecast",
     ],
     requiredPermissions: [],
     ownerOnlyForbiddenAreas: STAFF_OWNER_ONLY_FORBIDDEN_AREAS,

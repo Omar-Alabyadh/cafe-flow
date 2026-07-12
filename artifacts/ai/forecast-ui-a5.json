@@ -1,0 +1,33 @@
+{
+  "phase": "A5",
+  "classification": "READY_FOR_A6_PRODUCTION_SAFE_DEPLOYMENT",
+  "route": "/{locale}/dashboard/business/ai-forecast",
+  "navigation": {
+    "itemsAdded": 1,
+    "labelAr": "التوقع الذكي",
+    "labelEn": "AI Forecast",
+    "roles": ["OWNER", "MANAGER"]
+  },
+  "serverBoundary": {
+    "type": "authenticated server action",
+    "clientInputs": ["forecastMode", "scopeType", "branch-N", "horizonDays"],
+    "serverDerivedBusiness": true,
+    "rawIdentifiersInClientDto": false,
+    "databaseWrites": false
+  },
+  "modes": {
+    "REAL_PILOT": "NATIVE_ONLY through A4",
+    "ACADEMIC_DEMO": "DEMO_ONLY in-memory A3 fixture through A4",
+    "mixing": "rejected"
+  },
+  "ui": {
+    "arabicFirst": true,
+    "rtlLtrInheritedFromLocaleLayout": true,
+    "supportedHorizons": [1, 7],
+    "insufficientHistoryHasNoNumericForecast": true,
+    "numericConfidencePercentage": false,
+    "financialValuesRendered": false,
+    "ariaLiveStates": true
+  },
+  "tests": { "a5FocusedCount": 17, "result": "PASS" }
+}

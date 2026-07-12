@@ -139,6 +139,7 @@ export function canAccessRoute(member: AuthorizationMember, routePath: string): 
   if (routePath.includes("/dashboard/business/orders")) return hasPermission(member, "orders.view");
   if (routePath.includes("/dashboard/business/pos")) return canUsePOS(member);
   if (routePath.includes("/dashboard/business/reports")) return canViewReports(member);
+  if (routePath.includes("/dashboard/business/ai-forecast")) return member.role === MembershipRole.OWNER || member.role === MembershipRole.MANAGER;
   if (routePath.includes("/dashboard/business/staff")) return canViewStaffDirectory(member);
   if (routePath.includes("/dashboard/business/products")) return hasPermission(member, "products.view");
   if (routePath.includes("/dashboard/business/categories")) return hasPermission(member, "categories.view");
