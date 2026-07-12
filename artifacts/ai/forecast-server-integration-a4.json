@@ -1,0 +1,38 @@
+{
+  "phase": "A4",
+  "classification": "READY_FOR_A5_UI",
+  "surface": "server-only service adapter; no public route, UI, action, cache, scheduler, or persistence",
+  "authorization": {
+    "authenticatedUserRequired": true,
+    "activeBusinessServerDerived": true,
+    "roles": ["OWNER", "MANAGER"],
+    "branchMembershipValidated": true,
+    "arbitraryBusinessInputRejected": true
+  },
+  "realPilot": {
+    "dataSource": "NATIVE_ONLY",
+    "orderStatus": "COMPLETED",
+    "branchTrustRequiredForBranchScope": true,
+    "historyWindowDays": 180,
+    "maximumOrders": 5000,
+    "maximumProducts": 20,
+    "financialFieldsRead": false,
+    "paymentAccess": false
+  },
+  "demo": {
+    "dataSource": "DEMO_ONLY",
+    "storage": "A3 in-memory deterministic generator",
+    "databaseDemandRead": false,
+    "labelAr": "توقع تجريبي",
+    "labelEn": "Demo Forecast"
+  },
+  "safety": {
+    "databaseWrites": false,
+    "migrations": false,
+    "forecastPersistence": false,
+    "rawIdentifiersInClientDto": false,
+    "processLocalDuplicateGuard": true,
+    "durableRateLimiter": "future work"
+  },
+  "tests": { "a4FocusedCount": 25, "result": "PASS" }
+}
