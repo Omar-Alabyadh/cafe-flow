@@ -101,6 +101,37 @@ test("ACADEMIC_DEMO BUSINESS submissions reach the Demo generator for one and se
   ]);
 });
 
+test("successful Demo submissions preserve one-day and seven-day control snapshots", async () => {
+  const { run } = actionHarness();
+  const oneDay = await run({ forecastMode: "ACADEMIC_DEMO", scopeType: "BUSINESS", horizonDays: "1" });
+  const sevenDays = await run({ forecastMode: "ACADEMIC_DEMO", scopeType: "BUSINESS", horizonDays: "7" });
+  assert.deepEqual(oneDay.submittedControls, { forecastMode: "ACADEMIC_DEMO", scopeType: "BUSINESS", horizonDays: "1" });
+  assert.deepEqual(sevenDays.submittedControls, { forecastMode: "ACADEMIC_DEMO", scopeType: "BUSINESS", horizonDays: "7" });
+});
+
+test("successful Real Pilot submission preserves its selected seven-day horizon", async () => {
+  const { run } = actionHarness();
+  const result = await run({ forecastMode: "REAL_PILOT", scopeType: "BUSINESS", horizonDays: "7" });
+  assert.deepEqual(result.submittedControls, { forecastMode: "REAL_PILOT", scopeType: "BUSINESS", horizonDays: "7" });
+});
+
+test("controlled form submission prevents native reset and dispatches the action transition", () => {
+  const workspace = source("app/[locale]/(dashboard)/dashboard/business/ai-forecast/forecast-workspace.tsx");
+  assert.match(workspace, /onSubmit=\{submitForecast\}/);
+  assert.match(workspace, /onReset=\{\(event\) => event\.preventDefault\(\)\}/);
+  assert.match(workspace, /event\.preventDefault\(\);\s*if \(pending\) return;\s*const formData = new FormData\(event\.currentTarget\);\s*startTransition\(\(\) => formAction\(formData\)\);/);
+});
+
+test("result horizon labels use the submitted snapshot in Arabic and English", () => {
+  assert.equal(messages("en").controls.nextDay, "Next day");
+  assert.equal(messages("en").controls.nextSevenDays, "Next 7 days");
+  assert.equal(messages("ar").controls.nextDay, "اليوم التالي");
+  assert.equal(messages("ar").controls.nextSevenDays, "الأيام السبعة التالية");
+  const workspace = source("app/[locale]/(dashboard)/dashboard/business/ai-forecast/forecast-workspace.tsx");
+  assert.match(workspace, /submittedControls\?\.horizonDays === "7" \? t\("controls\.nextSevenDays"\)/);
+  assert.match(workspace, /submittedControls\?\.horizonDays === "1" \? t\("controls\.nextDay"\)/);
+});
+
 test("A4 authorization failures are forwarded as safe UI states for both modes", async () => {
   const forbidden: ForecastClientResponse = { ok: false, code: "FORBIDDEN", message: "safe" };
   const { run } = actionHarness({ real: async () => forbidden, demo: async () => forbidden });
