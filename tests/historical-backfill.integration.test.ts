@@ -20,6 +20,7 @@ else {
     const applied=await applyHistoricalBackfill({businessId:business.id,backfillVersion:"test-v1",idempotencyKey:"key-1",confirmationToken:"APPLY_FINANCIAL_BACKFILL"});
     const updated=await db.order.findUniqueOrThrow({where:{id:order.id}}); const updatedItem=await db.orderItem.findUniqueOrThrow({where:{id:item.id}});
     assert.equal(applied.replayed,false); assert.equal(updated.currency,"LYD"); assert.equal(updated.discountTotal?.toFixed(3),"0.000"); assert.equal(updated.taxTotal?.toFixed(3),"0.000"); assert.equal(updated.totalAmount,null); assert.equal(updated.branchId,null); assert.equal(updated.financialDataOrigin,"LEGACY_UNKNOWN"); assert.equal(updatedItem.unitPrice,null); assert.equal(updatedItem.productNameSnapshot,null); assert.equal(updatedItem.lineDiscountTotal?.toFixed(3),"0.000");
+    const afterApplyPreview=await previewHistoricalBackfill(business.id); assert.equal(afterApplyPreview.orderUpdates,0); assert.equal(afterApplyPreview.itemUpdates,0);
     const replay=await applyHistoricalBackfill({businessId:business.id,backfillVersion:"test-v1",idempotencyKey:"key-1",confirmationToken:"APPLY_FINANCIAL_BACKFILL"}); assert.equal(replay.replayed,true);
     assert.equal(await db.payment.count({where:{businessId:business.id}}),0); assert.equal(await db.stockMovement.count({where:{businessId:business.id}}),0); assert.equal(await db.documentSequence.count({where:{businessId:business.id}}),0);
   });
