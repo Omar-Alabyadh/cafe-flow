@@ -1,0 +1,32 @@
+{
+  "phase": "A2",
+  "decision": "HYBRID_NATIVE_ONLY_REAL_PILOT_AND_ISOLATED_ACADEMIC_DEMO",
+  "runtimeChanges": false,
+  "schemaOrMigrationChanges": false,
+  "forecastModes": {
+    "REAL_PILOT": {
+      "dataSource": "NATIVE_ONLY",
+      "eligible": ["completed", "timestamped", "tenant-scoped", "native order quantities"],
+      "forbidden": ["legacy revenue", "prices", "payments", "inferred branches", "demo data"],
+      "onInsufficientHistory": "INSUFFICIENT_HISTORY"
+    },
+    "ACADEMIC_DEMO": {
+      "dataSource": "DEMO_ONLY",
+      "storage": "server-only deterministic fixture; no operational database rows",
+      "access": ["OWNER", "MANAGER"],
+      "reportIsolation": "cannot enter financial, sales, inventory, payment, POS, or production analytics reports"
+    }
+  },
+  "minimumHistory": {
+    "businessNextDay": { "coverageDays": 56, "activeWeeks": 8, "activeSalesDays": 28, "nativeOrders": 40 },
+    "branchNextDay": { "coverageDays": 84, "activeWeeks": 12, "activeSalesDays": 42, "nativeOrders": 60, "trustedBranchRequired": true },
+    "productNextDay": { "coverageDays": 56, "activeWeeks": 8, "activeSalesDays": 28, "orderItems": 50 },
+    "sevenDay": { "coverageDays": 84, "activeWeeks": 12, "weekdayObservationsPerRequestedWeekday": 3 }
+  },
+  "modelPolicy": ["SEASONAL_NAIVE", "MOVING_AVERAGE", "CROSTON"],
+  "heavyMl": "forbidden until rolling-origin evidence justifies it",
+  "backtest": { "method": "rolling-origin", "metrics": ["MAE", "WAPE", "bias"], "minimumValidFolds": 4, "baseline": "SEASONAL_NAIVE" },
+  "mvpComputation": "on-demand server-only, no persistent forecast table/cache/scheduler",
+  "a1Classification": "DEMO_DATA_REQUIRED",
+  "a2Classification": "READY_FOR_A3_IMPLEMENTATION"
+}
