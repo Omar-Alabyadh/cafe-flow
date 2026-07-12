@@ -13,6 +13,7 @@
     "test:finance:f5": "node --conditions=react-server --import tsx --test tests/payment-financial-reports.integration.test.ts",
     "finance:backfill:preview": "tsx scripts/finance-backfill.ts",
     "finance:backfill:apply": "tsx scripts/finance-backfill.ts --apply",
+    "ai:forecast:readiness": "tsx scripts/ai-forecast-readiness.ts",
     "auth:create-test-user": "node scripts/create-test-user.mjs",
     "platform:totp-secret": "node scripts/generate-platform-totp-secret.mjs",
     "platform:totp-now": "node scripts/show-platform-totp-now.mjs"

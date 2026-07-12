@@ -1,0 +1,80 @@
+{
+  "auditVersion": "A1",
+  "scope": "all businesses; anonymized aggregate output",
+  "restore": {
+    "engine": "PostgreSQL 17 UTF-8 disposable local cluster",
+    "backupSha256": "F1EB6DE16255779C50E4EB089728FB0B56DEC56C98FE9B83EDA03BD9F4BA14A3",
+    "productionOrSupabaseAccessed": false
+  },
+  "dataState": {
+    "businessCount": 3,
+    "branchCount": 4,
+    "orderCount": 100,
+    "orderItemCount": 158,
+    "nativeOrderCount": 4,
+    "legacyUnknownOrderCount": 96,
+    "allOrdersCompleted": true
+  },
+  "dataIntegrity": {
+    "canonicalDemandTimestamp": "Order.completedAt (UTC calendar date)",
+    "allOrders": {
+      "minimumTimestamp": "2026-04-07T13:30:59.628Z",
+      "maximumTimestamp": "2026-07-12T04:10:36.669Z",
+      "uniqueDates": 16,
+      "activeWeeks": 6,
+      "activeMonths": 4,
+      "observedRangeCalendarDays": 97,
+      "daysWithNoOrders": 81,
+      "ordersPerActiveDay": {
+        "minimum": 1,
+        "median": 3,
+        "maximum": 43,
+        "distribution": [{ "orders": 1, "activeDays": 4 }, { "orders": 2, "activeDays": 3 }, { "orders": 3, "activeDays": 2 }, { "orders": 4, "activeDays": 1 }, { "orders": 6, "activeDays": 1 }, { "orders": 7, "activeDays": 3 }, { "orders": 8, "activeDays": 1 }, { "orders": 43, "activeDays": 1 }]
+      },
+      "missingTimestamps": 2,
+      "futureDatedOrders": 0,
+      "duplicatedTimestampGroups": 0
+    },
+    "native": { "orders": 4, "activeDates": 1, "activeWeeks": 1, "activeMonths": 1, "missingTimestamps": 0 },
+    "legacyUnknown": { "orders": 96, "activeDates": 15, "activeWeeks": 6, "activeMonths": 4, "missingTimestamps": 2 }
+  },
+  "demandQuantityQuality": {
+    "missing": 0,
+    "zero": 0,
+    "negative": 0,
+    "nonInteger": 0,
+    "totalUnitsSold": 615,
+    "medianUnitsPerOrderItem": 1,
+    "maximumUnitsPerOrderItem": 52,
+    "tukeyIqr": { "q1": 1, "q3": 4, "upperFence": 8.5, "orderItemsAboveUpperFence": 14 },
+    "unreliableProductMappings": 0
+  },
+  "productHistory": {
+    "historicalProducts": 7,
+    "nativeProducts": 1,
+    "observationsPerProduct": { "minimum": 3, "median": 14, "maximum": 55, "belowSeven": 2 },
+    "activeSalesDaysPerProduct": { "minimum": 1, "median": 3, "maximum": 11, "belowSeven": 6 },
+    "inactiveOrArchived": 0,
+    "missingCategory": 1,
+    "invalidCategory": 0,
+    "identifiersStableWithinTenant": true
+  },
+  "businessAndBranchReadiness": {
+    "perBusiness": [{ "business": "business_1", "orders": 58, "native": 0, "legacyUnknown": 58, "missingBranch": 58 }, { "business": "business_2", "orders": 0, "native": 0, "legacyUnknown": 0, "missingBranch": 0 }, { "business": "business_3", "orders": 42, "native": 4, "legacyUnknown": 38, "missingBranch": 38 }],
+    "ordersWithNoBranch": 96,
+    "ordersWithBranch": 4,
+    "missingBranchesInferred": false,
+    "businessesMustRemainIsolated": true
+  },
+  "classifications": {
+    "overall": "DEMO_DATA_REQUIRED",
+    "businessLevelDemandForecast": "READY_FOR_LIMITED_PILOT",
+    "branchLevelDemandForecast": "NOT_READY",
+    "productLevelDailyForecast": "NOT_READY",
+    "productLevelWeeklyForecast": "NOT_READY",
+    "sevenDayForecast": "NOT_READY"
+  },
+  "recommendedImplementationPath": "E: Native-only restricted pilot plus isolated clearly labelled academic Demo Business; never mix demo into production reports.",
+  "financialDataExcluded": true,
+  "rawIdentifiersExcluded": true
+}
