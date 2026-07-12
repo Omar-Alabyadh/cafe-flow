@@ -76,6 +76,31 @@ test("real and Demo action flows cannot mix", async () => {
   assert.equal(invalid.response?.ok, false);
 });
 
+test("Demo form owns exactly one enabled BUSINESS scope field while the visible selector is disabled", () => {
+  const workspace = source("app/[locale]/(dashboard)/dashboard/business/ai-forecast/forecast-workspace.tsx");
+  const scopeTypeNames = workspace.match(/name="scopeType"/g) ?? [];
+  assert.equal(scopeTypeNames.length, 1);
+  assert.match(workspace, /<input type="hidden" name="scopeType" value=\{scopeType\}/);
+  assert.match(workspace, /<select value=\{scopeType\}/);
+  assert.match(workspace, /disabled=\{pending \|\| mode === "ACADEMIC_DEMO"\}/);
+  assert.doesNotMatch(workspace, /<select name="scopeType"/);
+  assert.match(workspace, /setScopeType\("BUSINESS"\);\s*setBranchSelection\(""\);/);
+});
+
+test("ACADEMIC_DEMO BUSINESS submissions reach the Demo generator for one and seven days", async () => {
+  const { run, calls } = actionHarness();
+  const oneDay = await run({ forecastMode: "ACADEMIC_DEMO", scopeType: "BUSINESS", horizonDays: "1" });
+  const sevenDays = await run({ forecastMode: "ACADEMIC_DEMO", scopeType: "BUSINESS", horizonDays: "7" });
+  assert.equal(oneDay.response?.ok, true);
+  assert.equal(sevenDays.response?.ok, true);
+  assert.equal(oneDay.response?.ok && oneDay.response.dataSource, "DEMO_ONLY");
+  assert.equal(sevenDays.response?.ok && sevenDays.response.dataSource, "DEMO_ONLY");
+  assert.deepEqual(calls, [
+    { mode: "DEMO", input: { scopeType: "BUSINESS", horizonDays: 1 } },
+    { mode: "DEMO", input: { scopeType: "BUSINESS", horizonDays: 7 } },
+  ]);
+});
+
 test("A4 authorization failures are forwarded as safe UI states for both modes", async () => {
   const forbidden: ForecastClientResponse = { ok: false, code: "FORBIDDEN", message: "safe" };
   const { run } = actionHarness({ real: async () => forbidden, demo: async () => forbidden });

@@ -56,7 +56,10 @@ export function ForecastWorkspace({ locale, branches }: ForecastWorkspaceProps) 
 
   const selectMode = (next: "REAL_PILOT" | "ACADEMIC_DEMO") => {
     setMode(next);
-    if (next === "ACADEMIC_DEMO") setScopeType("BUSINESS");
+    if (next === "ACADEMIC_DEMO") {
+      setScopeType("BUSINESS");
+      setBranchSelection("");
+    }
   };
 
   return (
@@ -70,6 +73,7 @@ export function ForecastWorkspace({ locale, branches }: ForecastWorkspaceProps) 
           </div>
         </div>
         <form action={formAction} className="mt-5 space-y-5">
+          <input type="hidden" name="scopeType" value={scopeType} />
           <fieldset disabled={pending} className="space-y-3 disabled:opacity-70">
             <legend className="text-sm font-semibold">{t("controls.mode")}</legend>
             <div className="grid gap-3 md:grid-cols-2">
@@ -86,7 +90,7 @@ export function ForecastWorkspace({ locale, branches }: ForecastWorkspaceProps) 
           <div className="grid gap-4 md:grid-cols-3">
             <label className="space-y-1 text-sm font-medium">
               <span>{t("controls.scope")}</span>
-              <select name="scopeType" value={scopeType} onChange={(event) => setScopeType(event.target.value as "BUSINESS" | "BRANCH")} disabled={pending || mode === "ACADEMIC_DEMO"} className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <select value={scopeType} onChange={(event) => setScopeType(event.target.value as "BUSINESS" | "BRANCH")} disabled={pending || mode === "ACADEMIC_DEMO"} className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
                 <option value="BUSINESS">{t("controls.business")}</option>
                 <option value="BRANCH" disabled={mode === "ACADEMIC_DEMO"}>{t("controls.branch")}</option>
               </select>
