@@ -1,7 +1,6 @@
 import { applyHistoricalBackfill, HISTORICAL_BACKFILL_VERSION, previewHistoricalBackfill } from "@/lib/finance/historical-backfill";
-import { Prisma } from "@prisma/client";
+import { BackfillStage, formatBackfillFailure } from "@/lib/finance/backfill-diagnostics";
 
-type BackfillStage = "argument-validation" | "preview" | "apply";
 let currentStage: BackfillStage = "argument-validation";
 
 class CliUsageError extends Error {
@@ -9,28 +8,6 @@ class CliUsageError extends Error {
     super(message);
     this.name = "CliUsageError";
   }
-}
-
-function formatFailure(error: unknown, stage: BackfillStage) {
-  const failure: { stage: BackfillStage; errorClass: string; code?: string; message: string } = {
-    stage,
-    errorClass: error instanceof Error ? error.constructor.name : "UnknownError",
-    message: "Unexpected command error.",
-  };
-
-  if (error instanceof CliUsageError) {
-    failure.message = error.message;
-  } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    failure.code = error.code;
-    failure.message = "Database operation failed.";
-  } else if (error instanceof Prisma.PrismaClientUnknownRequestError) {
-    failure.message = "Database operation failed.";
-  } else if (error instanceof Prisma.PrismaClientInitializationError) {
-    failure.code = error.errorCode;
-    failure.message = "Database connection initialization failed.";
-  }
-
-  return JSON.stringify(failure);
 }
 
 async function main() {
@@ -64,6 +41,10 @@ async function main() {
 }
 
 void main().catch((error) => {
-  console.error(`Finance backfill command failed: ${formatFailure(error, currentStage)}`);
+  if (error instanceof CliUsageError) {
+    console.error(`Finance backfill command failed: ${JSON.stringify({ stage: currentStage, errorClass: error.constructor.name, message: error.message })}`);
+  } else {
+    console.error(`Finance backfill command failed: ${formatBackfillFailure(error, currentStage)}`);
+  }
   process.exitCode = 1;
 });
