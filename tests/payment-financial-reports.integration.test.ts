@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { FinancialDataOrigin, OrderStatus, PosPaymentMethod, PosPaymentStatus, Prisma, PrismaClient } from "@prisma/client";
+import { FinancialDataOrigin, OrderStatus, PaymentMethod, PosPaymentMethod, PosPaymentStatus, Prisma, PrismaClient } from "@prisma/client";
 
 const url = process.env.F5_TEST_DATABASE_URL;
 if (!url) test.skip("payment financial reports integration requires disposable F5_TEST_DATABASE_URL", () => {});
@@ -10,7 +10,7 @@ else {
   test.after(async () => db.$disconnect());
   test("reports page eligible payment snapshots in the database", async () => {
     const { getPaymentFinancialReport } = await import("@/lib/finance/payment-financial-reports");
-    await db.$executeRawUnsafe('TRUNCATE TABLE "AuditLog", "FinancialBackfillBatch", "Payment", "DocumentSequence", "OrderItem", "Order", "Product", "Branch", "Membership", "Business", "User" CASCADE');
+    await db.$executeRawUnsafe('TRUNCATE TABLE "AuditLog", "FinancialBackfillBatch", "Payment", "PaymentRequest", "Subscription", "Plan", "DocumentSequence", "OrderItem", "Order", "Product", "Branch", "Membership", "Business", "User" CASCADE');
     const user = await db.user.create({ data: { fullName: "Reporter", email: "f5@test.local", passwordHash: "x" } });
     const business = await db.business.create({ data: { code: "F5", nameAr: "F5", ownerId: user.id } });
     const branch = await db.branch.create({ data: { businessId: business.id, code: "F5", nameAr: "F5" } });
@@ -19,16 +19,16 @@ else {
     const otherBusiness = await db.business.create({ data: { code: "F5O", nameAr: "F5O", ownerId: otherUser.id } });
     const otherTenantBranch = await db.branch.create({ data: { businessId: otherBusiness.id, code: "F5O", nameAr: "F5O" } });
     const product = await db.product.create({ data: { businessId: business.id, code: "P", nameAr: "P", basePrice: "999.99" } });
-    async function sale(input: { method: PosPaymentMethod; amount: string; businessId?: string; branchId?: string; currency?: string; paidAt?: Date; origin?: FinancialDataOrigin; status?: PosPaymentStatus; orderAmount?: string }) {
+    async function sale(input: { method: PosPaymentMethod; amount: string; businessId?: string; branchId?: string; paymentBusinessId?: string; paymentBranchId?: string; currency?: string; paymentCurrency?: string; paidAt?: Date | null; origin?: FinancialDataOrigin; status?: PosPaymentStatus; orderAmount?: string; receiverId?: string | null }) {
       const businessId = input.businessId ?? business.id;
       const branchId = input.branchId ?? branch.id;
       const currency = input.currency ?? "LYD";
       const amount = input.orderAmount ?? input.amount;
       const order = await db.order.create({ data: { businessId, status: OrderStatus.COMPLETED, branchId, subtotalAmount: amount, discountTotal: "0", taxTotal: "0", totalAmount: amount, currency, financialDataOrigin: input.origin ?? FinancialDataOrigin.NATIVE } });
       if (businessId === business.id) await db.orderItem.create({ data: { orderId: order.id, productId: product.id, quantity: "1" } });
-      await db.payment.create({ data: { businessId, branchId, orderId: order.id, receiptNumber: `R-${order.id}-1`, amount: input.amount, currency, method: input.method, status: input.status ?? PosPaymentStatus.CAPTURED, paidAt: input.paidAt ?? new Date("2026-07-12T10:00:00.000Z"), receivedByUserId: businessId === business.id ? user.id : otherUser.id, receivedByDisplayNameSnapshot: "Reporter", financialDataOrigin: input.origin ?? FinancialDataOrigin.NATIVE } });
+      await db.payment.create({ data: { businessId: input.paymentBusinessId ?? businessId, branchId: input.paymentBranchId ?? branchId, orderId: order.id, receiptNumber: `R-${order.id}-1`, amount: input.amount, currency: input.paymentCurrency ?? currency, method: input.method, status: input.status ?? PosPaymentStatus.CAPTURED, paidAt: input.paidAt === undefined ? new Date("2026-07-12T10:00:00.000Z") : input.paidAt, receivedByUserId: input.receiverId === undefined ? (businessId === business.id ? user.id : otherUser.id) : input.receiverId, receivedByDisplayNameSnapshot: "Reporter", financialDataOrigin: input.origin ?? FinancialDataOrigin.NATIVE } });
     }
-    await sale({ method: PosPaymentMethod.CASH, amount: "1.111" });
+    await sale({ method: PosPaymentMethod.CASH, amount: "1.111", paidAt: new Date("2026-07-12T09:00:00.000Z") });
     await sale({ method: PosPaymentMethod.BANK_CARD, amount: "2.222" });
     await sale({ method: PosPaymentMethod.ONE_PAY, amount: "3.333" });
     await sale({ method: PosPaymentMethod.LY_PAY, amount: "4.444" });
@@ -39,8 +39,18 @@ else {
     await sale({ method: PosPaymentMethod.CASH, amount: "80.000", businessId: otherBusiness.id, branchId: otherTenantBranch.id });
     await sale({ method: PosPaymentMethod.CASH, amount: "70.000", origin: FinancialDataOrigin.LEGACY_UNKNOWN });
     await sale({ method: PosPaymentMethod.CASH, amount: "60.000", status: PosPaymentStatus.PENDING });
+    await sale({ method: PosPaymentMethod.CASH, amount: "59.000", status: PosPaymentStatus.FAILED });
+    await sale({ method: PosPaymentMethod.CASH, amount: "58.000", status: PosPaymentStatus.CANCELLED });
     await sale({ method: PosPaymentMethod.CASH, amount: "50.000", orderAmount: "51.000" });
-    await sale({ method: PosPaymentMethod.CASH, amount: "30.000", paidAt: new Date("2026-07-12T22:00:00.000Z") });
+    await sale({ method: PosPaymentMethod.CASH, amount: "49.000", currency: "USD" });
+    await sale({ method: PosPaymentMethod.CASH, amount: "48.000", paidAt: null });
+    await sale({ method: PosPaymentMethod.CASH, amount: "47.000", receiverId: null });
+    await sale({ method: PosPaymentMethod.CASH, amount: "46.000", paymentBranchId: otherBranch.id });
+    await sale({ method: PosPaymentMethod.CASH, amount: "45.000", paymentBusinessId: otherBusiness.id, paymentBranchId: otherTenantBranch.id, receiverId: otherUser.id });
+    await sale({ method: PosPaymentMethod.CASH, amount: "30.000", paidAt: new Date("2026-07-12T21:00:00.000Z") });
+    const plan = await db.plan.create({ data: { code: "F5", nameAr: "F5", nameEn: "F5", price: "999.00", branchLimit: 1, staffLimit: 1 } });
+    const subscription = await db.subscription.create({ data: { businessId: business.id, planId: plan.id, startsAt: new Date("2026-07-01T00:00:00.000Z") } });
+    await db.paymentRequest.create({ data: { subscriptionId: subscription.id, paymentMethod: PaymentMethod.CASH, provider: "MANUAL", amount: "999.00", currency: "LYD", status: "PAID", customerName: "Synthetic", customerPhone: "000" } });
     const input = { businessId: business.id, branchId: branch.id, currency: "LYD", startUtc: new Date("2026-07-12T09:00:00Z"), endUtc: new Date("2026-07-12T21:00:00Z"), pageSize: 3 };
     const report = await getPaymentFinancialReport({ ...input, page: 1 });
     const pageTwo = await getPaymentFinancialReport({ ...input, page: 2 });
@@ -65,5 +75,6 @@ else {
     await db.product.update({ where: { id: product.id }, data: { basePrice: "1.00" } });
     const unchanged = await getPaymentFinancialReport({ businessId: business.id, branchId: branch.id, currency: "LYD", startUtc: input.startUtc, endUtc: input.endUtc });
     assert.equal(unchanged.totalSales.toFixed(3), "31.108");
+    await assert.rejects(() => getPaymentFinancialReport({ ...input, startUtc: input.endUtc, endUtc: input.startUtc }), /FINANCIAL_REPORT_RANGE_INVALID/);
   });
 }

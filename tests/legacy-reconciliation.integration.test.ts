@@ -36,5 +36,26 @@ else {
     const legacy = await db.order.create({ data: { businessId: business.id, status: OrderStatus.COMPLETED, completedAt: new Date(), financialDataOrigin: FinancialDataOrigin.LEGACY_UNKNOWN } });
     const legacyItem = await db.orderItem.create({ data: { orderId: legacy.id, productId: product.id, quantity: "1.000" } });
     await assert.rejects(() => reconcileLegacyOrder({ orderId: legacy.id, branchId: otherBranch.id, receiverUserId: receiver.id, method: PosPaymentMethod.CASH, paidAt: new Date(), evidenceDescription: "proof", reason: "proof", linePrices: [{ orderItemId: legacyItem.id, unitPrice: "1.000" }] }, { businessId: business.id, userId: owner.id }), /RECONCILIATION_BRANCH_INVALID/);
+
+    const otherProduct = await db.product.create({ data: { businessId: otherBusiness.id, code: "OP", nameAr: "Other", basePrice: "1.00" } });
+    const otherOrder = await db.order.create({ data: { businessId: otherBusiness.id, status: OrderStatus.COMPLETED, completedAt: new Date(), financialDataOrigin: FinancialDataOrigin.LEGACY_UNKNOWN } });
+    const otherItem = await db.orderItem.create({ data: { orderId: otherOrder.id, productId: otherProduct.id, quantity: "1.000" } });
+    await assert.rejects(() => reconcileLegacyOrder({ orderId: otherOrder.id, branchId: otherBranch.id, receiverUserId: otherOwner.id, method: PosPaymentMethod.CASH, paidAt: new Date(), evidenceDescription: "proof", reason: "proof", linePrices: [{ orderItemId: otherItem.id, unitPrice: "1.000" }] }, { businessId: business.id, userId: owner.id }), /RECONCILIATION_ORDER_NOT_FOUND/);
+
+    await db.membership.create({ data: { userId: otherOwner.id, businessId: otherBusiness.id, role: "OWNER", scope: "ALL_BRANCHES" } });
+    const receiverCheckOrder = await db.order.create({ data: { businessId: business.id, status: OrderStatus.COMPLETED, completedAt: new Date(), financialDataOrigin: FinancialDataOrigin.LEGACY_UNKNOWN } });
+    const receiverCheckItem = await db.orderItem.create({ data: { orderId: receiverCheckOrder.id, productId: product.id, quantity: "1.000" } });
+    await assert.rejects(() => reconcileLegacyOrder({ orderId: receiverCheckOrder.id, branchId: branch.id, receiverUserId: otherOwner.id, method: PosPaymentMethod.CASH, paidAt: new Date(), evidenceDescription: "proof", reason: "proof", linePrices: [{ orderItemId: receiverCheckItem.id, unitPrice: "1.000" }] }, { businessId: business.id, userId: owner.id }), /RECONCILIATION_RECEIVER_INVALID/);
+
+    const concurrentOrder = await db.order.create({ data: { businessId: business.id, status: OrderStatus.COMPLETED, completedAt: new Date(), financialDataOrigin: FinancialDataOrigin.LEGACY_UNKNOWN } });
+    const concurrentItem = await db.orderItem.create({ data: { orderId: concurrentOrder.id, productId: product.id, quantity: "1.000" } });
+    const sequenceBefore = new Map((await db.documentSequence.findMany({ where: { businessId: business.id } })).map((row) => [row.documentType, row.currentValue]));
+    const concurrentInput = { orderId: concurrentOrder.id, branchId: branch.id, receiverUserId: receiver.id, method: PosPaymentMethod.CASH, paidAt: new Date(), evidenceDescription: "concurrent proof", reason: "concurrent proof", linePrices: [{ orderItemId: concurrentItem.id, unitPrice: "2.000" }] };
+    const concurrentResults = await Promise.all([reconcileLegacyOrder(concurrentInput, { businessId: business.id, userId: owner.id }), reconcileLegacyOrder(concurrentInput, { businessId: business.id, userId: owner.id })]);
+    assert.deepEqual(concurrentResults.map((entry) => entry.replayed).sort(), [false, true]);
+    assert.equal(await db.payment.count({ where: { orderId: concurrentOrder.id } }), 1);
+    assert.equal(await db.auditLog.count({ where: { entityId: concurrentOrder.id } }), 1);
+    assert.equal(await db.stockMovement.count({ where: { businessId: business.id } }), beforeStock);
+    for (const row of await db.documentSequence.findMany({ where: { businessId: business.id } })) assert.equal(row.currentValue, (sequenceBefore.get(row.documentType) ?? BigInt(0)) + BigInt(1));
   });
 }
