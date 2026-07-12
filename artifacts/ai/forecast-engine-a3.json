@@ -1,0 +1,37 @@
+{
+  "phase": "A3",
+  "classification": "READY_FOR_A4_SERVER_INTEGRATION",
+  "core": {
+    "databaseDependency": false,
+    "prismaDependency": false,
+    "financialFields": false,
+    "runtimeDependenciesAdded": false
+  },
+  "modes": {
+    "REAL_PILOT": "NATIVE_ONLY",
+    "ACADEMIC_DEMO": "DEMO_ONLY",
+    "mixedInput": "REJECTED"
+  },
+  "models": ["SEASONAL_NAIVE", "MOVING_AVERAGE", "CROSTON"],
+  "backtesting": {
+    "method": "rolling-origin",
+    "metrics": ["MAE", "WAPE", "bias"],
+    "minimumValidFolds": 4,
+    "baseline": "SEASONAL_NAIVE"
+  },
+  "historyGates": {
+    "nextDay": { "observations": 50, "calendarDays": 56, "activeSalesDays": 28, "activeWeeks": 8 },
+    "sevenDay": { "observations": 84, "calendarDays": 84, "activeSalesDays": 42, "activeWeeks": 12 },
+    "branchRequiresTrustedHistory": true,
+    "weekdayObservationsPerForecastWeekday": 3
+  },
+  "demo": {
+    "seed": "CAFeflow-A3-DEMO-2026-01",
+    "calendarDays": 120,
+    "productCount": 4,
+    "outlierCount": 3,
+    "storage": "in-memory deterministic fixture",
+    "containsRealData": false
+  },
+  "tests": { "focusedCount": 25, "result": "PASS" }
+}
